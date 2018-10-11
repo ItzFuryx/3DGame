@@ -73,7 +73,7 @@
         
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
         var planeMaterial = new THREE.MeshPhongMaterial({color: 0xffffff});
-        planeMaterial.map = THREE.ImageUtils.loadTexture("../../project_supplies/threejs_maze/assets/textures/wood_1-1024x1024.png")
+        planeMaterial.map = THREE.ImageUtils.loadTexture("assets/wood_1-1024x1024.png")
         planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
         planeMaterial.map.repeat.set( 4, 4 );
         var plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -144,6 +144,7 @@
         directionalLight.intensity = 0.6;
 
         scene.add(directionalLight);
+
 
 
         // setup the control object for the control gui
@@ -415,22 +416,49 @@
     }
     function animateCam(){
         requestAnimationFrame(animateCam);
-    
+
+        // cube.position.x=Math.round(camera.position.x);
+        // cube.position.y=Math.round(cube.position.y);
+        // cube.position.z=Math.round(camera.position.y);
         if(keyboard[87]) {// W key
             camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
             camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+            scene.getObjectByName('cube').position.x = camera.position.x;
+            scene.getObjectByName('cube').position.x = camera.position.y;
+            scene.getObjectByName('cube').position.x = camera.position.z;
+            console.log(scene.getObjectByName('cube').position);
+            takeStepForward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 400);
+
         }
         if(keyboard[83]) {// S key
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
             camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
+            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+            // console.log(cubePos);
+            // scene.getObjectByName('cube').position.x = camera.position.x;
+            // scene.getObjectByName('cube').position.x = camera.position.y;
+            // scene.getObjectByName('cube').position.x = camera.position.z;
+
         }
         if(keyboard[65]) {// A key
             camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
             camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
+            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+            // console.log(cubePos);
+            // scene.getObjectByName('cube').position.x = camera.position.x;
+            // scene.getObjectByName('cube').position.x = camera.position.y;
+            // scene.getObjectByName('cube').position.x = camera.position.z;
+
         }
         if(keyboard[68]) {// D key
             camera.position.x += Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
             camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
+            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+            // console.log(cubePos);
+            // scene.getObjectByName('cube').position.x = camera.position.x;
+            // scene.getObjectByName('cube').position.x = camera.position.y;
+            // scene.getObjectByName('cube').position.x = camera.position.z;
         }
     
     
