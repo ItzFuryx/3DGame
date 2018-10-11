@@ -5,13 +5,14 @@ var crate, crateTexture, crateNormalMap, crateBumpMap;
 
 var keyboard = {};
 var player = { height: 1.8, speed: 0.03, turnSpeed:Math.PI * 0.02};
+
 function init(){
     scene = new THREE.Scene
-    camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, 1280/720, 0.1, 1000);
 
     mesh = new THREE.Mesh(
         new THREE.BoxGeometry(1,1,1),
-        new THREE.MeshPhongMaterial({color:0xff4444, wireframe:false})
+        new THREE.MeshPhongMaterial({color:0xff4444, wireframe:true})
     );
     mesh.position.y += 1;
     mesh.receiveShadow = true;
@@ -95,6 +96,7 @@ function animate(){
 
     mesh.rotation.x += 0.01;
     mesh.rotation.y += 0.02;
+
 
     if(keyboard[87]) {// W key
         camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
