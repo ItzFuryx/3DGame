@@ -16,7 +16,7 @@
     var width = 150;
 
     var keyboard = {};
-    var player = { height: 1.8, speed: 0.03, turnSpeed:Math.PI * 0.02};
+    var player = { height: 1.8, speed: 0.3, turnSpeed:Math.PI * 0.02};
 
     function createCube() {
         var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
@@ -97,17 +97,17 @@
         scene.add(endMesh);
         collidableMeshList.push(endMesh);
 
-        // position and point the camera to the center of the scene
-        // camera.position.x = cubePos.x;
-        // camera.position.y = cubePos.y;
-        // camera.position.z = cubePos.z;
-        // camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
+        //  position and point the camera to the center of the scene
+        camera.position.x = cubePos.x;
+        camera.position.y = cubePos.y;
+        camera.position.z = cubePos.z;
+        camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
 
-        camera.position.x = 70;
-        camera.position.y = 130;
-        camera.position.z = 130;
-        camera.lookAt(new THREE.Vector3(10,0,35));
-        controls = new THREE.TrackballControls( camera );
+        // camera.position.x = 70;
+        // camera.position.y = 130;
+        // camera.position.z = 130;
+        // camera.lookAt(new THREE.Vector3(10,0,35));
+        // controls = new THREE.TrackballControls( camera );
 
         // add spotlight for the finish line
         var finishLight = new THREE.SpotLight(0xff0000);
@@ -422,7 +422,7 @@
         // cube.position.z=Math.round(camera.position.y);
         if(keyboard[87]) {// W key
             camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
-            camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+            camera.position.z -= Math.cos(camera.rotation.y) * player.speed;
             cubePos.set(camera.position.x, camera.position.y, camera.position.z);
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.x = camera.position.y;
@@ -433,7 +433,7 @@
         }
         if(keyboard[83]) {// S key
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
-            camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
+            camera.position.z += Math.cos(camera.rotation.y) * player.speed;
             cubePos.set(camera.position.x, camera.position.y, camera.position.z);
             // console.log(cubePos);
             // scene.getObjectByName('cube').position.x = camera.position.x;
@@ -442,8 +442,8 @@
 
         }
         if(keyboard[65]) {// A key
-            camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
-            camera.position.z += -Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
+            camera.position.x -= Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
+            camera.position.z -= Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
             cubePos.set(camera.position.x, camera.position.y, camera.position.z);
             // console.log(cubePos);
             // scene.getObjectByName('cube').position.x = camera.position.x;
@@ -452,8 +452,8 @@
 
         }
         if(keyboard[68]) {// D key
-            camera.position.x += Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
-            camera.position.z += -Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
+            camera.position.x -= Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
+            camera.position.z -= Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
             cubePos.set(camera.position.x, camera.position.y, camera.position.z);
             // console.log(cubePos);
             // scene.getObjectByName('cube').position.x = camera.position.x;
