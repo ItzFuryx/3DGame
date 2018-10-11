@@ -98,12 +98,16 @@
         collidableMeshList.push(endMesh);
 
         // position and point the camera to the center of the scene
-        camera.position.x = cubePos.x;
-        camera.position.y = cubePos.y;
-        camera.position.z = cubePos.z;
-        //camera.lookAt(new THREE.Vector3(10,0,35));
-        camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
-        //controls = new THREE.TrackballControls( camera );
+        // camera.position.x = cubePos.x;
+        // camera.position.y = cubePos.y;
+        // camera.position.z = cubePos.z;
+        // camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
+
+        camera.position.x = 70;
+        camera.position.y = 130;
+        camera.position.z = 130;
+        camera.lookAt(new THREE.Vector3(10,0,35));
+        controls = new THREE.TrackballControls( camera );
 
         // add spotlight for the finish line
         var finishLight = new THREE.SpotLight(0xff0000);
@@ -414,11 +418,11 @@
     
         if(keyboard[87]) {// W key
             camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
-            camera.position.z -= Math.cos(camera.rotation.y) * player.speed;
+            camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
         }
         if(keyboard[83]) {// S key
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
-            camera.position.z -= -Math.cos(camera.rotation.y) * player.speed;
+            camera.position.z += -Math.cos(camera.rotation.y) * player.speed;
         }
         if(keyboard[65]) {// A key
             camera.position.x += Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
