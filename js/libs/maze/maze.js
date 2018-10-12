@@ -137,7 +137,7 @@ var Maze = function (scene, cells, width, height) {
 
             // and create the complete wall segment
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
-
+            wallMesh.name = "wall";
             // finally position it correctly
             wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) -(self.height/2), wallGeom.height/2, y1 - ((y1 - y2)) / 2 - (self.width /2));
             self.elements.push(wallMesh);

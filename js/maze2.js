@@ -17,16 +17,25 @@
 
     var keyboard = {};
     var player = { height: 1.8, speed: 0.3, turnSpeed:Math.PI * 0.02};
+    
+    var cubeBase;
 
     function createCube() {
         var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
-        var cubeMaterial = new THREE.MeshPhongMaterial({color: 0x0000ff, transparent: true, opacity: 0.8});
+        var cubeMaterial = new THREE.MeshPhongMaterial({color: 0x008000, transparent: false, opacity: 0.8});
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         cube.castShadow = true;
         cube.name = 'cube';
         cube.position = new THREE.Vector3(width/2 - 3, 1, width/2 - 3);
+
+        //temp
+        cubeBase = cube.position;
+
         cubePos  = cube.position;
         scene.add(cube);
+        console.log("---");
+        console.log(cubeBase);
+        console.log("---");
         return cube;
     }
 
@@ -58,6 +67,8 @@
 
         // add cube
         createCube();
+
+        //setupKeyboardControls();
 
         // create a camera, which defines where we're looking at.
         camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -96,7 +107,7 @@
         endMesh.position.set(-width/2+5,0,-width/2);
         scene.add(endMesh);
         collidableMeshList.push(endMesh);
-
+       
         //  position and point the camera to the center of the scene
         camera.position.x = cubePos.x;
         camera.position.y = cubePos.y;
@@ -152,7 +163,7 @@
         // setup the control object for the control gui
         control = new function () {
             this.forward = function () {
-                takeStepForward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 400);
+                takeStepForward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 100);
             };
             this.back = function () {
                 takeStepBackward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 400);
@@ -217,12 +228,76 @@
 
         detectCollision();
 
-        controls.update();
+        //controls.update();
 
         // render using requestAnimationFrame
         requestAnimationFrame(render);
     }
 
+    // function detectCollision() {
+    //     // collision detection:
+    //     //   determines if any of the rays from the cube's origin to each vertex
+    //     //		intersects any face of a mesh in the array of target meshes
+    //     //   for increased collision accuracy, add more vertices to the cube;
+    //     //		for example, new THREE.BoxGeometry( 64, 64, 64, 8, 8, 8, wireMaterial )
+    //     //   HOWEVER: when the origin of the ray is within the target mesh, collisions do not occur
+    //     var cube = scene.getObjectByName('cube');
+    //     var originPoint = cube.position.clone();
+
+
+    //     for (var vertexIndex = 0; vertexIndex < cube.geometry.vertices.length; vertexIndex++)
+    //     {
+    //         var localVertex = cube.geometry.vertices[vertexIndex].clone();
+    //         var globalVertex = localVertex.applyMatrix4( cube.matrix );
+    //         var directionVector = globalVertex.sub( cube.position );
+
+    //         var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+    //         var collisionResults = ray.intersectObjects( collidableMeshList );
+
+    //         if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )
+    //         {
+
+    //             // if we've got a hit, we just stop the current walk and reset to base point
+    //             var tweens = TWEEN.getAll();
+
+    //             if (tweens.length > 0) {
+
+    //                 tweens[0].stop();
+    //                 TWEEN.removeAll();
+    //                 isTweening = false;
+
+    //                 scene.remove(cube);
+    //                 cube = createCube();
+    //             }
+    //         }
+    //     }
+    // }
+
+    // function setupKeyboardControls() {
+    //     document.onkeydown = checkKey;
+    
+    //     function checkKey(e) {
+    
+    //         e = e || window.event;
+    
+    //         if (e.keyCode == '37') {
+    //             // left
+                // takeStepLeft(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 100);
+    //         }
+    //         if (e.keyCode == '38') {
+    //             // up
+    //             takeStepForward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 100);
+    //         }
+    //         if (e.keyCode == '39') {
+    //             // right
+    //             takeStepRight(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 100);
+    //         }
+    //         else if (e.keyCode == '40') {
+    //             // down
+    //             takeStepBackward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 100);
+    //         }
+    //     }
+    //}
     function detectCollision() {
         // collision detection:
         //   determines if any of the rays from the cube's origin to each vertex
@@ -232,37 +307,40 @@
         //   HOWEVER: when the origin of the ray is within the target mesh, collisions do not occur
         var cube = scene.getObjectByName('cube');
         var originPoint = cube.position.clone();
-
-
+        //console.log(cube.geometry.verticles.length);
         for (var vertexIndex = 0; vertexIndex < cube.geometry.vertices.length; vertexIndex++)
-        {
+        { 
             var localVertex = cube.geometry.vertices[vertexIndex].clone();
             var globalVertex = localVertex.applyMatrix4( cube.matrix );
             var directionVector = globalVertex.sub( cube.position );
-
+    
             var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
             var collisionResults = ray.intersectObjects( collidableMeshList );
-
+            
             if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )
             {
-
+                console.log("collided yea");
+                cube.position.set(72,1,72);
+                camera.position.set(72,1,72);
                 // if we've got a hit, we just stop the current walk and reset to base point
-                var tweens = TWEEN.getAll();
-
-                if (tweens.length > 0) {
-
-                    tweens[0].stop();
-                    TWEEN.removeAll();
-                    isTweening = false;
-
-                    scene.remove(cube);
-                    cube = createCube();
-                }
+                // var tweens = TWEEN.getAll();
+    
+                // if (tweens.length > 0) {
+    
+                //     tweens[0].stop();
+                //     TWEEN.removeAll();
+                //     isTweening = false;
+    
+                //     scene.remove(cube);
+                //     cube = createCube();
+                // }
             }
         }
     }
-
+    
     function takeStepRight(cube, start, end, time) {
+        var pos = scene.getObjectByName('cube').position;
+
         var cubeGeometry = cube.geometry;
         var widht = 4;
         if (!isTweening) {
@@ -276,7 +354,7 @@
                         cubeGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, widht / 2, widht / 2));
                     })
                     .onUpdate(function () {
-                        //cube.geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-(this.x - this.previous)));
+                        cube.geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-(this.x - this.previous)));
                         cube.geometry.verticesNeedUpdate = true;
                         cube.geometry.normalsNeedUpdate = true;
                         this.previous = this.x;
@@ -295,6 +373,7 @@
     }
 
     function takeStepLeft(cube, start, end, time) {
+        var pos = scene.getObjectByName('cube').position;
         var cubeGeometry = cube.geometry;
         var widht = 4;
         if (!isTweening) {
@@ -308,7 +387,7 @@
                         cubeGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, widht / 2, -widht / 2));
                     })
                     .onUpdate(function () {
-                        //cube.geometry.applyMatrix(new THREE.Matrix4().makeRotationX(this.x - this.previous));
+                        cube.geometry.applyMatrix(new THREE.Matrix4().makeRotationX(this.x - this.previous));
                         cube.geometry.verticesNeedUpdate = true;
                         cube.geometry.normalsNeedUpdate = true;
                         this.previous = this.x;
@@ -329,7 +408,8 @@
     function takeStepBackward(cube, start, end, time) {
         var widht = 4;
         var cubeGeometry = cube.geometry;
-
+        var pos = scene.getObjectByName('cube').position;
+        console.log(pos);
         if (!isTweening) {
             var tween = new TWEEN.Tween( { x: start, cube: cube, previous: 0} )
                     .to( { x: end }, time )
@@ -342,7 +422,7 @@
                         cubeGeometry.applyMatrix(new THREE.Matrix4().makeTranslation( -widht/2,  widht/2, 0 ) );
                     })
                     .onUpdate( function () {
-                        //cube.geometry.applyMatrix( new THREE.Matrix4().makeRotationZ( -(this.x-this.previous) ) );
+                        cube.geometry.applyMatrix( new THREE.Matrix4().makeRotationZ( -(this.x-this.previous) ) );
                         cube.geometry.verticesNeedUpdate=true;
                         cube.geometry.normalsNeedUpdate = true;
                         cube.previous = this.x;
@@ -365,11 +445,11 @@
     }
 
     function takeStepForward(cube, start, end, time) {
-        var widht = 4;
+        var widht = 2;
         var cubeGeometry = cube.geometry;
-
-
-
+    
+    
+    
         if (!isTweening) {
             var tween = new TWEEN.Tween( { x: start, cube: cube, previous: 0} )
                     .to( { x: end }, time )
@@ -381,11 +461,11 @@
                         cubeGeometry.applyMatrix(new THREE.Matrix4().makeTranslation( widht/2,  widht/2, 0 ) );
                     })
                     .onUpdate( function () {
-                        //cube.geometry.applyMatrix( new THREE.Matrix4().makeRotationZ( (this.x-this.previous) ) );
-
+                        cube.geometry.applyMatrix( new THREE.Matrix4().makeRotationZ( (this.x-this.previous) ) );
+    
                         cube.geometry.verticesNeedUpdate=true;
                         cube.geometry.normalsNeedUpdate = true;
-
+    
                         cube.previous = this.x;
                         this.previous = this.x;
                     } )
@@ -393,16 +473,17 @@
                         cube.position.y+=widht/2;
                         cube.position.x+=-widht/2;
                         cubeGeometry.applyMatrix(new THREE.Matrix4().makeTranslation( widht/2, -widht/2, 0 ) );
-
+    
                         cube.position.x=Math.round(cube.position.x);
                         cube.position.y=Math.round(cube.position.y);
                         cube.position.z=Math.round(cube.position.z);
-
+    
                         isTweening = false;
                     })
                     .start();
         }
     }
+    
 
 
     /**
@@ -415,6 +496,8 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
     function animateCam(){
+        
+
         requestAnimationFrame(animateCam);
 
         // cube.position.x=Math.round(camera.position.x);
@@ -423,18 +506,22 @@
         if(keyboard[87]) {// W key
             camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y) * player.speed;
-            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+            
             scene.getObjectByName('cube').position.x = camera.position.x;
-            scene.getObjectByName('cube').position.x = camera.position.y;
-            scene.getObjectByName('cube').position.x = camera.position.z;
-            console.log(scene.getObjectByName('cube').position);
-            takeStepForward(scene.getObjectByName('cube'), 0, 0.5 * Math.PI, 400);
+            scene.getObjectByName('cube').position.z = camera.position.z;
+
+            // scene.getObjectByName('cube').position.x = camera.position.x;
+            // scene.getObjectByName('cube').position.x = camera.position.z;
+            // scene.getObjectByName('cube').position.x = camera.position.x;
 
         }
         if(keyboard[83]) {// S key
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
             camera.position.z += Math.cos(camera.rotation.y) * player.speed;
-            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+            
+            // scene.getObjectByName('cube').position.x = camera.position.x;
+            // scene.getObjectByName('cube').position.z = camera.position.z;
+
             // console.log(cubePos);
             // scene.getObjectByName('cube').position.x = camera.position.x;
             // scene.getObjectByName('cube').position.x = camera.position.y;
@@ -444,7 +531,10 @@
         if(keyboard[65]) {// A key
             camera.position.x -= Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
-            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+
+            scene.getObjectByName('cube').position.x = camera.position.x;
+            scene.getObjectByName('cube').position.z = camera.position.z;
+
             // console.log(cubePos);
             // scene.getObjectByName('cube').position.x = camera.position.x;
             // scene.getObjectByName('cube').position.x = camera.position.y;
@@ -454,7 +544,10 @@
         if(keyboard[68]) {// D key
             camera.position.x -= Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
-            cubePos.set(camera.position.x, camera.position.y, camera.position.z);
+
+            scene.getObjectByName('cube').position.x = camera.position.x;
+            scene.getObjectByName('cube').position.z = camera.position.z;
+
             // console.log(cubePos);
             // scene.getObjectByName('cube').position.x = camera.position.x;
             // scene.getObjectByName('cube').position.x = camera.position.y;
