@@ -1,3 +1,6 @@
+
+
+
     // global variables
     var renderer;
     var scene;
@@ -46,7 +49,8 @@
         scene = new THREE.Scene();
         // generate a maze
         //var maze = new Maze(scene,15, width, width);
-        var level = 10;
+
+        var level = 5;
         
         var random = Math.floor((Math.random() * (level * 2) + (level * 1)));
 
@@ -116,41 +120,44 @@
         // controls = new THREE.TrackballControls( camera );
 
         // add spotlight for the finish line
-        var finishLight = new THREE.SpotLight(0xff0000);
-        finishLight.position.set(-50, 70, -50);
-        finishLight.shadowCameraNear = 20;
-        finishLight.shadowCameraFar = 50;
-        finishLight.castShadow = true;
-        finishLight.intensity = 0.5;
+        var finishLight = new THREE.AmbientLight(0xbbbbff );
+        // finishLight.position.set(-50, 70, -50);
+        // finishLight.shadowCameraNear = 20;
+        // finishLight.shadowCameraFar = 50;
+        // finishLight.castShadow = true;
+        // finishLight.intensity = 0.5;
         
         var finishTarget = new THREE.Object3D();
         finishTarget.position.set(-60,0,-60);
         finishTargetPos = finishTarget.position;
         finishLight.target = finishTarget;
+        // var finishTarget = new THREE.Object3D();
+        // finishTarget.position.set(-60,0,-60);
+        // finishLight.target = finishTarget;
         
         scene.add(finishLight);
 
         // add spotlight for the starting point
-        var startLight = new THREE.SpotLight(0x00ff00);
-        startLight.position.set(50, 70, 50);
-        startLight.shadowCameraNear = 10;
-        startLight.shadowCameraFar = 50;
-        startLight.castShadow = true;
-        startLight.intensity = 0.5;
+        // var startLight = new THREE.SpotLight(0x00ff00);
+        // startLight.position.set(50, 70, 50);
+        // startLight.shadowCameraNear = 10;
+        // startLight.shadowCameraFar = 50;
+        // startLight.castShadow = true;
+        // startLight.intensity = 0.5;
 
-        var startTarget = new THREE.Object3D();
-        startTarget.position.set(60,0,60);
-        startLight.target = startTarget;
+        // var startTarget = new THREE.Object3D();
+        // startTarget.position.set(60,0,60);
+        // startLight.target = startTarget;
 
-        scene.add(startLight);
+        // scene.add(startLight);
 
-        // add directionlight for general illumination
-        var directionalLight = new THREE.DirectionalLight({color:0xaaaaaa});
-        directionalLight.castShadow = true;
-        directionalLight.position.set(0,50,50);
-        directionalLight.intensity = 0.6;
+        // // add directionlight for general illumination
+        // var directionalLight = new THREE.DirectionalLight({color:0xaaaaaa});
+        // directionalLight.castShadow = true;
+        // directionalLight.position.set(0,50,50);
+        // directionalLight.intensity = 0.6;
 
-        scene.add(directionalLight);
+        // scene.add(directionalLight);
 
 
 
@@ -518,6 +525,15 @@
         if(keyboard[83]) {// S key
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
             camera.position.z += Math.cos(camera.rotation.y) * player.speed;
+            
+            scene.getObjectByName('cube').position.x = camera.position.x;
+            scene.getObjectByName('cube').position.z = camera.position.z;
+
+            // console.log(cubePos);
+            // scene.getObjectByName('cube').position.x = camera.position.x;
+            // scene.getObjectByName('cube').position.x = camera.position.y;
+            // scene.getObjectByName('cube').position.x = camera.position.z;
+
         }
         if(keyboard[65]) {// A key
             camera.position.x -= Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
