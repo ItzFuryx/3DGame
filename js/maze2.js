@@ -111,7 +111,7 @@
         camera.position.x = cubePos.x;
         camera.position.y = cubePos.y + 4;
         camera.position.z = cubePos.z;
-        camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
+        // camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
 
         // camera.position.x = 70;
         // camera.position.y = 130;
@@ -229,7 +229,6 @@
 
         TWEEN.update();
 
-        detectCollision();
 
         //controls.update();
 
@@ -335,8 +334,9 @@
                     console.log("regular wall");
                 }
                 console.log("collided yea");
-                cube.position.set(72,1,72);
-                camera.position.set(72,5,72);
+                // cube.position.set(72,1,72);
+                // camera.position.set(72,5,72);
+                return true;
                 // if we've got a hit, we just stop the current walk and reset to base point
                 // var tweens = TWEEN.getAll();
     
@@ -351,6 +351,7 @@
                 // }
             }
         }
+        return false;
     }
     
     function takeStepRight(cube, start, end, time) {
@@ -512,46 +513,72 @@
     }
     function animateCam(){
         
-
         requestAnimationFrame(animateCam);
 
         if(keyboard[87]) {// W key
+            var positionOld = camera.position.clone();
+
             camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y) * player.speed;
-            
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
+
+            if(detectCollision()){
+                camera.position.x = positionOld.x;
+                camera.position.z = positionOld.z;
+                scene.getObjectByName('cube').position.x = positionOld.x;
+                scene.getObjectByName('cube').position.z = positionOld.z;
+            }
         }
         if(keyboard[83]) {// S key
+            var positionOld = camera.position.clone();
+
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
             camera.position.z += Math.cos(camera.rotation.y) * player.speed;
-            
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
 
-            // console.log(cubePos);
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-            // scene.getObjectByName('cube').position.x = camera.position.y;
-            // scene.getObjectByName('cube').position.x = camera.position.z;
-
+            if(detectCollision()){
+                camera.position.x = positionOld.x;
+                camera.position.z = positionOld.z;
+                scene.getObjectByName('cube').position.x = positionOld.x;
+                scene.getObjectByName('cube').position.z = positionOld.z;
+            }
         }
         if(keyboard[65]) {// A key
+            var positionOld = camera.position.clone();
+            console.log("test a");
             camera.position.x -= Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y + Math.PI/2) * player.speed;
-
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
+
+            if(detectCollision()){
+                camera.position.x = positionOld.x;
+                camera.position.z = positionOld.z;
+                scene.getObjectByName('cube').position.x = positionOld.x;
+                scene.getObjectByName('cube').position.z = positionOld.z;
+            }
         }
         if(keyboard[68]) {// D key
+            var positionOld = camera.position.clone();
+
             camera.position.x -= Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y - Math.PI/2) * player.speed;
-
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
+            
+            if(detectCollision()){
+                camera.position.x = positionOld.x;
+                camera.position.z = positionOld.z;
+                scene.getObjectByName('cube').position.x = positionOld.x;
+                scene.getObjectByName('cube').position.z = positionOld.z;
+            }
         }
     
         if(keyboard[37]){ // left arrow key
             camera.rotation.y += player.turnSpeed;
+            console.log("test cl");
         }
     
         if(keyboard[39]){ // right arrow key
