@@ -1,6 +1,3 @@
-
-
-
     // global variables
     var renderer;
     var scene;
@@ -19,7 +16,7 @@
     var player = { height: 1.8, speed: 0.3, turnSpeed:Math.PI * 0.02};
     
     var cubeBase;
-
+    var finishTargetPos;
     function createCube() {
         var cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
         var cubeMaterial = new THREE.MeshPhongMaterial({color: 0x008000, transparent: false, opacity: 0.8});
@@ -33,9 +30,7 @@
 
         cubePos  = cube.position;
         scene.add(cube);
-        console.log("---");
-        console.log(cubeBase);
-        console.log("---");
+       
         return cube;
     }
 
@@ -51,7 +46,7 @@
         scene = new THREE.Scene();
         // generate a maze
         //var maze = new Maze(scene,15, width, width);
-        var level = 1;
+        var level = 10;
         
         var random = Math.floor((Math.random() * (level * 2) + (level * 1)));
 
@@ -62,7 +57,7 @@
         maze.draw();
         var walls = maze.getElements();
         walls.forEach(function(e) {collidableMeshList.push(e)});
-
+        
 
 
         // add cube
@@ -110,7 +105,7 @@
        
         //  position and point the camera to the center of the scene
         camera.position.x = cubePos.x;
-        camera.position.y = cubePos.y;
+        camera.position.y = cubePos.y + 4;
         camera.position.z = cubePos.z;
         camera.lookAt(new THREE.Vector3(0, cubePos.y ,0));
 
@@ -130,6 +125,7 @@
         
         var finishTarget = new THREE.Object3D();
         finishTarget.position.set(-60,0,-60);
+        finishTargetPos = finishTarget.position;
         finishLight.target = finishTarget;
         
         scene.add(finishLight);
@@ -299,6 +295,7 @@
     //     }
     //}
     function detectCollision() {
+        
         // collision detection:
         //   determines if any of the rays from the cube's origin to each vertex
         //		intersects any face of a mesh in the array of target meshes
@@ -308,6 +305,10 @@
         var cube = scene.getObjectByName('cube');
         var originPoint = cube.position.clone();
         //console.log(cube.geometry.verticles.length);
+        
+        if(cube.position == finishTargetPos){
+            console.log("finish");
+        }    
         for (var vertexIndex = 0; vertexIndex < cube.geometry.vertices.length; vertexIndex++)
         { 
             var localVertex = cube.geometry.vertices[vertexIndex].clone();
@@ -315,13 +316,20 @@
             var directionVector = globalVertex.sub( cube.position );
     
             var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize() );
+
             var collisionResults = ray.intersectObjects( collidableMeshList );
             
             if ( collisionResults.length > 0 && collisionResults[0].distance < directionVector.length() )
             {
+                console.log(collisionResults[0].object.position);
+                if(collisionResults[0].object.position.x == -70 && collisionResults[0].object.position.y == 0 && collisionResults[0].object.position.z == -75){
+                    console.log("Finish");
+                } else {
+                    console.log("regular wall");
+                }
                 console.log("collided yea");
                 cube.position.set(72,1,72);
-                camera.position.set(72,1,72);
+                camera.position.set(72,5,72);
                 // if we've got a hit, we just stop the current walk and reset to base point
                 // var tweens = TWEEN.getAll();
     
@@ -500,33 +508,16 @@
 
         requestAnimationFrame(animateCam);
 
-        // cube.position.x=Math.round(camera.position.x);
-        // cube.position.y=Math.round(cube.position.y);
-        // cube.position.z=Math.round(camera.position.y);
         if(keyboard[87]) {// W key
             camera.position.x -= Math.sin(camera.rotation.y) * player.speed;
             camera.position.z -= Math.cos(camera.rotation.y) * player.speed;
             
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
-
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-            // scene.getObjectByName('cube').position.x = camera.position.z;
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-
         }
         if(keyboard[83]) {// S key
             camera.position.x += Math.sin(camera.rotation.y) * player.speed;
             camera.position.z += Math.cos(camera.rotation.y) * player.speed;
-            
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-            // scene.getObjectByName('cube').position.z = camera.position.z;
-
-            // console.log(cubePos);
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-            // scene.getObjectByName('cube').position.x = camera.position.y;
-            // scene.getObjectByName('cube').position.x = camera.position.z;
-
         }
         if(keyboard[65]) {// A key
             camera.position.x -= Math.sin(camera.rotation.y + Math.PI/2) * player.speed;
@@ -534,12 +525,6 @@
 
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
-
-            // console.log(cubePos);
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-            // scene.getObjectByName('cube').position.x = camera.position.y;
-            // scene.getObjectByName('cube').position.x = camera.position.z;
-
         }
         if(keyboard[68]) {// D key
             camera.position.x -= Math.sin(camera.rotation.y - Math.PI/2) * player.speed;
@@ -547,13 +532,7 @@
 
             scene.getObjectByName('cube').position.x = camera.position.x;
             scene.getObjectByName('cube').position.z = camera.position.z;
-
-            // console.log(cubePos);
-            // scene.getObjectByName('cube').position.x = camera.position.x;
-            // scene.getObjectByName('cube').position.x = camera.position.y;
-            // scene.getObjectByName('cube').position.x = camera.position.z;
         }
-    
     
         if(keyboard[37]){ // left arrow key
             camera.rotation.y += player.turnSpeed;

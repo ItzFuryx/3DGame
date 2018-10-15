@@ -137,9 +137,15 @@ var Maze = function (scene, cells, width, height) {
 
             // and create the complete wall segment
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
-            wallMesh.name = "wall";
             // finally position it correctly
             wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) -(self.height/2), wallGeom.height/2, y1 - ((y1 - y2)) / 2 - (self.width /2));
+            console.log(wallMesh.position);
+            if(wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75){
+                console.log("Hello world");
+                wallMesh.name = "finish";
+            } else {
+                wallMesh.name = "wall";
+            }
             self.elements.push(wallMesh);
             scene.add(wallMesh);
         }
