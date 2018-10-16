@@ -27,18 +27,18 @@ THREE.Player = function (scene) {
 
     this.update = function () {
 
-        /*if (keyboard[87]) {// W key   dit crashed op een of andere manier alles dus je mag even geen w gebruiken hihi
+        if (keyboard[87]) {// W key
             var newPosition = camera.position.clone();
 
             newPosition.x -= Math.sin(camera.rotation.y) * player.speed;
             newPosition.z -= Math.cos(camera.rotation.y) * player.speed;
 
             if (!player.detectCollision(newPosition)) {
-                camera.position = newPosition.x;
+                camera.position = newPosition;
                 player.position.x = newPosition.x;
                 player.position.z = newPosition.z;
             }
-        }*/
+        }
         if (keyboard[83]) {// S key
             var newPosition = camera.position.clone();
 
