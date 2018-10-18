@@ -10,7 +10,7 @@ var Maze = function (scene, cells, width, height) {
     this.generator = new MazeGenerator(this.horizCells, this.vertCells);
     this.cellWidth = this.width / this.horizCells;
     this.cellHeight = this.height / this.vertCells;
-
+    console.log(cells);
     var self = this;
 
     return {
@@ -134,18 +134,17 @@ var Maze = function (scene, cells, width, height) {
             var wallGeom = new THREE.BoxGeometry(lengthX, 13, lengthY);
             var wallMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, opacity: 0.8, transparent: false});
 
-
             // and create the complete wall segment
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
             // finally position it correctly
             wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) -(self.height/2), wallGeom.height/2, y1 - ((y1 - y2)) / 2 - (self.width /2));
-            console.log(wallMesh.position);
             if(wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75){
                 console.log("Hello world");
                 wallMesh.name = "finish";
             } else {
                 wallMesh.name = "wall";
             }
+
             self.elements.push(wallMesh);
             scene.add(wallMesh);
         }
