@@ -1,7 +1,7 @@
 THREE.Health = function (healthValue) {
     var _this = this;
     this.enabled = true;
-    var currentHealth = maxHealth = healthValue;
+    this.currentHealth = this.maxHealth = healthValue;
 
     this.DeltaHealth = function (value) {
         currentHealth -= value;

@@ -102,6 +102,7 @@ THREE.Player = function (scene) {
                 if (collisionResults[0].object.name == "finish") {
                     CreateNewMaze();
                 }
+                this.health.DeltaHealth(1);
                 collide = true;
             }
         }
