@@ -61,5 +61,9 @@ class Player extends MoveAbleObject {
                 this.position.z = newPosition.z;
             }
         }
-    }   
+    }  
+    TeleportScene(scene){
+        scene.add(this.object);
+        scene.add(this.collisionobj);
+    } 
 }
