@@ -34,10 +34,10 @@ function init() {
 
     createMaze();
 
-    player = new THREE.Player(scene);
 
     // create a camera, which defines where we're looking at.
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    player = new Player(scene, camera);
     //camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
 
     // create a render, sets the background color and the size
@@ -66,7 +66,7 @@ function init() {
 function render() {
     // and render the scene
     renderer.render(scene, camera);
-    player.update();
+    player.Update();
     //enemy.update();
     // render using requestAnimationFrame
     requestAnimationFrame(render);
@@ -131,19 +131,15 @@ function createMaze(){
     endMesh.name = "finish";
     endMesh.position.set(-width / 2 + 5, 0, -width / 2);
     scene.add(endMesh);
-    collidableMeshList.push(endMesh);
-
-    
+    collidableMeshList.push(endMesh);    
 
     var finishLight = new THREE.AmbientLight(0xbbbbff);
-
     var finishTarget = new THREE.Object3D();
     finishTarget.position.set(-60, 0, -60);
     finishTargetPos = finishTarget.position;
     finishLight.target = finishTarget;
 
     scene.add(finishLight);
-
 }
 
 function CreateNewMaze(){
@@ -157,3 +153,14 @@ function CreateNewMaze(){
 window.onload = init;
 // calls the handleResize function when the window is resized
 window.addEventListener('resize', handleResize, false);
+
+function KeyDown(event) {
+    player.keyboard[event.keyCode] = true;
+}
+
+function KeyUp(event) {
+    player.keyboard[event.keyCode] = false;
+}
+
+window.addEventListener('keydown', KeyDown);
+window.addEventListener('keyup', KeyUp);

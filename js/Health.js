@@ -1,13 +1,13 @@
-THREE.Health = function (healthValue) {
-    var _this = this;
-    this.enabled = true;
-    this.currentHealth = this.maxHealth = healthValue;
+class Health {
+    constructor(healthValue) {
+        this.currentHealth = this.maxHealth = healthValue;
+    }
 
-    this.DeltaHealth = function (value) {
-        currentHealth -= value;
-        console.log("health = " + currentHealth);
-        if (currentHealth <= 0) {
-            currentHealth = maxHealth;
+    DeltaHealth(value) {
+        this.currentHealth -= value;
+        console.log("current Health = " + this.currentHealth);
+        if (this.currentHealth <= 0) {
+            this.currentHealth = this.maxHealth;
             return false;
         }
         return true;
