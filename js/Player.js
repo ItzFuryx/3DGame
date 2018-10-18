@@ -5,11 +5,11 @@ THREE.Player = function (scene) {
     this.position = new THREE.Vector3(0, 0, 0);
     this.object;
     this.height = 1.8;
-    this.speed = 1;
+    this.speed = .25;
     this.turnSpeed = Math.PI * 0.02;
     this.collisionobj;
+    this.health = new THREE.Health(5);
     var keyboard = {};
-    var maze;
 
     var Geometry = new THREE.BoxGeometry(2, 2, 2);
     var Material = new THREE.MeshPhongMaterial({ color: 0x008000, transparent: false, opacity: 0.8 });
@@ -93,29 +93,29 @@ THREE.Player = function (scene) {
         for (var vertexIndex = 0; vertexIndex < obj.geometry.vertices.length; vertexIndex++) {
             var localVertex = obj.geometry.vertices[vertexIndex].clone();
             var globalVertex = localVertex.applyMatrix4(obj.matrix);
-           
-            
             var directionVector = globalVertex.sub(this.collisionobj.position);
-            
+
             var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
             var collisionResults = ray.intersectObjects(collidableMeshList);
-            
+
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-                if (collisionResults[0].object.name == "finish"){
+                if (collisionResults[0].object.name == "finish") {
                     CreateNewMaze();
                 }
-                
                 collide = true;
             }
-
         }
         console.log("Collided = " + collide);
         return collide;
     }
 
-    this.TeleportScene = function(scene){
+    this.TeleportScene = function (scene) {
         scene.add(this.object);
         scene.add(this.collisionobj);
+    }
+
+    this.OnDead = function () {
+        console.log("died");
     }
 
     function keyDown(event) {
