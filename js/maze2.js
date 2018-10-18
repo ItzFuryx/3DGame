@@ -21,6 +21,12 @@ var plane;
 var finishLight;
 var endMesh;
 var startMesh;
+var enemy;
+
+/**
+ * Particles
+ */
+var stars;
 /**
  * Initializes the scene, camera and objects. Called when the window is
  * loaded by using window.onload (see below)
@@ -33,8 +39,9 @@ function init() {
     level = 1;
 
     createMaze();
+    stars = new THREE.Stars(scene, 1800);
 
-
+    enemy = new Enemy(scene);
     // create a camera, which defines where we're looking at.
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     player = new Player(scene, camera);
@@ -67,6 +74,7 @@ function render() {
     // and render the scene
     renderer.render(scene, camera);
     player.Update();
+    stars.Update();
     //enemy.update();
     // render using requestAnimationFrame
     requestAnimationFrame(render);
