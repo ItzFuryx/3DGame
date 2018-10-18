@@ -25,10 +25,14 @@ class MoveAbleObject extends GameObject {
 
             var ray = new THREE.Raycaster(originPoint, directionVector.clone().normalize());
             var collisionResults = ray.intersectObjects(collidableMeshList);
+            
 
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
                 if (collisionResults[0].object.name == "finish") {
                     CreateNewMaze();
+                }
+                if (collisionResults[0].object.name == "trap") {
+                    console.log("Hit a trap!");
                 }
                 this.health.DeltaHealth(1);
                 collide = true;

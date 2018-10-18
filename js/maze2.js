@@ -13,6 +13,7 @@ var width = 150;
 
 var finishTargetPos;
 var player;
+var trap;
 var maze;
 var level;
 var enemy;
@@ -45,6 +46,9 @@ function init() {
     // create a camera, which defines where we're looking at.
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     player = new Player(scene, camera);
+    trap = new Trap(scene, new THREE.Vector3(width/2 - 10, 0, width/2 - 10), new THREE.Vector3(0,0,0));
+    collidableMeshList.push(trap);
+    console.log(collidableMeshList);
     //camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
 
     // create a render, sets the background color and the size
