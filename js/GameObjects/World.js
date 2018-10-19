@@ -22,9 +22,9 @@ class World {
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
         var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-        planeMaterial.map = THREE.ImageUtils.loadTexture("assets/wood_1-1024x1024.png");
+        planeMaterial.map = THREE.ImageUtils.loadTexture("assets/darkgrass.jpg");
         planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
-        planeMaterial.map.repeat.set(4, 4);
+        planeMaterial.map.repeat.set(1, 1);
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
         this.plane.receiveShadow = true;
         this.plane.rotation.x = -0.5 * Math.PI;
@@ -53,6 +53,7 @@ class World {
         scene.add(finishLight);
 
         this.CreateTrap();
+        this.CreateSkyBox();
     }
 
     CreateNewMaze() {
@@ -61,6 +62,16 @@ class World {
 
         player.TeleportScene(scene);
     }
+    CreateSkyBox(){
+        var loader = new THREE.TextureLoader();
+        loader.load( 'assets/skybox.jpg', function ( texture ) {
+    
+            var sphericalSkyboxGeometry = new THREE.SphereGeometry(500, 32, 32);
+            var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+            var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
+            scene.add(sphericalSkybox);
+        } );
+    }
     CreateTrap() {
         var amountOfTraps = Math.floor((Math.random() * (level * 20) + (level * 10)));
 
@@ -68,4 +79,5 @@ class World {
             trap = new Trap(level, 150);
         }
     }
+
 }
