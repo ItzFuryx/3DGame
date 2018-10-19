@@ -4,7 +4,7 @@ class Trap extends ImmovAbleObject {
         var randomPosZ = Math.floor((Math.random() * (width) + (-75)));
 
         var Geometry = new THREE.BoxGeometry(2, 2, 2);
-        var Material = new THREE.MeshBasicMaterial({ color: 0xFF0000, transparent: true, opacity: 0.6 });
+        var Material = new THREE.MeshPhongMaterial({ ambient: 0xFF0000, transparent: true, opacity: 0.9 });
         Material.needsUpdate = true;
         super(Geometry, Material);
         

@@ -21,10 +21,10 @@ class World {
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
-        var planeMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-        planeMaterial.map = THREE.ImageUtils.loadTexture("assets/darkgrass.jpg");
+        var planeMaterial = new THREE.MeshLambertMaterial({ });
+        planeMaterial.map = THREE.ImageUtils.loadTexture("assets/grasstundra-94x94.png");
         planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
-        planeMaterial.map.repeat.set(1, 1);
+        planeMaterial.map.repeat.set(3, 3);
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
         this.plane.receiveShadow = true;
         this.plane.rotation.x = -0.5 * Math.PI;
@@ -50,6 +50,9 @@ class World {
         finishLight.target = finishTarget;
         this.finishTargetPos = finishTarget.position;
 
+        var directionalLight = new THREE.DirectionalLight(0x0000ff, 0.5);
+        scene.add(directionalLight);
+
         scene.add(finishLight);
 
         this.CreateTrap();
@@ -62,15 +65,15 @@ class World {
 
         player.TeleportScene(scene);
     }
-    CreateSkyBox(){
+    CreateSkyBox() {
         var loader = new THREE.TextureLoader();
-        loader.load( 'assets/skybox.jpg', function ( texture ) {
-    
+        loader.load('assets/skybox.jpg', function (texture) {
+
             var sphericalSkyboxGeometry = new THREE.SphereGeometry(500, 32, 32);
-            var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({map: texture, side: THREE.DoubleSide});
+            var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
             var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
             scene.add(sphericalSkybox);
-        } );
+        });
     }
     CreateTrap() {
         var amountOfTraps = Math.floor((Math.random() * (level * 20) + (level * 10)));

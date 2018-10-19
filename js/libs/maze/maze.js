@@ -131,7 +131,10 @@ var Maze = function (scene, cells, width, height) {
 
             // create a cube to represent the wall segment
             var wallGeom = new THREE.BoxGeometry(lengthX, 13, lengthY);
-            var wallMaterial = new THREE.MeshPhongMaterial({color: 0xff0000, opacity: 0.8, transparent: false});
+            var wallMaterial = new THREE.MeshLambertMaterial({});
+            wallMaterial.map = THREE.ImageUtils.loadTexture("assets/wall.png");
+            wallMaterial.map.wrapS = wallMaterial.map.wrapT = THREE.RepeatWrapping;
+            wallMaterial.map.repeat.set(1, 1);
 
             // and create the complete wall segment
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
