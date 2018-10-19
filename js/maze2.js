@@ -176,7 +176,9 @@ function KeyUp(event) {
 }
 
 function CreateTrap(amountOfTraps, level){
-    trap = new Trap(level, 150);
+    for(var i = 0; i < amountOfTraps; i ++){
+        trap = new Trap(level, 150);
+    }
 }
 
 window.addEventListener('keydown', KeyDown);
