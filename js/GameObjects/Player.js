@@ -1,22 +1,22 @@
 class Player extends MoveAbleObject {
     constructor(scene, camera) {
         var Geometry = new THREE.BoxGeometry(2, 10, 2);
-        var Material = new THREE.MeshPhongMaterial({ color: 0x008000, transparent: false, opacity: 0.8 });
-        var object = new THREE.Mesh(Geometry, Material);
+        var Material = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 0 });
         var collision = new THREE.Mesh(Geometry, Material);
-        object.castShadow = true;
-        object.name = 'player';
-        object.position = new THREE.Vector3(width / 2 - 1, 1, width / 2 - 3);
+        super(Geometry, Material);
 
-        super(object);
+        this.castShadow = true;
+        this.name = 'player';
         this.camera = camera;
         this.moveSpeed = .25;
         this.turnSpeed = Math.PI * 0.02;
         this.health = new Health(5);
         this.keyboard = {};
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
+        this.position = this.respawnLocation.clone();
         this.collisionobj = collision;
-        scene.add(object);
+
+        scene.add(this);
         scene.add(collision);
     }
 
@@ -62,7 +62,7 @@ class Player extends MoveAbleObject {
         this.MoveCamera();
     }
 
-    MoveCamera(){
+    MoveCamera() {
         this.camera.position = this.position;
         this.camera.position.y = 5;
     }
@@ -70,8 +70,9 @@ class Player extends MoveAbleObject {
     TeleportScene(scene) {
         scene.add(this.object);
         scene.add(this.collisionobj);
+        this.position = this.respawnLocation.clone();
     }
     Respawn() {
-        player.position = this.respawnLocation;
+        this.position = this.respawnLocation;
     }
 }

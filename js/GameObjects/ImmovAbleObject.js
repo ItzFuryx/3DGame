@@ -1,9 +1,5 @@
 class ImmovAbleObject extends GameObject {
-    constructor(object) {
-        super(object);
-    }
-
-    Update() {
-
+    constructor(Geometry, Material) {
+        super(Geometry, Material);
     }
 }

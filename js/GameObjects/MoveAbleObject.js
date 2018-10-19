@@ -1,15 +1,11 @@
 class MoveAbleObject extends GameObject {
-    constructor(object) {
-        super(object);
+    constructor(Geometry, Material) {
+        super(Geometry, Material);
 
         this.moveSpeed = .25;
         this.turnSpeed = Math.PI * 0.02;
         this.collisionObject;
         this.health = new Health(5);
-    }
-
-    Update() {
-
     }
 
     DetectCollision (position) {
@@ -28,16 +24,15 @@ class MoveAbleObject extends GameObject {
 
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
                 console.log(collisionResults[0].object.name);
-                if(collisionResults[0].object.name == "trap"){
-                    var randomDmg = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));
-                    console.log(randomDmg);
-                    this.health.DeltaHealth(randomDmg);
+                if(collisionResults[0].object instanceof Trap){
+                    var trap = collisionResults[0].object;
+
+                    this.health.DeltaHealth(trap.damage);
                     collide = true;
                 }
                 if (collisionResults[0].object.name == "finish") {
-                    CreateNewMaze();
+                    world.CreateNewMaze();
                 }
-                this.health.DeltaHealth(1);
                 collide = true;
             }
         }
