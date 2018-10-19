@@ -10,7 +10,6 @@ var Maze = function (scene, cells, width, height) {
     this.generator = new MazeGenerator(this.horizCells, this.vertCells);
     this.cellWidth = this.width / this.horizCells;
     this.cellHeight = this.height / this.vertCells;
-    console.log(cells);
     var self = this;
 
     return {

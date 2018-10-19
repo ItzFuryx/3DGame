@@ -1,6 +1,6 @@
 class Player extends MoveAbleObject {
     constructor(scene, camera) {
-        var Geometry = new THREE.BoxGeometry(2, 2, 2);
+        var Geometry = new THREE.BoxGeometry(2, 10, 2);
         var Material = new THREE.MeshPhongMaterial({ color: 0x008000, transparent: false, opacity: 0.8 });
         var object = new THREE.Mesh(Geometry, Material);
         var collision = new THREE.Mesh(Geometry, Material);
