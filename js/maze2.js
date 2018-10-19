@@ -13,7 +13,6 @@ var width = 150;
 
 var finishTargetPos;
 var player;
-var trap;
 var maze;
 var level;
 var enemy;
@@ -23,7 +22,7 @@ var finishLight;
 var endMesh;
 var startMesh;
 var enemy;
-
+var trap;
 /**
  * Particles
  */
@@ -43,12 +42,10 @@ function init() {
     stars = new THREE.Stars(scene, 1800);
 
     enemy = new Enemy(scene);
+
     // create a camera, which defines where we're looking at.
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     player = new Player(scene, camera);
-    trap = new Trap(scene, new THREE.Vector3(width/2 - 10, 0, width/2 - 10), new THREE.Vector3(0,0,0));
-    collidableMeshList.push(trap);
-    console.log(collidableMeshList);
     //camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
 
     // create a render, sets the background color and the size
@@ -109,6 +106,10 @@ function createMaze(){
         random = 4;
 
     scene = new THREE.Scene();
+    var randomAmountOfTraps = Math.floor((Math.random() * (level * 2) + (level * 1)));
+    console.log("level: " + level);
+    CreateTrap(randomAmountOfTraps, level);
+
 
     var maze = new Maze(scene, random, 150, 150);
     maze.generate();
@@ -155,8 +156,8 @@ function createMaze(){
 }
 
 function CreateNewMaze(){
-    createMaze();
     level++;
+    createMaze();
     player.TeleportScene(scene);
     player.position = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
     camera.position = new THREE.Vector3(width / 2 - 10, 4, width / 2 - 10);
@@ -172,6 +173,10 @@ function KeyDown(event) {
 
 function KeyUp(event) {
     player.keyboard[event.keyCode] = false;
+}
+
+function CreateTrap(amountOfTraps, level){
+    trap = new Trap(level, 150);
 }
 
 window.addEventListener('keydown', KeyDown);

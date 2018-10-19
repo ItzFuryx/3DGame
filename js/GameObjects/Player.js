@@ -12,15 +12,15 @@ class Player extends MoveAbleObject {
         this.camera = camera;
         this.moveSpeed = .25;
         this.turnSpeed = Math.PI * 0.02;
-        this.health = new Health(5);        
+        this.health = new Health(5);
         this.keyboard = {};
-
+        this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
         this.collisionobj = collision;
         scene.add(object);
         scene.add(collision);
     }
 
-    Update() {        
+    Update() {
         var hasclicked = false;
         var newPosition = this.camera.position.clone();
 
@@ -30,7 +30,7 @@ class Player extends MoveAbleObject {
             newPosition.z -= Math.cos(this.camera.rotation.y) * this.moveSpeed;
         }
         if (this.keyboard[83]) {// S key
-            hasclicked = true;            
+            hasclicked = true;
             newPosition.x += Math.sin(this.camera.rotation.y) * this.moveSpeed;
             newPosition.z += Math.cos(this.camera.rotation.y) * this.moveSpeed;
         }
@@ -54,16 +54,20 @@ class Player extends MoveAbleObject {
             this.camera.rotation.y -= this.turnSpeed;
         }
 
-        if(hasclicked){            
+        if (hasclicked) {
             if (!this.DetectCollision(newPosition)) {
                 this.camera.position = newPosition;
                 this.position.x = newPosition.x;
                 this.position.z = newPosition.z;
             }
         }
-    }  
-    TeleportScene(scene){
+    }
+    TeleportScene(scene) {
         scene.add(this.object);
         scene.add(this.collisionobj);
-    } 
+    }
+    Respawn() {
+        player.position = this.respawnLocation;
+        camera.position =  new THREE.Vector3(width / 2 - 10, 4, width / 2 - 10);
+    }
 }
