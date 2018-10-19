@@ -22,7 +22,7 @@ class Player extends MoveAbleObject {
 
     Update() {
         var hasclicked = false;
-        var newPosition = this.camera.position.clone();
+        var newPosition = this.position.clone();
 
         if (this.keyboard[87]) {// W key
             hasclicked = true;
@@ -56,18 +56,22 @@ class Player extends MoveAbleObject {
 
         if (hasclicked) {
             if (!this.DetectCollision(newPosition)) {
-                this.camera.position = newPosition;
-                this.position.x = newPosition.x;
-                this.position.z = newPosition.z;
+                this.position = newPosition;
             }
         }
+        this.MoveCamera();
     }
+
+    MoveCamera(){
+        this.camera.position = this.position;
+        this.camera.position.y = 5;
+    }
+
     TeleportScene(scene) {
         scene.add(this.object);
         scene.add(this.collisionobj);
     }
     Respawn() {
         player.position = this.respawnLocation;
-        camera.position =  new THREE.Vector3(width / 2 - 10, 4, width / 2 - 10);
     }
 }
