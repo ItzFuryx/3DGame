@@ -60,13 +60,13 @@ var Maze = function (scene, cells, width, height) {
         drawMaze: function () {
             var graph = self.generator.graph;
             var drawnEdges = [];
-
+            CreateFullWall();
             var edgeAlreadyDrawn = function (cell1, cell2) {
                 return _.detect(drawnEdges, function (edge) {
                     return _.include(edge, cell1) && _.include(edge, cell2);
                 }) != undefined;
             };
-
+            
             for (var i = 0; i < graph.width; i++) {
                 for (var j = 0; j < graph.height; j++) {
                     var cell = graph.cells[i][j];
@@ -138,6 +138,7 @@ var Maze = function (scene, cells, width, height) {
 
             // and create the complete wall segment
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
+
             // finally position it correctly
             wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) -(self.height/2), wallGeom.height/2, y1 - ((y1 - y2)) / 2 - (self.width /2));
             if(wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75){
@@ -150,5 +151,44 @@ var Maze = function (scene, cells, width, height) {
             self.elements.push(wallMesh);
             scene.add(wallMesh);
         }
+
+        
     };
+    function CreateFullWall(){
+        var fullWallGeometry = new THREE.PlaneGeometry(width, 13, 40, 40);
+        var fullWallMaterial = new THREE.MeshLambertMaterial({});
+        fullWallMaterial.map = THREE.ImageUtils.loadTexture("assets/wall.png");
+        fullWallMaterial.map.wrapS = fullWallMaterial.map.wrapT = THREE.RepeatWrapping;
+        fullWallMaterial.map.repeat.set(1, 1);
+
+        var fullWallB = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
+        var fullWallL = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
+        var fullWallR = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
+        var fullWallF = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
+    
+        //back
+        fullWallB.position.set(0,0,75);
+        fullWallB.rotateY(3.14159265);
+        scene.add(fullWallB);
+        collidableMeshList.push(fullWallB); 
+
+        //left
+        fullWallL.position.set(-75,0,0);
+        fullWallL.rotateY(Math.PI/2);
+        scene.add(fullWallL);
+        collidableMeshList.push(fullWallL); 
+
+        //right
+        fullWallR.position.set(75,0,0);
+        fullWallR.rotateY(Math.PI/2);
+        fullWallR.rotateY(3.14159265);
+        scene.add(fullWallR);
+        collidableMeshList.push(fullWallR); 
+
+        //front
+        fullWallF.position.set(0,0,-75); 
+        scene.add(fullWallF);
+        collidableMeshList.push(fullWallF); 
+    }
+    
 };

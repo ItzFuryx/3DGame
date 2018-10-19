@@ -8,7 +8,7 @@ class Health {
         console.log("current Health = " + this.currentHealth);
         if (this.currentHealth <= 0) {
             this.currentHealth = this.maxHealth;
-            player.Respawn();
+            //player.Respawn();
             return false;
         }
         return true;

@@ -26,17 +26,18 @@ class MoveAbleObject extends GameObject {
                 console.log(collisionResults[0].object.name);
                 if(collisionResults[0].object instanceof Trap){
                     var trap = collisionResults[0].object;
-
                     this.health.DeltaHealth(trap.damage);
+                    //collide = true;
+                }
+                else if (collisionResults[0].object.name == "finish") {
+                    world.CreateNewMaze();
+                } else {
                     collide = true;
                 }
-                if (collisionResults[0].object.name == "finish") {
-                    world.CreateNewMaze();
-                }
-                collide = true;
+                //collide = true;
             }
         }
-        //console.log("Collided = " + collide);
+        console.log("Collided = " + collide);
         return collide;
     }
 }
