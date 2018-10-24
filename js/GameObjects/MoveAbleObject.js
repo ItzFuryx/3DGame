@@ -1,18 +1,20 @@
 class MoveAbleObject extends GameObject {
-    constructor(Geometry, Material) {
+    constructor(Geometry, Material, collision) {
         super(Geometry, Material);
 
         this.moveSpeed = .25;
         this.turnSpeed = Math.PI * 0.02;
-        this.collisionObject;
-        this.health = new Health(5);
+        this.health = new Health(5, this);
+        this.collisionobj = collision;
+        this.collisionobj.position = this.position.clone();
+
+        scene.add(collision);
     }
 
-    DetectCollision (position) {
+    DetectCollision(position) {
         this.collisionobj.position = position;
         var obj = this.collisionobj;
         var originPoint = this.collisionobj.position;
-        var collide = false;
 
         for (var vertexIndex = 0; vertexIndex < obj.geometry.vertices.length; vertexIndex++) {
             var localVertex = obj.geometry.vertices[vertexIndex].clone();
@@ -23,21 +25,16 @@ class MoveAbleObject extends GameObject {
             var collisionResults = ray.intersectObjects(collidableMeshList);
 
             if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-                console.log(collisionResults[0].object.name);
-                if(collisionResults[0].object instanceof Trap){
-                    var trap = collisionResults[0].object;
-                    this.health.DeltaHealth(trap.damage);
-                    //collide = true;
+                if (collisionResults[0].object != this) {
+                    console.log(collisionResults[0].object.name);
+                    return collisionResults[0].object;
                 }
-                else if (collisionResults[0].object.name == "finish") {
-                    world.CreateNewMaze();
-                } else {
-                    collide = true;
-                }
-                //collide = true;
             }
         }
-        console.log("Collided = " + collide);
-        return collide;
+        return null;
+    }
+
+    OnDead() {
+        console.log("A moveable object died.");
     }
 }

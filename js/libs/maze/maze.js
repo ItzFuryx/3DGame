@@ -126,8 +126,8 @@ var Maze = function (scene, cells, width, height) {
 
             // since only 90 degrees angles, so one of these is always 0
             // to add a certain thickness to the wall, set to 0.5
-            if (lengthX === 0) lengthX = 0.5;
-            if (lengthY === 0) lengthY = 0.5;
+            if (lengthX === 0) lengthX = 1;
+            if (lengthY === 0) lengthY = 1;
 
             // create a cube to represent the wall segment
             var wallGeom = new THREE.BoxGeometry(lengthX, 13, lengthY);

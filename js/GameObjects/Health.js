@@ -1,6 +1,7 @@
 class Health {
-    constructor(healthValue) {
+    constructor(healthValue, object) {
         this.currentHealth = this.maxHealth = healthValue;
+        this.object = object;
     }
 
     DeltaHealth(value) {
@@ -8,9 +9,7 @@ class Health {
         console.log("current Health = " + this.currentHealth);
         if (this.currentHealth <= 0) {
             this.currentHealth = this.maxHealth;
-            //player.Respawn();
-            return false;
+            this.object.OnDead();
         }
-        return true;
     }
 }

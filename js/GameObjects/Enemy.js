@@ -1,25 +1,69 @@
 class Enemy extends MoveAbleObject {
-    constructor(scene) {
-        var Geometry = new THREE.BoxGeometry(5, 5, 5);
-        var Material = new THREE.MeshBasicMaterial({ color: 0x00FF00, transparent: true, opacity: 0.1 });
-        var object = new THREE.Mesh(Geometry, Material);
+    constructor() {
+        var Geometry = new THREE.BoxGeometry(2, 2, 2);
+        var Material = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 1 });
         var collision = new THREE.Mesh(Geometry, Material);
-        object.castShadow = true;
-        object.name = 'enemy';
-        object.position = new THREE.Vector3(width / 2, 1, width / 2);
+        super(Geometry, Material, collision);
 
-        super(object);
+        this.damage = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));
+        this.castShadow = true;
+        this.name = 'enemy';
+        this.cooldown = 2;
+        this.timer = 0;
+        this.damage = 1;
+        this.moveSpeed = 2;
+        this.moveAmount = Math.floor((Math.random() * (2) + (5)));
+        this.moveForward = true;
+        this.position = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
+        this.spawnPos = this.position.clone();
 
-        this.moveSpeed = .25;
-        this.turnSpeed = 5;
-        this.health = new Health(3);
-        
-        this.collisionobj = collision;
-        scene.add(object);
-        scene.add(collision);
+        scene.add(this);
+        collidableMeshList.push(this);
     }
 
-    Update() {
+    Update(deltatime) {
+        var newPos = this.position.clone();
+        if (this.moveForward) {
+            newPos.x += this.moveSpeed * deltatime;
+        }
+        else {
+            newPos.x -= this.moveSpeed * deltatime;
+        }
 
+        var collidedObject = this.DetectCollision(newPos);
+
+        if (collidedObject == null) {
+            this.position = newPos;
+
+            if (newPos.x <= this.spawnPos.x - this.moveAmount || newPos.x >= this.spawnPos.x + this.moveAmount) {
+                this.moveForward = !this.moveForward;
+            }
+        }
+        else {
+            if (collidedObject.name == "player" && this.timer >= this.cooldown) {
+                collidedObject.health.DeltaHealth(this.damage);
+                this.timer = 0;
+            }
+            this.moveForward = !this.moveForward;
+        }
+
+        if (this.timer <= this.cooldown) {
+            this.timer += deltatime;
+        }
+        
+        if(this.DetectCollision(this.position.clone()) != null){
+            this.MakeSpawnPos();
+        }
+    }
+
+    MakeSpawnPos() {
+        var randomPos = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
+        
+        var collidedObject = this.DetectCollision(randomPos);
+        if (collidedObject == null) {
+            this.position = randomPos.clone();
+            this.spawnPos = this.position.clone();
+            return;
+        }
     }
 }

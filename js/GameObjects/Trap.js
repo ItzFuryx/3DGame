@@ -12,8 +12,14 @@ class Trap extends ImmovAbleObject {
         this.castShadow = true;
         this.name = 'trap';
         this.position = new THREE.Vector3(randomPosX, 1, randomPosZ);
+        this.canHit = true;        
 
         scene.add(this);   
         collidableMeshList.push(this); 
+    }
+
+    GetDamage(){
+        this.canHit = false;
+        return this.damage;
     }
 }

@@ -21,7 +21,7 @@ class World {
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
-        var planeMaterial = new THREE.MeshLambertMaterial({ });
+        var planeMaterial = new THREE.MeshLambertMaterial({});
         planeMaterial.map = THREE.ImageUtils.loadTexture("assets/grasstundra-94x94.png");
         planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
         planeMaterial.map.repeat.set(3, 3);
@@ -30,14 +30,14 @@ class World {
         this.plane.rotation.x = -0.5 * Math.PI;
         scene.add(this.plane);
 
-        var startWall = new THREE.BoxGeometry(10, 13, 1);
+        var startWall = new THREE.BoxGeometry(2, 5, 1);
         var startMesh = new THREE.Mesh(startWall);
         startMesh.name = "start";
         startMesh.position.set(width / 2 - 5, 0, width / 2);
         collidableMeshList.push(startMesh);
         scene.add(startMesh);
 
-        var endWall = new THREE.BoxGeometry(10, 13, 1);
+        var endWall = new THREE.BoxGeometry(2, 5, 1);
         var endMesh = new THREE.Mesh(endWall);
         endMesh.name = "finish";
         endMesh.position.set(-width / 2 + 5, 0, -width / 2);
@@ -52,35 +52,37 @@ class World {
 
         var directionalLight = new THREE.DirectionalLight(0x0000ff, 0.5);
         scene.add(directionalLight);
-
         scene.add(finishLight);
 
-        this.CreateTrap();
+        this.CreateDamageAbles();
         this.CreateSkyBox();
     }
 
     CreateNewMaze() {
         level++;
         this.CreateMaze();
-
         player.TeleportScene(scene);
     }
+
     CreateSkyBox() {
         var loader = new THREE.TextureLoader();
         loader.load('assets/skybox.jpg', function (texture) {
-
             var sphericalSkyboxGeometry = new THREE.SphereGeometry(500, 32, 32);
             var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
             var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
             scene.add(sphericalSkybox);
         });
     }
-    CreateTrap() {
-        var amountOfTraps = Math.floor((Math.random() * (level * 20) + (level * 10)));
+
+    CreateDamageAbles() {
+        var amountOfTraps = Math.floor((Math.random() * (level * 10) + (level * 5)));
 
         for (var i = 0; i < amountOfTraps; i++) {
-            trap = new Trap(level, 150);
+            new Trap();
+            updatableTraps.push(new ShootingTrap());
+        }
+        for (var i = 0; i < 3; i++) {
+            enemies.push(new Enemy());
         }
     }
-
 }

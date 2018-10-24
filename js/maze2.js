@@ -4,6 +4,8 @@ var scene;
 var camera;
 
 var collidableMeshList = [];
+var enemies = [];
+var updatableTraps = [];
 var width = 150;
 
 var player;
@@ -12,7 +14,7 @@ var enemy;
 
 var world;
 var enemy;
-var trap;
+var clock;
 
 /**
  * Particles
@@ -26,7 +28,7 @@ var stars;
 function Init() {
     world = new World();
     stars = new THREE.Stars(scene, 1800);
-    enemy = new Enemy(scene);
+    clock = new THREE.Clock;
 
     // create a camera, which defines where we're looking at.
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -52,10 +54,18 @@ function Init() {
  * for future renders
  */
 function Render() {
+    var deltatime = clock.getDelta();
     // and render the scene
     renderer.render(scene, camera);
-    player.Update();
-    stars.Update();
+    player.Update(deltatime);
+    stars.Update(deltatime);
+    for (var i = 0; i < enemies.length; i++) {
+        enemies[i].Update(deltatime);
+    }
+    for (var i = 0; i < updatableTraps.length; i++) {
+        updatableTraps[i].Update(deltatime);
+    }
+
     requestAnimationFrame(Render);
 }
 
