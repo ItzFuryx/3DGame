@@ -84,6 +84,9 @@ class Player extends MoveAbleObject {
     OnDead() {
         this.goRespawn = true;
         console.log("player Died");
+    }    
+    OnHit(){        
+        blood.Hit(player.position);
     }
     OnHit(){        
         blood.Hit(player.position);
