@@ -56,6 +56,9 @@ class World {
 
         this.CreateDamageAbles();
         this.CreateSkyBox();
+
+        stars = new THREE.Stars(scene, 1800);
+        blood = new THREE.BloodFX(scene);
     }
 
     CreateNewMaze() {
@@ -76,13 +79,13 @@ class World {
 
     CreateDamageAbles() {
         var amountOfTraps = Math.floor((Math.random() * (level * 10) + (level * 5)));
-
+        
         for (var i = 0; i < amountOfTraps; i++) {
             new Trap();
             updatableTraps.push(new ShootingTrap());
         }
         for (var i = 0; i < 3; i++) {
             enemies.push(new Enemy());
-        }
+        }        
     }
 }

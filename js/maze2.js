@@ -20,6 +20,7 @@ var clock;
  * Particles
  */
 var stars;
+var blood;
 
 /**
  * Initializes the scene, camera and objects. Called when the window is
@@ -27,7 +28,6 @@ var stars;
  */
 function Init() {
     world = new World();
-    stars = new THREE.Stars(scene, 1800);
     clock = new THREE.Clock;
 
     // create a camera, which defines where we're looking at.
@@ -59,6 +59,7 @@ function Render() {
     renderer.render(scene, camera);
     player.Update(deltatime);
     stars.Update(deltatime);
+    blood.Update(deltatime);
     for (var i = 0; i < enemies.length; i++) {
         enemies[i].Update(deltatime);
     }
