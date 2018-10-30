@@ -5,7 +5,6 @@ class Player extends MoveAbleObject {
         var collision = new THREE.Mesh(Geometry, Material);
         super(Geometry, Material, collision);
 
-        console.log(this + "player ");
         this.castShadow = true;
         this.name = 'player';
         this.camera = camera;
@@ -14,7 +13,7 @@ class Player extends MoveAbleObject {
         this.health = new Health(2, this);
         this.keyboard = {};
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
-        this.position.set(this.respawnLocation.clone());
+        this.position = this.respawnLocation.clone();
         this.goRespawn = false;
 
         scene.add(this);
@@ -52,7 +51,7 @@ class Player extends MoveAbleObject {
 
         var collidedObject = this.DetectCollision(newPosition);
         if (collidedObject == null) {
-            this.position.set(newPosition);
+            this.position = newPosition;
         } else {
             if (collidedObject instanceof Trap || collidedObject instanceof Projectile) {
                 if (collidedObject.canHit)
@@ -71,7 +70,7 @@ class Player extends MoveAbleObject {
     }
 
     MoveCamera() {
-        this.camera.position.set(this.position.clone());
+        this.camera.position = this.position.clone();
         this.camera.position.y = 5;
     }
 
@@ -81,13 +80,14 @@ class Player extends MoveAbleObject {
         this.position = this.respawnLocation.clone();
     }
 
-    OnDead() {
+    Respawn() {
         this.goRespawn = true;
+    }
+
+    OnDead() {
+        this.Respawn();
         console.log("player Died");
     }    
-    OnHit(){        
-        blood.Hit(player.position);
-    }
     OnHit(){        
         blood.Hit(player.position);
     }
