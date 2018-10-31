@@ -8,6 +8,7 @@ var cameraOrtho;
 var collidableMeshList = [];
 var enemies = [];
 var updatableTraps = [];
+var arrows = [];
 var width = 150;
 
 var player;
@@ -17,13 +18,17 @@ var enemy;
 var world;
 var enemy;
 var clock;
-
+/**
+ * Models
+ */
+var arrowGeometry;
+var arrowMaterial;
 /**
  * Loaders
  */
-var textureLoader;
-var mtlLoader;
-var objLoader;
+const textureLoader = new THREE.TextureLoader();
+const mtlLoader = new THREE.MTLLoader();
+const objLoader = new THREE.OBJLoader();
 
 /**
  * Particles
@@ -35,10 +40,9 @@ var blood;
  * Initializes the scene, camera and objects. Called when the window is
  * loaded by using window.onload (see below)
  */
-function Init() {
-    textureLoader = new THREE.TextureLoader();
-    mtlLoader = new THREE.MTLLoader();
-    objLoader = new THREE.OBJLoader();
+function Init() {   
+
+    LoadModels();
     world = new World();
     clock = new THREE.Clock;
 
@@ -48,7 +52,7 @@ function Init() {
     player = new Player(scene, camera);
 
     //experimental HUD garbage dumpsterfire
-    cameraOrtho = new THREE.OrthographicCamera( - window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, - window.innerHeight / 2, 1, 10 );
+    cameraOrtho = new THREE.OrthographicCamera(- window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, - window.innerHeight / 2, 1, 10);
     cameraOrtho.position.z = 10;
     DoHUD();
 
@@ -66,7 +70,21 @@ function Init() {
     // by requestAnimationFrame
     AnimateCam();
     Render();
+
 }
+
+function LoadModels() {
+    mtlLoader.load('assets/Arrow.MTL', function (materials) {
+        materials.preload();
+        objLoader.load('assets/Arrow.obj', function (object) {
+                arrowGeometry = object.children[0].geometry;
+                arrowMaterial = object.children[0].material;
+                
+                world.CreateObjectsWithModels();
+            });
+    });
+}
+
 
 /**
  * Called when the scene needs to be rendered. Delegates to requestAnimationFrame
@@ -100,16 +118,16 @@ function DoHUD() {
 
     var textureLoader = new THREE.TextureLoader;
     textureLoader.load("assets/sprites/heart.png", function (texture) {
-        var material = new THREE.SpriteMaterial({map: texture});
+        var material = new THREE.SpriteMaterial({ map: texture });
         var width = material.map.image.width;
         var height = material.map.image.height;
-        
+
         var sprite = new THREE.Sprite(material);
         sprite.scale.set(100, 100, 1);
-    
+
         sceneOrtho.add(sprite);
-    
-        sprite.position.set(0,0,1);
+
+        sprite.position.set(0, 0, 1);
     });
 
 }
@@ -124,10 +142,10 @@ function HandleResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     cameraOrtho.left = - window.innerWidth / 2;
-	cameraOrtho.right = window.innerWidth / 2;
-	cameraOrtho.top = window.innerHeight / 2;
-	cameraOrtho.bottom = - window.innerHeight / 2;
-	cameraOrtho.updateProjectionMatrix();
+    cameraOrtho.right = window.innerWidth / 2;
+    cameraOrtho.top = window.innerHeight / 2;
+    cameraOrtho.bottom = - window.innerHeight / 2;
+    cameraOrtho.updateProjectionMatrix();
 }
 function AnimateCam() {
     requestAnimationFrame(AnimateCam);

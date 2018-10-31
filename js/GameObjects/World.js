@@ -54,7 +54,6 @@ class World {
         scene.add(directionalLight);
         scene.add(finishLight);
 
-        this.CreateDamageAbles();
         this.CreateSkyBox();
 
         stars = new THREE.Stars(scene, 1800);
@@ -77,9 +76,9 @@ class World {
         });
     }
 
-    CreateDamageAbles() {
+    CreateObjectsWithModels() {
         var amountOfTraps = Math.floor((Math.random() * (level * 10) + (level * 5)));
-        
+
         for (var i = 0; i < amountOfTraps; i++) {
             new Trap();
             updatableTraps.push(new ShootingTrap());

@@ -3,8 +3,9 @@ class ShootingTrap extends Trap {
         super();
         this.projectileStartPos = new THREE.Vector3(this.position.x + 2, this.position.y, this.position.z);
 
-        this.shootObject = new Projectile(this.projectileStartPos.clone(), new THREE.Vector3(1, 0, 0), 1);
-
+        this.shootObject = new Projectile(arrowGeometry, arrowMaterial, this.projectileStartPos.clone(), new THREE.Vector3(1, 0, 0), 1);
+        
+        arrows.push(this.shootObject);
         this.cooldown = 3;
         this.timer = 0;
         this.name = "shootingTrap";

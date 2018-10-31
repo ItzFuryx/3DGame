@@ -76,7 +76,7 @@ class Player extends MoveAbleObject {
             }
         }
         if (this.goRespawn) {
-            this.position = this.respawnLocation.clone();
+            this.position.copy(this.respawnLocation);
             this.goRespawn = false;
         }
         this.MoveCamera();
@@ -91,7 +91,7 @@ class Player extends MoveAbleObject {
     TeleportScene(scene) {
         scene.add(this.object);
         scene.add(this.collisionobj);
-        this.position = this.respawnLocation.clone();
+        this.position.copy(this.respawnLocation);
     }
 
     Respawn() {
