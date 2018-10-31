@@ -54,6 +54,7 @@ function Init() {
  * for future renders
  */
 function Render() {
+    document.getElementById('Health').innerHTML = player.health.currentHealth;
     var deltatime = clock.getDelta();
     // and render the scene
     renderer.render(scene, camera);

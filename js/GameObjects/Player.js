@@ -11,6 +11,7 @@ class Player extends MoveAbleObject {
         this.moveSpeed = 15;
         this.turnSpeed = Math.PI * 2;
         this.health = new Health(2, this);
+        this.experience = new Experiene(this);
         this.keyboard = {};
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
         this.position = this.respawnLocation.clone();
@@ -82,6 +83,9 @@ class Player extends MoveAbleObject {
 
     Respawn() {
         this.goRespawn = true;
+    }
+    LevelUp(){
+        console.log("leveled up!");
     }
 
     OnDead() {
