@@ -7,19 +7,22 @@ class ShootingTrap extends Trap {
 
         this.cooldown = 3;
         this.timer = 0;
+        this.name = "shootingTrap";
         scene.add(this);
         collidableMeshList.push(this);
     }
 
     Update(deltatime) {
-        if (this.timer <= this.cooldown) {
+        if (this.timer <= this.cooldown)
             this.timer += deltatime;
-        }
         else {
             this.timer = 0;
             this.shootObject.position = this.projectileStartPos;
-            this.shootObject.canHit = true;
+            this.shootObject.Continue();
         }
+        
+           
+        
         this.shootObject.Update(deltatime);
     }
 }

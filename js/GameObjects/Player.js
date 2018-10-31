@@ -50,18 +50,18 @@ class Player extends MoveAbleObject {
         }
 
         var collidedObject = this.DetectCollision(newPosition);
-        if (collidedObject == null) {
+       	if (collidedObject == null) {
             this.position = newPosition;
         } else {
-            if (collidedObject instanceof Trap || collidedObject instanceof Projectile) {
+            if (collidedObject instanceof Trap) {
                 if (collidedObject.canHit)
                     this.health.DeltaHealth(collidedObject.GetDamage());
             }
             else if (collidedObject.name == "finish") {
+                console.log("collide is finish");
                 world.CreateNewMaze();
             }
         }
-
         if (this.goRespawn) {
             this.position = this.respawnLocation.clone();
             this.goRespawn = false;
