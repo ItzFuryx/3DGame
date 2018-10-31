@@ -17,12 +17,10 @@ class ShootingTrap extends Trap {
             this.timer += deltatime;
         else {
             this.timer = 0;
-            this.shootObject.position = this.projectileStartPos;
+            this.shootObject.position.copy(this.projectileStartPos);
             this.shootObject.Continue();
         }
-        
-           
-        
+
         this.shootObject.Update(deltatime);
     }
 }

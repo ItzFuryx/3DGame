@@ -19,6 +19,13 @@ var enemy;
 var clock;
 
 /**
+ * Loaders
+ */
+var textureLoader;
+var mtlLoader;
+var objLoader;
+
+/**
  * Particles
  */
 var stars;
@@ -29,6 +36,9 @@ var blood;
  * loaded by using window.onload (see below)
  */
 function Init() {
+    textureLoader = new THREE.TextureLoader();
+    mtlLoader = new THREE.MTLLoader();
+    objLoader = new THREE.OBJLoader();
     world = new World();
     clock = new THREE.Clock;
 
@@ -47,7 +57,7 @@ function Init() {
     renderer.autoClear = false; //needed for the HUD to work with Ortho;
     renderer.setClearColor(0x000000, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMapEnabled = true;
+    renderer.shadowMap.enabled = true;
 
     // add the output of the renderer to the html element
     document.body.appendChild(renderer.domElement);

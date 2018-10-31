@@ -4,10 +4,11 @@ THREE.BloodFX = function (scene) {
     var dirs = [];
     var particleCount = Math.floor((Math.random() * (15) + (30))),
         particles = new THREE.Geometry(),
-        pMaterial = new THREE.ParticleBasicMaterial({
+        pMaterial = new THREE.PointsMaterial({
             color: 0xff0000,
             size: Math.random() * (1.5) + (2),
-            map: THREE.ImageUtils.loadTexture(
+            
+            map: textureLoader.load(
                 "assets/particle.png"
             ),
             blending: THREE.AdditiveBlending,
@@ -29,7 +30,7 @@ THREE.BloodFX = function (scene) {
         particles.vertices.push(particle);
     }
 
-    var particleSystem = new THREE.ParticleSystem(
+    var particleSystem = new THREE.Points(
         particles,
         pMaterial);
 

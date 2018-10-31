@@ -9,10 +9,10 @@ class Experience {
     }
 
     DeltaExp(value) {
-        this.currentHealth -= value;
+        this.currentExperience += value;
         console.log("current Experience = " + this.currentExperience);
         if (this.currentExperience >= this.maxExperience) {
-            this.currentHealth = 0;
+            this.currentExperience = 0;
             this.maxExperience = (_addedExp * BaseValue) * 2 + (_baseExp * BaseValue);
             this.object.LevelUp();
         }

@@ -66,7 +66,7 @@ var Maze = function (scene, cells, width, height) {
                     return _.include(edge, cell1) && _.include(edge, cell2);
                 }) != undefined;
             };
-            
+
             for (var i = 0; i < graph.width; i++) {
                 for (var j = 0; j < graph.height; j++) {
                     var cell = graph.cells[i][j];
@@ -116,7 +116,7 @@ var Maze = function (scene, cells, width, height) {
             }
         },
 
-        getElements: function() {
+        getElements: function () {
             return self.elements;
         },
 
@@ -132,7 +132,7 @@ var Maze = function (scene, cells, width, height) {
             // create a cube to represent the wall segment
             var wallGeom = new THREE.BoxGeometry(lengthX, 13, lengthY);
             var wallMaterial = new THREE.MeshLambertMaterial({});
-            wallMaterial.map = THREE.ImageUtils.loadTexture("assets/wall.png");
+            wallMaterial.map = textureLoader.load("assets/wall.png");
             wallMaterial.map.wrapS = wallMaterial.map.wrapT = THREE.RepeatWrapping;
             wallMaterial.map.repeat.set(1, 1);
 
@@ -140,8 +140,8 @@ var Maze = function (scene, cells, width, height) {
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
 
             // finally position it correctly
-            wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) -(self.height/2), wallGeom.height/2, y1 - ((y1 - y2)) / 2 - (self.width /2));
-            if(wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75){
+            wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) - (self.height / 2), wallGeom.height / 2, y1 - ((y1 - y2)) / 2 - (self.width / 2));
+            if (wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75) {
                 console.log("Hello world");
                 wallMesh.name = "finish";
             } else {
@@ -151,13 +151,11 @@ var Maze = function (scene, cells, width, height) {
             self.elements.push(wallMesh);
             scene.add(wallMesh);
         }
-
-        
     };
-    function CreateFullWall(){
+    function CreateFullWall() {
         var fullWallGeometry = new THREE.PlaneGeometry(width, 13, 40, 40);
         var fullWallMaterial = new THREE.MeshLambertMaterial({});
-        fullWallMaterial.map = THREE.ImageUtils.loadTexture("assets/wall.png");
+        fullWallMaterial.map = textureLoader.load("assets/wall.png");
         fullWallMaterial.map.wrapS = fullWallMaterial.map.wrapT = THREE.RepeatWrapping;
         fullWallMaterial.map.repeat.set(1, 1);
 
@@ -165,30 +163,29 @@ var Maze = function (scene, cells, width, height) {
         var fullWallL = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
         var fullWallR = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
         var fullWallF = new THREE.Mesh(fullWallGeometry, fullWallMaterial);
-    
+
         //back
-        fullWallB.position.set(0,0,75);
+        fullWallB.position.set(0, 0, 75);
         fullWallB.rotateY(3.14159265);
         scene.add(fullWallB);
-        collidableMeshList.push(fullWallB); 
+        collidableMeshList.push(fullWallB);
 
         //left
-        fullWallL.position.set(-75,0,0);
-        fullWallL.rotateY(Math.PI/2);
+        fullWallL.position.set(-75, 0, 0);
+        fullWallL.rotateY(Math.PI / 2);
         scene.add(fullWallL);
-        collidableMeshList.push(fullWallL); 
+        collidableMeshList.push(fullWallL);
 
         //right
-        fullWallR.position.set(75,0,0);
-        fullWallR.rotateY(Math.PI/2);
+        fullWallR.position.set(75, 0, 0);
+        fullWallR.rotateY(Math.PI / 2);
         fullWallR.rotateY(3.14159265);
         scene.add(fullWallR);
-        collidableMeshList.push(fullWallR); 
+        collidableMeshList.push(fullWallR);
 
         //front
-        fullWallF.position.set(0,0,-75); 
+        fullWallF.position.set(0, 0, -75);
         scene.add(fullWallF);
-        collidableMeshList.push(fullWallF); 
+        collidableMeshList.push(fullWallF);
     }
-    
 };

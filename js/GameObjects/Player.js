@@ -14,8 +14,9 @@ class Player extends MoveAbleObject {
         this.experience = new Experience(this);
         this.keyboard = {};
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
-        this.position = this.respawnLocation.clone();
+        this.position.copy(this.respawnLocation);
         this.goRespawn = false;
+        this.damage = 10;
 
         scene.add(this);
         collidableMeshList.push(this);
@@ -24,6 +25,9 @@ class Player extends MoveAbleObject {
     Update(deltatime) {
         var newPosition = this.position.clone();
 
+        if (this.keyboard[32]) {
+            console.log("space ");
+        }
         if (this.keyboard[87]) {// W key
             newPosition.x -= Math.sin(this.camera.rotation.y) * this.moveSpeed * deltatime;
             newPosition.z -= Math.cos(this.camera.rotation.y) * this.moveSpeed * deltatime;
@@ -59,8 +63,8 @@ class Player extends MoveAbleObject {
         }
 
         var collidedObject = this.DetectCollision(newPosition);
-       	if (collidedObject == null) {
-            this.position = newPosition;
+        if (collidedObject == null) {
+            this.position.copy(newPosition);
         } else {
             if (collidedObject instanceof Trap) {
                 if (collidedObject.canHit)
@@ -79,8 +83,9 @@ class Player extends MoveAbleObject {
     }
 
     MoveCamera() {
-        this.camera.position = this.position.clone();
-        this.camera.position.y = 5;
+        this.camera.position.x = this.position.x;
+        this.camera.position.y = this.position.y + 4;
+        this.camera.position.z = this.position.z;
     }
 
     TeleportScene(scene) {
@@ -92,15 +97,15 @@ class Player extends MoveAbleObject {
     Respawn() {
         this.goRespawn = true;
     }
-    LevelUp(){
+    LevelUp() {
         console.log("leveled up!");
     }
 
     OnDead() {
         this.Respawn();
         console.log("player Died");
-    }    
-    OnHit(){        
+    }
+    OnHit() {
         blood.Hit(player.position);
     }
 }

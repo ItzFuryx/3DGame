@@ -22,7 +22,7 @@ class World {
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
         var planeMaterial = new THREE.MeshLambertMaterial({});
-        planeMaterial.map = THREE.ImageUtils.loadTexture("assets/grasstundra-94x94.png");
+        planeMaterial.map = textureLoader.load("assets/grasstundra-94x94.png");
         planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
         planeMaterial.map.repeat.set(3, 3);
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
@@ -80,10 +80,10 @@ class World {
     CreateDamageAbles() {
         var amountOfTraps = Math.floor((Math.random() * (level * 10) + (level * 5)));
         
-        /*for (var i = 0; i < amountOfTraps; i++) {
+        for (var i = 0; i < amountOfTraps; i++) {
             new Trap();
             updatableTraps.push(new ShootingTrap());
-        }*/
+        }
         for (var i = 0; i < 3; i++) {
             enemies.push(new Enemy());
         }        

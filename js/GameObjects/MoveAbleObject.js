@@ -6,13 +6,13 @@ class MoveAbleObject extends GameObject {
         this.turnSpeed = Math.PI * 0.02;
         this.health = new Health(5, this);
         this.collisionobj = collision;
-        this.collisionobj.position = this.position.clone();
+        this.collisionobj.position.copy(this.position.clone());
 
         scene.add(collision);
     }
 
     DetectCollision(position) {
-        this.collisionobj.position = position;
+        this.collisionobj.position.copy(position);
         var obj = this.collisionobj;
         var originPoint = this.collisionobj.position;
 

@@ -1,7 +1,7 @@
 THREE.Stars = function (scene, amount) {
     var particleCount = amount,
         particles = new THREE.Geometry(),
-        pMaterial = new THREE.ParticleBasicMaterial({
+        pMaterial = new THREE.PointsMaterial({
             color: 0xFFFFFF,
             size: Math.random() * 1,
             transparent: true,
@@ -22,7 +22,7 @@ THREE.Stars = function (scene, amount) {
         particles.vertices.push(particle);
     }
 
-    var particleSystem = new THREE.ParticleSystem(
+    var particleSystem = new THREE.Points(
         particles,
         pMaterial);
 
