@@ -1,7 +1,9 @@
 // global variables
 var renderer;
 var scene;
+var sceneOrtho;
 var camera;
+var cameraOrtho;
 
 var collidableMeshList = [];
 var enemies = [];
@@ -34,8 +36,14 @@ function Init() {
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     player = new Player(scene, camera);
 
+    //experimental HUD garbage dumpsterfire
+    cameraOrtho = new THREE.OrthographicCamera( - window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, - window.innerHeight / 2, 1, 10 );
+    cameraOrtho.position.z = 10;
+    DoHUD();
+
     // create a render, sets the background color and the size
     renderer = new THREE.WebGLRenderer();
+    renderer.autoClear = false; //needed for the HUD to work with Ortho;
     renderer.setClearColor(0x000000, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true;
@@ -57,7 +65,10 @@ function Render() {
     document.getElementById('Health').innerHTML = player.health.currentHealth;
     var deltatime = clock.getDelta();
     // and render the scene
+    renderer.clear();
     renderer.render(scene, camera);
+    renderer.clearDepth();
+    renderer.render(sceneOrtho, cameraOrtho);
     player.Update(deltatime);
     stars.Update(deltatime);
     blood.Update(deltatime);
@@ -72,6 +83,28 @@ function Render() {
 }
 
 /**
+ * Experimental HUD. it works like this but honestly fuck putting it in classes everything breaks
+ */
+function DoHUD() {
+    sceneOrtho = new THREE.Scene;
+
+    var textureLoader = new THREE.TextureLoader;
+    textureLoader.load("assets/sprites/heart.png", function (texture) {
+        var material = new THREE.SpriteMaterial({map: texture});
+        var width = material.map.image.width;
+        var height = material.map.image.height;
+        
+        var sprite = new THREE.Sprite(material);
+        sprite.scale.set(100, 100, 1);
+    
+        sceneOrtho.add(sprite);
+    
+        sprite.position.set(0,0,1);
+    });
+
+}
+
+/**
  * Function handles the resize event. This make sure the camera and the renderer
  * are updated at the correct moment.
  */
@@ -79,6 +112,12 @@ function HandleResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+
+    cameraOrtho.left = - window.innerWidth / 2;
+	cameraOrtho.right = window.innerWidth / 2;
+	cameraOrtho.top = window.innerHeight / 2;
+	cameraOrtho.bottom = - window.innerHeight / 2;
+	cameraOrtho.updateProjectionMatrix();
 }
 function AnimateCam() {
     requestAnimationFrame(AnimateCam);
