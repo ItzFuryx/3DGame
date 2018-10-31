@@ -9,7 +9,7 @@ class Player extends MoveAbleObject {
         this.name = 'player';
         this.camera = camera;
         this.moveSpeed = 15;
-        this.turnSpeed = Math.PI * 2;
+        this.turnSpeed = Math.PI * 1;
         this.health = new Health(2, this);
         this.experience = new Experience(this);
         this.keyboard = {};
@@ -48,6 +48,14 @@ class Player extends MoveAbleObject {
 
         if (this.keyboard[39]) { // right arrow key
             this.camera.rotation.y -= this.turnSpeed * deltatime;
+        }
+
+        if (this.keyboard[38]) { // up arrow key
+            this.camera.rotation.x += this.turnSpeed * deltatime * 0.7;
+        }
+
+        if (this.keyboard[40]) { // down arrow key
+            this.camera.rotation.x -= this.turnSpeed * deltatime * 0.7;
         }
 
         var collidedObject = this.DetectCollision(newPosition);
