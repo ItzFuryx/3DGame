@@ -1,6 +1,11 @@
 class GameObject extends THREE.Mesh{
     constructor(Geometry, Material) {
         super(Geometry, Material);
+        
+        this.directionUp = new THREE.Vector3(1, 0, 0);
+        this.directionDown = new THREE.Vector3(-1, 0, 0);
+        this.directionRight = new THREE.Vector3(0, 0, 1);
+        this.directionLeft = new THREE.Vector3(0, 0, -1);
     }
 
     CheckCollision(position, direction){

@@ -18,8 +18,7 @@ class Enemy extends MoveAbleObject {
         this.moveAmount = Math.floor((Math.random() * (2) + (5)));
         //this.moveForward = true;
         this.position.copy(new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75)))));
-        this.spawnPos = THREE.Vector3(0, 0, 0);
-        MakeSpawnPos();
+        this.MakeSpawnPos();
         scene.add(this);
         collidableMeshList.push(this);
     }
@@ -68,10 +67,10 @@ class Enemy extends MoveAbleObject {
         var randomPos = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
 
         var results = [];
-        results.add(CheckCollision(randomPos, THREE.Vector3(1, 0, 0)));
-        results.add(CheckCollision(randomPos, THREE.Vector3(-1, 0, 0)));
-        results.add(CheckCollision(randomPos, THREE.Vector3(0, 0, 1)));
-        results.add(CheckCollision(randomPos, THREE.Vector3(0, 0, -1)));
+        results.push(this.CheckCollision(randomPos, this.directionUp));
+        results.push(this.CheckCollision(randomPos, this.directionDown));
+        results.push(this.CheckCollision(randomPos, this.directionLeft));
+        results.push(this.CheckCollision(randomPos, this.directionRight));
 
         results.forEach(e => {
             if (e != null) {
@@ -82,6 +81,5 @@ class Enemy extends MoveAbleObject {
         });
 
         this.position.copy(randomPos);
-        this.spawnPos.copy(this.position);
     }
 }

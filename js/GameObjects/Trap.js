@@ -13,7 +13,7 @@ class Trap extends ImmovAbleObject {
         this.name = 'trap';
         this.position.set(randomPosX, 1, randomPosZ);
         this.canHit = true;
-
+        this.MakeSpawnPos();
         scene.add(this);
         collidableMeshList.push(this);
     }
@@ -27,10 +27,10 @@ class Trap extends ImmovAbleObject {
         var randomPos = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
 
         var results = [];
-        results.add(CheckCollision(randomPos, THREE.Vector3(1, 0, 0)));
-        results.add(CheckCollision(randomPos, THREE.Vector3(-1, 0, 0)));
-        results.add(CheckCollision(randomPos, THREE.Vector3(0, 0, 1)));
-        results.add(CheckCollision(randomPos, THREE.Vector3(0, 0, -1)));
+        results.push(this.CheckCollision(randomPos, this.directionUp));
+        results.push(this.CheckCollision(randomPos, this.directionDown));
+        results.push(this.CheckCollision(randomPos, this.directionLeft));
+        results.push(this.CheckCollision(randomPos, this.directionRight));
 
         results.forEach(e => {
             if (e != null) {
