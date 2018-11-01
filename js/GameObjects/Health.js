@@ -1,6 +1,7 @@
 class Health {
     constructor(healthValue, object) {
-        this.currentHealth = this.maxHealth = healthValue;
+        this.currentHealth = healthValue;
+        this.maxHealth = healthValue;
         this.object = object;
     }
 
@@ -11,6 +12,15 @@ class Health {
         if (this.currentHealth <= 0) {
             this.currentHealth = this.maxHealth;
             this.object.OnDead();
+        }
+    }
+
+    IsFullHealth(){
+        if(this.currentHealth == this.maxHealth){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }

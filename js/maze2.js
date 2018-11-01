@@ -120,7 +120,7 @@ function Render() {
 function DoHUD() {
     sceneOrtho = new THREE.Scene;
 
-    var textureLoader = new THREE.TextureLoader;
+    /*var textureLoader = new THREE.TextureLoader;
     textureLoader.load("assets/sprites/heart.png", function(texture) {
         var material = new THREE.SpriteMaterial({ map: texture });
         var width = material.map.image.width;
@@ -132,7 +132,7 @@ function DoHUD() {
         sceneOrtho.add(sprite);
 
         sprite.position.set(0, 0, 1);
-    });
+    });*/
 
 }
 

@@ -14,54 +14,73 @@ class Enemy extends MoveAbleObject {
         this.damage = 1;
         this.moveSpeed = 10;
         this.moveAngle = Math.PI / 4;
-        this.normaleVariableNaamDankjewelPIM = 0;
-        //this.moveRotation = true;
+        this.headAche = 0;
         this.moveAmount = Math.floor((Math.random() * (2) + (5)));
-        //this.moveForward = true;
         this.position.copy(new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75)))));
         this.MakeSpawnPos();
         scene.add(this);
         collidableMeshList.push(this);
+        this.tmpcolcheck = null;
     }
 
     Update(deltatime) {
-        /*
-        if (this.normaleVariableNaamDankjewelPIM > 100) {
-            this.normaleVariableNaamDankjewelPIM = 0;
+        if (this.timer <= this.cooldown) {
+            this.timer += deltatime;
+        }
+
+        if (this.headAche > 100) {
+            this.headAche = 0;
             this.MakeSpawnPos();
         }
         else {
+            var directiontoPlayer = new THREE.Vector3(
+                this.position.x - player.position.x,
+                0,
+                this.position.z - player.position.z);
+
+            directiontoPlayer.x = -directiontoPlayer.x;
+            directiontoPlayer.z = -directiontoPlayer.z;
+            var objectinWay = this.CheckCollision(this.position, directiontoPlayer);
+            if (this.tmpcolcheck == 1) {
+                this.tmpcolcheck = null;
+            }
+            if (objectinWay != null) {
+                if (objectinWay.object instanceof Player) {
+                    this.position.x += directiontoPlayer.x * this.moveSpeed * deltatime;
+                    this.position.y = 1;
+                    this.position.z += directiontoPlayer.z * this.moveSpeed * deltatime;
+                    if (objectinWay.distance < 1 && this.timer >= this.cooldown) {
+                        objectinWay.object.health.DeltaHealth(this.damage);
+                        if(objectinWay.object.health.IsFullHealth()){
+                            this.MakeSpawnPos();
+                        }
+                        this.timer = 0;
+                    }
+                    return;
+                }
+            }
 
             var newPos = this.position.clone();
             newPos.x -= Math.sin(this.moveAngle) * this.moveSpeed * deltatime;
             newPos.z -= Math.cos(this.moveAngle) * this.moveSpeed * deltatime;
+            newPos.y = 1;
 
+            var direction = new THREE.Vector3(
+                newPos.x - this.position.x,
+                newPos.y - this.position.y,
+                newPos.z - this.position.z);
 
-            var collidedObject = this.DetectCollision(newPos.clone());
+            var collidedObject = this.CheckCollision(this.position, direction);
 
-            if (collidedObject == null) {
+            if (collidedObject == null || collidedObject.distance > 3) {
                 this.position.copy(newPos);
-                if (this.DetectCollision(this.position.clone()) != null) {
-                    console.log("Gaat hard mis");
-                }
             }
             else {
-                this.normaleVariableNaamDankjewelPIM += 1;
-                if (collidedObject.name == "player" && this.timer >= this.cooldown) {
-                    collidedObject.health.DeltaHealth(this.damage);
-                    this.timer = 0;
-                }
-                else {
-                    this.moveAngle = Math.random() * (Math.PI * 2);
-                }
+                this.headAche += 1;
+                this.moveAngle = Math.random() * (Math.PI * 2);
+                this.tmpcolcheck = 1;
             }
-
-            if (this.timer <= this.cooldown) {
-                this.timer += deltatime;
-            }
-
         }
-        */
     }
 
     MakeSpawnPos() {

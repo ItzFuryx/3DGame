@@ -85,7 +85,7 @@ class World {
             new Trap();
             updatableTraps.push(new ShootingTrap());
         }
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 5; i++) {
             enemies.push(new Enemy());
         }
     }
