@@ -6,7 +6,7 @@ THREE.BloodFX = function (scene) {
         particles = new THREE.Geometry(),
         pMaterial = new THREE.PointsMaterial({
             color: 0xff0000,
-            size: Math.random() * (1.5) + (2),            
+            size: Math.random() * 3 + 4,
             map: textureLoader.load(
                 "assets/particle.png"
             ),
@@ -16,17 +16,18 @@ THREE.BloodFX = function (scene) {
         });
 
     for (var p = 0; p < particleCount; p++) {
-        var pX = 0,
-            pY = 0,
-            pZ = 0
-            particle = new THREE.Vector3(pX, pY, pZ);
+        var pX = (width / 2) - 10,
+            pY = 2,
+            pZ = (width / 2) - 20
+        particle = new THREE.Vector3(pX, pY, pZ);
 
         particle.velocity = new THREE.Vector3(
             (Math.random() * speed) - (speed / 2),
             (Math.random() * speed) - (speed / 2),
             (Math.random() * speed) - (speed / 2));
-        dirs.push({ x: (Math.random() * speed) - (speed / 2), y: (Math.random() * speed) - (speed / 2), z: (Math.random() * speed) - (speed / 2) });
+
         particles.vertices.push(particle);
+        dirs.push({ x: (Math.random() * speed) - (speed / 2), y: (Math.random() * speed) - (speed / 2), z: (Math.random() * speed) - (speed / 2) });
     }
 
     var particleSystem = new THREE.Points(
@@ -46,7 +47,6 @@ THREE.BloodFX = function (scene) {
         while (pCount--) {
             var particle =
                 particles.vertices[pCount];
-
             particle.velocity.x += dirs[pCount].x;
             particle.velocity.y += dirs[pCount].y;
             particle.velocity.z += dirs[pCount].z;
@@ -54,21 +54,18 @@ THREE.BloodFX = function (scene) {
             particle.add(particle.velocity);
         }
 
-        particleSystem.
-            geometry.
-            __dirtyVertices = true;
+        particleSystem.geometry.verticesNeedUpdate = true;
     }
 
     this.Hit = function (position) {
         time = 0;
         var pCount = particleCount;
         while (pCount--) {
-            var particle =
-                particles.vertices[pCount];
+            var particle = particles.vertices[pCount];
 
             particle.x = position.x;
-            particle.y = position.y;
-            particle.z = position.z -5;
+            particle.y = 0;
+            particle.z = position.z;
 
             particle.velocity.x = dirs[pCount].x;
             particle.velocity.y = dirs[pCount].y;

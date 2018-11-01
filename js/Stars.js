@@ -17,7 +17,7 @@ THREE.Stars = function (scene, amount) {
         particle.velocity = new THREE.Vector3(
             Math.random() * (-.00001 - .00001) + .00001,
             Math.random() * -.00001,
-            Math.random() * (-.00001 - .00001) + .00001);		
+            Math.random() * (-.00001 - .00001) + .00001);
 
         particles.vertices.push(particle);
     }
@@ -30,23 +30,20 @@ THREE.Stars = function (scene, amount) {
 
     scene.add(particleSystem);
 
-    this.Update = function () {
+    this.Update = function (deltatime) {
         var pCount = particleCount;
         while (pCount--) {
-            var particle =
-                particles.vertices[pCount];
+            var particle = particles.vertices[pCount];
 
             if (particle.y < 10) {
                 particle.y = 40;
                 particle.velocity.y = 0;
             }
 
-            particle.velocity.y -= Math.random() * .00001;
+            particle.velocity.y -= Math.random() * .0001 * deltatime;
             particle.add(particle.velocity);
         }
 
-        particleSystem.
-            geometry.
-            __dirtyVertices = true;
+        particleSystem.geometry.verticesNeedUpdate = true;
     }
 }

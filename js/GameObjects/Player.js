@@ -16,17 +16,29 @@ class Player extends MoveAbleObject {
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
         this.position.copy(this.respawnLocation);
         this.goRespawn = false;
-        this.damage = 10;
-
+        this.damage = 1;
+        this.lookDirection = new THREE.Vector3(0, 0, 0);
+        this.attacked = false;
+        this.attackTimer = 0;
+        this.attackCooldown = 1;
         scene.add(this);
         collidableMeshList.push(this);
     }
 
     Update(deltatime) {
         var newPosition = this.position.clone();
+        camera.getWorldDirection(this.lookDirection);
 
-        if (this.keyboard[32]) {
-            console.log("space ");
+        if (this.keyboard[32] && !this.attacked) {
+            this.lookDirection.y = 0;
+            var collidedObject = this.CheckCollision(this.position, this.lookDirection);
+
+            if (collidedObject != null) {
+                if (collidedObject.object instanceof Enemy && collidedObject.distance < 10) {
+                    collidedObject.object.health.DeltaHealth(this.damage);
+                    this.attacked = true;
+                }
+            }
         }
         if (this.keyboard[87]) {// W key
             newPosition.x -= Math.sin(this.camera.rotation.y) * this.moveSpeed * deltatime;
@@ -92,7 +104,15 @@ class Player extends MoveAbleObject {
         else {
             this.position.copy(newPosition);
         }
-        
+
+        if (this.attacked) {
+            this.attackTimer += deltatime;
+            if (this.attackTimer >= this.attackCooldown) {
+                this.attackTimer = 0;
+                this.attacked = false;
+            }
+        }
+
         if (this.goRespawn) {
             this.position.copy(this.respawnLocation);
             this.goRespawn = false;
@@ -125,6 +145,10 @@ class Player extends MoveAbleObject {
         console.log("player Died");
     }
     OnHit() {
-        blood.Hit(player.position);
+        var pos = new THREE.Vector3(
+            this.position.x + (this.lookDirection.x * 2),
+            0,
+            this.position.z + (this.lookDirection.z * 2));
+        blood.Hit(pos);
     }
 }

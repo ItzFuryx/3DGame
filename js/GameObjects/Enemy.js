@@ -5,6 +5,7 @@ class Enemy extends MoveAbleObject {
         var collision = new THREE.Mesh(Geometry, Material);
         super(Geometry, Material, collision);
 
+        this.health = new Health(2, this);
         this.damage = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));
         this.castShadow = true;
         this.name = 'enemy';
@@ -81,5 +82,13 @@ class Enemy extends MoveAbleObject {
         });
 
         this.position.copy(randomPos);
+    }
+
+    OnDead() {
+        console.log("Enemy Died");
+        player.experience.DeltaExp(this.health.maxHealth);
+    }
+    OnHit() {
+        console.log("Enemy Hit");
     }
 }

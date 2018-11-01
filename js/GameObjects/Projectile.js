@@ -25,23 +25,23 @@ class Projectile extends MoveAbleObject {
         if (this.collided) {
             return;
         }
-        var ray = new THREE.Raycaster(this.position.clone(), this.shootDirection.clone().normalize());
-
-        var collisionResults = ray.intersectObjects(collidableMeshList);
-
-        if (collisionResults.length > 0 && collisionResults[0].distance < 1) {
-            if (collisionResults[0].object.name == "wall") {
-                this.HitObject();
-            } else if (collisionResults[0].object instanceof Player) {
-                collisionResults[0].object.health.DeltaHealth(this.GetDamage());
-                this.HitObject();
+        var collisionResult = this.CheckCollision(this.position, this.shootDirection);;
+        if (collisionResult != null) {
+            if (collisionResult.distance < 1) {
+                if (collisionResult.object.name == "wall") {
+                    this.HitObject();
+                } else if (collisionResult.object instanceof Player) {
+                    collisionResult.object.health.DeltaHealth(this.GetDamage());
+                    this.HitObject();
+                }
+                return;
             }
-        } else {
-            var newPosition = this.position.clone();
-            newPosition.x += this.shootDirection.x * this.moveSpeed * deltatime;
-            newPosition.z += this.shootDirection.z * this.moveSpeed * deltatime;
-            this.position.copy(newPosition);
         }
+
+        var newPosition = this.position.clone();
+        newPosition.x += this.shootDirection.x * this.moveSpeed * deltatime;
+        newPosition.z += this.shootDirection.z * this.moveSpeed * deltatime;
+        this.position.copy(newPosition);
     }
 
     GetDamage() {
