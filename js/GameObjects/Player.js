@@ -55,38 +55,51 @@ class Player extends MoveAbleObject {
         }
 
         if (this.keyboard[38]) { // up arrow key
-            if(this.camera.rotation.x > 0.3)
+            if (this.camera.rotation.x > 0.3)
                 this.camera.rotation.x = this.camera.rotation.x
             else
                 this.camera.rotation.x += this.turnSpeed * deltatime * 0.7;
         }
 
         if (this.keyboard[40]) { // down arrow key
-            if(this.camera.rotation.x < -0.4)
+            if (this.camera.rotation.x < -0.4)
                 this.camera.rotation.x = this.camera.rotation.x
             else
                 this.camera.rotation.x -= this.turnSpeed * deltatime * 0.7;
         }
 
-        var collidedObject = this.DetectCollision(newPosition);
-        if (collidedObject == null) {
-            this.position.copy(newPosition);
-        } else {
-            if (collidedObject instanceof Trap) {
-                if (collidedObject.canHit)
-                    this.health.DeltaHealth(collidedObject.GetDamage());
+        var direction = new THREE.Vector3(
+            newPosition.x - this.position.x,
+            newPosition.y - this.position.y,
+            newPosition.z - this.position.z);
+
+        var collidedObject = this.CheckCollision(this.position, direction);
+        if (collidedObject != null) {
+            if (collidedObject.distance < 1) {
+                if (collidedObject instanceof Trap) {
+                    if (collidedObject.canHit)
+                        this.health.DeltaHealth(collidedObject.GetDamage());
+                }
+                else if (collidedObject.name == "finish") {
+                    console.log("collide is finish");
+                    world.CreateNewMaze();
+                }
             }
-            else if (collidedObject.name == "finish") {
-                console.log("collide is finish");
-                world.CreateNewMaze();
+            else {
+                this.position.copy(newPosition);
             }
         }
+        else {
+            this.position.copy(newPosition);
+        }
+        
         if (this.goRespawn) {
             this.position.copy(this.respawnLocation);
             this.goRespawn = false;
         }
         this.MoveCamera();
     }
+
 
     MoveCamera() {
         this.camera.position.x = this.position.x;
