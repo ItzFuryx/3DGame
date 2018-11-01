@@ -40,20 +40,20 @@ class Player extends MoveAbleObject {
                 }
             }
         }
-        if (this.keyboard[87]) {// W key
+        if (this.keyboard[87]) { // W key
             newPosition.x -= Math.sin(this.camera.rotation.y) * this.moveSpeed * deltatime;
             newPosition.z -= Math.cos(this.camera.rotation.y) * this.moveSpeed * deltatime;
         }
-        if (this.keyboard[83]) {// S key
+        if (this.keyboard[83]) { // S key
             newPosition.x += Math.sin(this.camera.rotation.y) * this.moveSpeed * deltatime;
             newPosition.z += Math.cos(this.camera.rotation.y) * this.moveSpeed * deltatime;
         }
-        if (this.keyboard[65]) {// A key
+        if (this.keyboard[65]) { // A key
             newPosition.x -= Math.sin(this.camera.rotation.y + Math.PI / 2) * this.moveSpeed * deltatime;
             newPosition.z -= Math.cos(this.camera.rotation.y + Math.PI / 2) * this.moveSpeed * deltatime;
         }
 
-        if (this.keyboard[68]) {// D key
+        if (this.keyboard[68]) { // D key
             newPosition.x -= Math.sin(this.camera.rotation.y - Math.PI / 2) * this.moveSpeed * deltatime;
             newPosition.z -= Math.cos(this.camera.rotation.y - Math.PI / 2) * this.moveSpeed * deltatime;
         }
@@ -145,10 +145,8 @@ class Player extends MoveAbleObject {
         console.log("player Died");
     }
     OnHit() {
-        var pos = new THREE.Vector3(
-            this.position.x + (this.lookDirection.x * 2),
-            0,
-            this.position.z + (this.lookDirection.z * 2));
-        blood.Hit(pos);
+        blood.Hit(this.position);
+        gamePanel.MoveProgress();
     }
+
 }

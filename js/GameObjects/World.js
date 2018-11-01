@@ -17,7 +17,7 @@ class World {
         this.maze.generate();
         this.maze.draw();
         var walls = this.maze.getElements();
-        walls.forEach(function (e) { collidableMeshList.push(e) });
+        walls.forEach(function(e) { collidableMeshList.push(e) });
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
@@ -58,6 +58,8 @@ class World {
 
         stars = new THREE.Stars(scene, 1800);
         blood = new THREE.BloodFX(scene);
+
+        //gamePanel = new gamePanel();
     }
 
     CreateNewMaze() {
@@ -68,7 +70,7 @@ class World {
 
     CreateSkyBox() {
         var loader = new THREE.TextureLoader();
-        loader.load('assets/skybox.jpg', function (texture) {
+        loader.load('assets/skybox.jpg', function(texture) {
             var sphericalSkyboxGeometry = new THREE.SphereGeometry(500, 32, 32);
             var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
             var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
@@ -85,6 +87,6 @@ class World {
         }
         for (var i = 0; i < 3; i++) {
             enemies.push(new Enemy());
-        }        
+        }
     }
 }

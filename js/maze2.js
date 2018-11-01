@@ -18,6 +18,8 @@ var enemy;
 var world;
 var enemy;
 var clock;
+var gamePanel;
+
 /**
  * Models
  */
@@ -40,7 +42,7 @@ var blood;
  * Initializes the scene, camera and objects. Called when the window is
  * loaded by using window.onload (see below)
  */
-function Init() {   
+function Init() {
 
     LoadModels();
     world = new World();
@@ -52,7 +54,7 @@ function Init() {
     player = new Player(scene, camera);
 
     //experimental HUD garbage dumpsterfire
-    cameraOrtho = new THREE.OrthographicCamera(- window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, - window.innerHeight / 2, 1, 10);
+    cameraOrtho = new THREE.OrthographicCamera(-window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, -window.innerHeight / 2, 1, 10);
     cameraOrtho.position.z = 10;
     DoHUD();
 
@@ -71,17 +73,19 @@ function Init() {
     AnimateCam();
     Render();
 
+    gamePanel = new GamePanel()
+
 }
 
 function LoadModels() {
-    mtlLoader.load('assets/Arrow.MTL', function (materials) {
+    mtlLoader.load('assets/Arrow.MTL', function(materials) {
         materials.preload();
-        objLoader.load('assets/Arrow.obj', function (object) {
-                arrowGeometry = object.children[0].geometry;
-                arrowMaterial = object.children[0].material;
-                
-                world.CreateObjectsWithModels();
-            });
+        objLoader.load('assets/Arrow.obj', function(object) {
+            arrowGeometry = object.children[0].geometry;
+            arrowMaterial = object.children[0].material;
+
+            world.CreateObjectsWithModels();
+        });
     });
 }
 
@@ -117,7 +121,7 @@ function DoHUD() {
     sceneOrtho = new THREE.Scene;
 
     var textureLoader = new THREE.TextureLoader;
-    textureLoader.load("assets/sprites/heart.png", function (texture) {
+    textureLoader.load("assets/sprites/heart.png", function(texture) {
         var material = new THREE.SpriteMaterial({ map: texture });
         var width = material.map.image.width;
         var height = material.map.image.height;
@@ -141,12 +145,13 @@ function HandleResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    cameraOrtho.left = - window.innerWidth / 2;
+    cameraOrtho.left = -window.innerWidth / 2;
     cameraOrtho.right = window.innerWidth / 2;
     cameraOrtho.top = window.innerHeight / 2;
-    cameraOrtho.bottom = - window.innerHeight / 2;
+    cameraOrtho.bottom = -window.innerHeight / 2;
     cameraOrtho.updateProjectionMatrix();
 }
+
 function AnimateCam() {
     requestAnimationFrame(AnimateCam);
     renderer.render(scene, camera);
