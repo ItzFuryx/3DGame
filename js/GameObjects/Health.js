@@ -1,11 +1,11 @@
 class Health {
     constructor(healthValue, object) {
-        this.currentHealth = healthValue;
-        this.maxHealth = healthValue;
+        this.currentHealth = this.maxHealth = this.prevHealth = healthValue;
         this.object = object;
     }
 
     DeltaHealth(value) {
+        this.prevHealth = this.currentHealth;
         this.currentHealth -= value;
         this.object.OnHit();
         console.log("current Health = " + this.currentHealth);

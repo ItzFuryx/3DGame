@@ -2,8 +2,7 @@ class Player extends MoveAbleObject {
     constructor(scene, camera) {
         var Geometry = new THREE.BoxGeometry(2, 10, 2);
         var Material = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 1 });
-        var collision = new THREE.Mesh(Geometry, Material);
-        super(Geometry, Material, collision);
+        super(Geometry, Material);
 
         this.castShadow = true;
         this.name = 'player';
@@ -143,6 +142,7 @@ class Player extends MoveAbleObject {
     OnDead() {
         this.Respawn();
         console.log("player Died");
+        gamePanel.MoveProgress();
     }
     OnHit() {
         blood.Hit(this.position);

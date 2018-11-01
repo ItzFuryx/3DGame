@@ -1,11 +1,6 @@
 class Projectile extends MoveAbleObject {
     constructor(geometry, material, position, direction, damage) {
-        var Geometry = new THREE.BoxGeometry(3, 3, 3);
-        var Material = new THREE.MeshPhongMaterial({ color: 0x00cc00, transparent: true, opacity: 0.9 });
-        var collision = new THREE.Mesh(Geometry, Material);
-        Material.needsUpdate = true;
-
-        super(geometry, material, collision);
+        super(geometry, material);
         this.rotation.set(0, -Math.PI / 2, 0, 0);
         this.scale.set(.5, .5, .5);
 
@@ -15,6 +10,11 @@ class Projectile extends MoveAbleObject {
         this.moveSpeed = 20;
         this.canHit = true;
         this.name = "projectile";
+        for(var i =0; i < arrowMaterial.length; i++){
+            this.material[i].setValues(arrowMaterial[i]);
+        }
+        this.material.opacity = 1;
+        console.log(this);
         scene.add(this);
         collidableMeshList.push(this);
 
