@@ -7,7 +7,7 @@ var keyboard = {};
 var player = { height: 1.8, speed: 0.03, turnSpeed:Math.PI * 0.02};
 function init(){
     scene = new THREE.Scene
-    camera = new THREE.PerspectiveCamera(90, 1280/720, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, 1280/720, 0.1, 1000);
 
     mesh = new THREE.Mesh(
         new THREE.BoxGeometry(1,1,1),
