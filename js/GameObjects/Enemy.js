@@ -18,89 +18,62 @@ class Enemy extends MoveAbleObject {
         this.moveAmount = Math.floor((Math.random() * (2) + (5)));
         //this.moveForward = true;
         this.position.copy(new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75)))));
-        this.spawnPos = THREE.Vector3(0,0,0);
-        this.spawnPos.copy(this.position);
+        this.spawnPos = THREE.Vector3(0, 0, 0);
 
         scene.add(this);
         collidableMeshList.push(this);
     }
 
     Update(deltatime) {
-        if(this.normaleVariableNaamDankjewelPIM > 100){
+        /*
+        if (this.normaleVariableNaamDankjewelPIM > 100) {
             this.normaleVariableNaamDankjewelPIM = 0;
             this.MakeSpawnPos();
         }
-        else{
-            
-        var newPos = this.position.clone();
-        //if (this.moveForward) {
-            //newPos.x += this.moveSpeed * deltatime;
+        else {
+
+            var newPos = this.position.clone();
             newPos.x -= Math.sin(this.moveAngle) * this.moveSpeed * deltatime;
             newPos.z -= Math.cos(this.moveAngle) * this.moveSpeed * deltatime;
-        //}
-        //else {
-        //    newPos.x -= this.moveSpeed * deltatime;
-        //}
 
-        var collidedObject = this.DetectCollision(newPos.clone());
 
-        if (collidedObject == null) {
-            this.position.copy(newPos);
-            if(this.DetectCollision(this.position.clone()) != null){
-                console.log("Gaat hard mis");
+            var collidedObject = this.DetectCollision(newPos.clone());
+
+            if (collidedObject == null) {
+                this.position.copy(newPos);
+                if (this.DetectCollision(this.position.clone()) != null) {
+                    console.log("Gaat hard mis");
+                }
             }
-            //if (newPos.x <= this.spawnPos.x - this.moveAmount || newPos.x >= this.spawnPos.x + this.moveAmount) {
-            //    this.moveForward = !this.moveForward;
-            //}
-        }
-        else {
+            else {
                 this.normaleVariableNaamDankjewelPIM += 1;
-            if (collidedObject.name == "player" && this.timer >= this.cooldown) {
-                collidedObject.health.DeltaHealth(this.damage);
-                this.timer = 0;
+                if (collidedObject.name == "player" && this.timer >= this.cooldown) {
+                    collidedObject.health.DeltaHealth(this.damage);
+                    this.timer = 0;
+                }
+                else {
+                    this.moveAngle = Math.random() * (Math.PI * 2);
+                }
             }
-            else{
-                this.moveAngle = Math.random() * (Math.PI * 2);
-                //this.moveAngle -= Math.PI / 2;
-                /*if(this.moveAngle == 315 && this.moveRotation){
-                    this.moveAngle -= Math.PI / 2;
-                    this.moveRotation = !this.moveRotation;
-                }
-                else if(this.moveAngle == 45 && !this.moveRotation){
-                    this.moveAngle += Math.PI / 2;
-                    this.moveRotation = !this.moveRotation;
-                }
-                else if(this.moveRotation){
-                    this.moveAngle += Math.PI / 2;
-                }
-                else{
-                    this.moveAngle -= Math.PI / 2;
-                }*/
-                //this.Update(deltatime);
-            }
-            //this.moveForward = !this.moveForward;
-        }
 
-        if (this.timer <= this.cooldown) {
-            this.timer += deltatime;
+            if (this.timer <= this.cooldown) {
+                this.timer += deltatime;
+            }
+
         }
-        
-        //if(this.DetectCollision(this.position.clone()) != null){
-        //    this.MakeSpawnPos();
-        //}
-    }
+        */
     }
 
     MakeSpawnPos() {
         var randomPos = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
-        
+
         var collidedObject = this.DetectCollision(randomPos);
         if (collidedObject == null) {
-            this.position.copy(randomPos.clone());
-            this.spawnPos.copy(this.position.clone());
+            this.position.copy(randomPos);
+            this.spawnPos.copy(this.position);
             return;
         }
-        else{
+        else {
             this.MakeSpawnPos();
         }
     }
