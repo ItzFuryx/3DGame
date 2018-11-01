@@ -19,7 +19,7 @@ class Enemy extends MoveAbleObject {
         //this.moveForward = true;
         this.position.copy(new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75)))));
         this.spawnPos = THREE.Vector3(0, 0, 0);
-
+        MakeSpawnPos();
         scene.add(this);
         collidableMeshList.push(this);
     }
@@ -67,14 +67,21 @@ class Enemy extends MoveAbleObject {
     MakeSpawnPos() {
         var randomPos = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
 
-        var collidedObject = this.DetectCollision(randomPos);
-        if (collidedObject == null) {
-            this.position.copy(randomPos);
-            this.spawnPos.copy(this.position);
-            return;
-        }
-        else {
-            this.MakeSpawnPos();
-        }
+        var results = [];
+        results.add(CheckCollision(randomPos, THREE.Vector3(1, 0, 0)));
+        results.add(CheckCollision(randomPos, THREE.Vector3(-1, 0, 0)));
+        results.add(CheckCollision(randomPos, THREE.Vector3(0, 0, 1)));
+        results.add(CheckCollision(randomPos, THREE.Vector3(0, 0, -1)));
+
+        results.forEach(e => {
+            if (e != null) {
+                if (e.distance < 1 && e.object.name == "wall") {
+                    this.MakeSpawnPos();
+                }
+            }
+        });
+
+        this.position.copy(randomPos);
+        this.spawnPos.copy(this.position);
     }
 }
