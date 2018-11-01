@@ -7,6 +7,7 @@ var Maze = function (scene, cells, width, height) {
 
     this.horizCells = cells;
     this.vertCells = cells;
+
     this.generator = new MazeGenerator(this.horizCells, this.vertCells);
     this.cellWidth = this.width / this.horizCells;
     this.cellHeight = this.height / this.vertCells;
@@ -74,7 +75,6 @@ var Maze = function (scene, cells, width, height) {
                     var leftCell = graph.getCellAt(cell.x - 1, cell.y);
                     var rightCell = graph.getCellAt(cell.x + 1, cell.y);
                     var bottomCell = graph.getCellAt(cell.x, cell.y + 1);
-
                     if (!edgeAlreadyDrawn(cell, topCell) && graph.areConnected(cell, topCell)) {
                         var x1 = cell.x * self.cellWidth;
                         var y1 = cell.y * self.cellHeight;
@@ -140,7 +140,7 @@ var Maze = function (scene, cells, width, height) {
             var wallMesh = new THREE.Mesh(wallGeom, wallMaterial);
 
             // finally position it correctly
-            wallMesh.position = new THREE.Vector3(x1 - ((x1 - x2) / 2) - (self.height / 2), wallGeom.height / 2, y1 - ((y1 - y2)) / 2 - (self.width / 2));
+            wallMesh.position.copy(new THREE.Vector3(x1 - ((x1 - x2) / 2) - (self.height / 2), wallGeom.height / 2, y1 - ((y1 - y2)) / 2 - (self.width / 2)));
             if (wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75) {
                 console.log("Hello world");
                 wallMesh.name = "finish";

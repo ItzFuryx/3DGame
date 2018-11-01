@@ -55,11 +55,17 @@ class Player extends MoveAbleObject {
         }
 
         if (this.keyboard[38]) { // up arrow key
-            this.camera.rotation.x += this.turnSpeed * deltatime * 0.7;
+            if(this.camera.rotation.x > 0.3)
+                this.camera.rotation.x = this.camera.rotation.x
+            else
+                this.camera.rotation.x += this.turnSpeed * deltatime * 0.7;
         }
 
         if (this.keyboard[40]) { // down arrow key
-            this.camera.rotation.x -= this.turnSpeed * deltatime * 0.7;
+            if(this.camera.rotation.x < -0.4)
+                this.camera.rotation.x = this.camera.rotation.x
+            else
+                this.camera.rotation.x -= this.turnSpeed * deltatime * 0.7;
         }
 
         var collidedObject = this.DetectCollision(newPosition);
