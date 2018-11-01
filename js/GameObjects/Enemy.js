@@ -18,7 +18,8 @@ class Enemy extends MoveAbleObject {
         this.moveAmount = Math.floor((Math.random() * (2) + (5)));
         //this.moveForward = true;
         this.position.copy(new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75)))));
-        this.spawnPos.copy(this.position.clone());
+        this.spawnPos = THREE.Vector3(0,0,0);
+        this.spawnPos.copy(this.position);
 
         scene.add(this);
         collidableMeshList.push(this);
