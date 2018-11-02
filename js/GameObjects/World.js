@@ -30,15 +30,18 @@ class World {
         this.plane.rotation.x = -0.5 * Math.PI;
         scene.add(this.plane);
 
-        var startWall = new THREE.BoxGeometry(2, 5, 1);
+        var startWall = new THREE.BoxGeometry(10, 13, 1);
         var startMesh = new THREE.Mesh(startWall);
         startMesh.name = "start";
         startMesh.position.set(width / 2 - 5, 0, width / 2);
         collidableMeshList.push(startMesh);
         scene.add(startMesh);
 
-        var endWall = new THREE.BoxGeometry(2, 5, 1);
-        var endMesh = new THREE.Mesh(endWall);
+        var endWall = new THREE.BoxGeometry(10, 13, 1);
+        var planeMaterial = new THREE.MeshLambertMaterial({});
+        planeMaterial.map = textureLoader.load("assets/finish.png");
+        planeMaterial.map.wrapS = planeMaterial.map.wrapT = THREE.RepeatWrapping;
+        var endMesh = new THREE.Mesh(endWall, planeMaterial);
         endMesh.name = "finish";
         endMesh.position.set(-width / 2 + 5, 0, -width / 2);
         collidableMeshList.push(endMesh);

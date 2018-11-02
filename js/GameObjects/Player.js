@@ -91,7 +91,7 @@ class Player extends MoveAbleObject {
                     if (collidedObject.canHit)
                         this.health.DeltaHealth(collidedObject.GetDamage());
                 }
-                else if (collidedObject.name == "finish") {
+                else if (collidedObject.object.name == "finish") {
                     console.log("collide is finish");
                     world.CreateNewMaze();
                 }
