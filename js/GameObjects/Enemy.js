@@ -5,7 +5,7 @@ class Enemy extends MoveAbleObject {
         var collision = new THREE.Mesh(Geometry, Material);
         super(Geometry, Material, collision);
 
-        this.health = new Health(2, this);
+        this.health = new Health((2 * level), this);
         this.damage = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));
         this.castShadow = true;
         this.name = 'enemy';
@@ -24,6 +24,9 @@ class Enemy extends MoveAbleObject {
     }
 
     Update(deltatime) {
+        if(!this.enabled)
+            return;
+        
         if (this.timer <= this.cooldown) {
             this.timer += deltatime;
         }
@@ -51,9 +54,6 @@ class Enemy extends MoveAbleObject {
                     this.position.z += directiontoPlayer.z * this.moveSpeed * deltatime;
                     if (objectinWay.distance < 1 && this.timer >= this.cooldown) {
                         objectinWay.object.health.DeltaHealth(this.damage);
-                        if(objectinWay.object.health.IsFullHealth()){
-                            this.MakeSpawnPos();
-                        }
                         this.timer = 0;
                     }
                     return;
@@ -105,6 +105,15 @@ class Enemy extends MoveAbleObject {
 
     OnDead() {
         console.log("Enemy Died");
+        scene.remove(this);                                                                                     
+        this.geometry.dispose();
+        this.enabled = false;
+        for (var i = collidableMeshList.length - 1; i >= 0; --i) {
+            if (collidableMeshList[i].uuid == this.uuid) {
+                collidableMeshList.splice(i,1);
+            }
+        }        
+        //collidableMeshList.remove(this);
         player.experience.DeltaExp(this.health.maxHealth);
     }
     OnHit() {

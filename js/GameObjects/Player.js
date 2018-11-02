@@ -9,7 +9,7 @@ class Player extends MoveAbleObject {
         this.camera = camera;
         this.moveSpeed = 15;
         this.turnSpeed = Math.PI * 1;
-        this.health = new Health(2, this);
+        this.health = new Health(5, this);
         this.experience = new Experience(this);
         this.keyboard = {};
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
@@ -87,9 +87,10 @@ class Player extends MoveAbleObject {
         var collidedObject = this.CheckCollision(this.position, direction);
         if (collidedObject != null) {
             if (collidedObject.distance < 1) {
-                if (collidedObject instanceof Trap) {
-                    if (collidedObject.canHit)
-                        this.health.DeltaHealth(collidedObject.GetDamage());
+                if (collidedObject.object instanceof Trap) {
+                    if (collidedObject.object.canHit){
+                        this.health.DeltaHealth(collidedObject.object.GetDamage());
+                    }
                 }
                 else if (collidedObject.object.name == "finish") {
                     console.log("collide is finish");
@@ -143,6 +144,10 @@ class Player extends MoveAbleObject {
         this.Respawn();
         console.log("player Died");
         gamePanel.MoveProgress();
+       
+        enemies.forEach(e => {
+            e.MakeSpawnPos();     
+        });
     }
     OnHit() {
         blood.Hit(this.position);

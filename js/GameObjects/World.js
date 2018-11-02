@@ -82,7 +82,7 @@ class World {
     }
 
     CreateObjectsWithModels() {
-        var amountOfTraps = Math.floor((Math.random() * (level * 10) + (level * 5)));
+        var amountOfTraps = Math.floor((Math.random() * 10 + 5));
 
         for (var i = 0; i < amountOfTraps; i++) {
             new Trap();

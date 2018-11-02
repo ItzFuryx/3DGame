@@ -6,6 +6,8 @@ class GameObject extends THREE.Mesh{
         this.directionDown = new THREE.Vector3(-1, 0, 0);
         this.directionRight = new THREE.Vector3(0, 0, 1);
         this.directionLeft = new THREE.Vector3(0, 0, -1);
+
+        this.enabled = true;
     }
 
     CheckCollision(position, direction){
