@@ -61,8 +61,10 @@ class World {
 
         stars = new THREE.Stars(scene, 1800);
         blood = new THREE.BloodFX(scene);
-
-        //gamePanel = new gamePanel();
+        
+        if(arrowGeometry != null){
+            this.CreateObjectsWithModels();
+        }
     }
 
     CreateNewMaze() {
