@@ -1,14 +1,16 @@
 class Projectile extends MoveAbleObject {
     constructor(geometry, material, position, direction, damage) {
+
         super(geometry, material);
-        this.rotation.set(0, -Math.PI / 2, 0, 0);
         this.scale.set(.5, .5, .5);
 
         this.shootDirection = direction;
         this.position.copy(position);
         this.damage = damage;
-        this.moveSpeed = 20;
+        this.moveSpeed = 50;
         this.canHit = true;
+        this.name = "projectile";
+        this.SetRotation();
         this.name = "projectile";
         for(var i =0; i < arrowMaterial.length; i++){
             this.material[i].setValues(arrowMaterial[i]);
@@ -44,6 +46,20 @@ class Projectile extends MoveAbleObject {
         this.position.copy(newPosition);
     }
 
+    SetRotation() {
+        var rot = 0;
+        if (this.shootDirection.x == this.directionUp.x) {
+            rot = -Math.PI / 2;
+        }
+        if (this.shootDirection.x == this.directionDown.x) {
+            rot = Math.PI / 2;
+        }
+        if (this.shootDirection.z == this.directionRight.z) {
+            rot = Math.PI;
+        }
+        this.rotation.set(0, rot, 0, 0);
+    }
+
     GetDamage() {
         this.canHit = false;
         return this.damage;
@@ -51,13 +67,11 @@ class Projectile extends MoveAbleObject {
 
     HitObject() {
         this.collided = true;
-        this.material.opacity = 0;
     }
 
     Continue() {
         this.collided = false;
         this.canHit = true;
-        this.material.opacity = 0.9;
     }
 }
 

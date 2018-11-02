@@ -1,12 +1,26 @@
 class ShootingTrap extends Trap {
-    constructor() {
+    constructor(amount) {
         super();
-        this.projectileStartPos = new THREE.Vector3(this.position.x + 2, this.position.y, this.position.z);
+        if (amount > 4)
+            amount = 4;
 
-        this.shootObject = new Projectile(arrowGeometry, arrowMaterial, this.projectileStartPos.clone(), new THREE.Vector3(1, 0, 0), 1);
-        
-        arrows.push(this.shootObject);
-        this.cooldown = 3;
+        this.projectiles = [];
+        this.projectileSpawnPos = [];
+        this.directions = [];
+        this.directions.push(this.directionUp);
+        this.directions.push(this.directionDown);
+        this.directions.push(this.directionRight);
+        this.directions.push(this.directionLeft);
+
+        for (var i = 0; i < amount; i++) {
+            this.projectileSpawnPos.push(new THREE.Vector3(
+                this.position.x + this.directions[i].x,
+                this.position.y + this.directions[i].y,
+                this.position.z + this.directions[i].z));
+            this.projectiles.push(new Projectile(arrowGeometry, arrowMaterial, this.projectileSpawnPos[i], this.directions[i], level));
+        }
+
+        this.cooldown = Math.floor((Math.random() * (1) + (3)));
         this.timer = 0;
         this.name = "shootingTrap";
         scene.add(this);
@@ -18,10 +32,14 @@ class ShootingTrap extends Trap {
             this.timer += deltatime;
         else {
             this.timer = 0;
-            this.shootObject.position.copy(this.projectileStartPos);
-            this.shootObject.Continue();
+            for (var i = 0; i < this.projectiles.length; i++) {
+                this.projectiles[i].position.copy(this.projectileSpawnPos[i]);
+                this.projectiles[i].Continue();
+            }
         }
 
-        this.shootObject.Update(deltatime);
+        this.projectiles.forEach(e => {
+            e.Update(deltatime);
+        });
     }
 }
