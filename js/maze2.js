@@ -19,6 +19,7 @@ var world;
 var enemy;
 var clock;
 var gamePanel;
+var time;
 
 /**
  * Models

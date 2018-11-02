@@ -88,20 +88,17 @@ class Player extends MoveAbleObject {
         if (collidedObject != null) {
             if (collidedObject.distance < 1) {
                 if (collidedObject.object instanceof Trap) {
-                    if (collidedObject.object.canHit){
+                    if (collidedObject.object.canHit) {
                         this.health.DeltaHealth(collidedObject.object.GetDamage());
                     }
-                }
-                else if (collidedObject.object.name == "finish") {
+                } else if (collidedObject.object.name == "finish") {
                     console.log("collide is finish");
                     world.CreateNewMaze();
                 }
-            }
-            else {
+            } else {
                 this.position.copy(newPosition);
             }
-        }
-        else {
+        } else {
             this.position.copy(newPosition);
         }
 
@@ -143,13 +140,13 @@ class Player extends MoveAbleObject {
     OnDead() {
         this.Respawn();
         console.log("player Died");
-       
+
         enemies.forEach(e => {
-            e.MakeSpawnPos();     
+            e.MakeSpawnPos();
         });
     }
     OnHit() {
         blood.Hit(this.position);
-        gamePanel.MoveProgress();
+        gamePanel.MoveHealthProgress();
     }
 }
