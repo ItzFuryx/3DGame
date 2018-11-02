@@ -9,14 +9,12 @@ class Projectile extends MoveAbleObject {
         this.damage = damage;
         this.moveSpeed = 50;
         this.canHit = true;
-        this.name = "projectile";
         this.SetRotation();
         this.name = "projectile";
         for(var i =0; i < arrowMaterial.length; i++){
             this.material[i].setValues(arrowMaterial[i]);
         }
         this.material.opacity = 1;
-        console.log(this);
         scene.add(this);
         collidableMeshList.push(this);
 
