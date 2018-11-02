@@ -23,7 +23,7 @@ class GamePanel {
 
     createGamePanel() {
         var GamePanel = document.getElementById("gamePanel");
-       // GamePanel.style.background = 'gray';
+        // GamePanel.style.background = 'gray';
         GamePanel.style.fontSize = '20px';
         GamePanel.style.height = 400;
         GamePanel.style.width = 400;
@@ -47,7 +47,7 @@ class GamePanel {
 
     AddLevel() {
         var showLevel = document.getElementById("levelWorld");
-        showLevel.innerText = "Level : "+ level;
+        showLevel.innerText = "Level : " + level;
         showLevel.style.fontSize = "25px";
         showLevel.style.color = "green";
     }
@@ -73,7 +73,7 @@ class GamePanel {
         var newWidth = (player.health.currentHealth / player.health.maxHealth) * 100;
         var id = setInterval(frame, 5);
         var start = (player.health.prevHealth / player.health.maxHealth) * 100;
-        var time = 0;        
+        var time = 0;
         document.getElementById('healthPlayer').innerText = player.health.currentHealth;
 
         function frame() {

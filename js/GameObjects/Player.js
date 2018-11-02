@@ -147,7 +147,6 @@ class Player extends MoveAbleObject {
         enemies.forEach(e => {
             e.MakeSpawnPos();     
         });
-        gamePanel.MoveProgress();
     }
     OnHit() {
         blood.Hit(this.position);
