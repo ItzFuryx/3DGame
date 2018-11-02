@@ -36,6 +36,7 @@ class Trap extends ImmovAbleObject {
             if (e != null) {
                 if (e.distance <= 3) {
                     this.MakeSpawnPos();
+                    return;
                 }
             }
         });

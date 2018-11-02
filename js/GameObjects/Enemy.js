@@ -96,6 +96,7 @@ class Enemy extends MoveAbleObject {
             if (e != null) {
                 if (e.distance < 1 && e.object.name == "wall") {
                     this.MakeSpawnPos();
+                    return;
                 }
             }
         });
