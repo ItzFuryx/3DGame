@@ -45,12 +45,14 @@ class GamePanel {
         healthBar.marginLeft = "52px";
         healthBar.marginTop = "65px";
         healthBar.width = "22%";
+        healthBar.maxWidth = "22%";
         healthBar.backgroundColor = "black";
 
         var progress = document.getElementById("health-progress").style;
         progress.position = "absolute";
         progress.marginRight = "-205px";
         progress.width = "100%";
+        progress.maxWidth = "100%";
         progress.height = "30px";
         progress.backgroundColor = "red";
     }
@@ -94,6 +96,7 @@ class GamePanel {
         healthBar.marginLeft = "60px";
         healthBar.marginTop = "110px";
         healthBar.height = "64%";
+        healthBar.maxHeight= "64%";
         healthBar.backgroundColor = "black";
 
         var progress = document.getElementById("xp-progress").style;
@@ -101,6 +104,7 @@ class GamePanel {
         progress.marginRight = "-205px";
         progress.width = "30px";
         progress.height = "0%";
+        progress.maxHeight= "100%";
         progress.backgroundColor = "yellow";
 
 
