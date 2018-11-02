@@ -71,8 +71,8 @@ class GamePanel {
     MoveProgress() {
         var progressbar = document.getElementById("progress");
         var newWidth = (player.health.currentHealth / player.health.maxHealth) * 100;
-        var id = setInterval(frame, 10);
-        var start = player.health.prevHealth;
+        var id = setInterval(frame, 5);
+        var start = (player.health.prevHealth / player.health.maxHealth) * 100;
         var time = 0;        
         document.getElementById('healthPlayer').innerText = player.health.currentHealth;
 
@@ -82,8 +82,7 @@ class GamePanel {
                 clearInterval(id);
             } else {
                 time += id / 100;
-
-                progressbar.style.width = (start + time * (newWidth - start)) + "%";
+                progressbar.style.width = (start + (time * (newWidth - start))) + "%";
             }
         }
     }

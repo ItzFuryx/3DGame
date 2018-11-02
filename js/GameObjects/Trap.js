@@ -34,7 +34,7 @@ class Trap extends ImmovAbleObject {
 
         results.forEach(e => {
             if (e != null) {
-                if (e.distance < 3) {
+                if (e.distance <= 3) {
                     this.MakeSpawnPos();
                 }
             }

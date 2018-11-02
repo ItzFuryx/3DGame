@@ -143,15 +143,14 @@ class Player extends MoveAbleObject {
     OnDead() {
         this.Respawn();
         console.log("player Died");
-        gamePanel.MoveProgress();
        
         enemies.forEach(e => {
             e.MakeSpawnPos();     
         });
+        gamePanel.MoveProgress();
     }
     OnHit() {
         blood.Hit(this.position);
         gamePanel.MoveProgress();
     }
-
 }
