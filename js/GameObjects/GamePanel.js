@@ -213,7 +213,7 @@ class GamePanel {
                 time = 0;
                 clearInterval(id);
             } else {
-                time += id / 200;
+                time += id / 500;
                 div.marginTop = (start + (time * (newPos - start)));
             }
         }
