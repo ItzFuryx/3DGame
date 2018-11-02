@@ -12,7 +12,7 @@ var arrows = [];
 var width = 150;
 
 var player;
-var level = 5;
+var level = 1;
 var enemy;
 
 var world;

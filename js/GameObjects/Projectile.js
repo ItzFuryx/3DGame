@@ -7,7 +7,7 @@ class Projectile extends MoveAbleObject {
         this.shootDirection = direction;
         this.position.copy(position);
         this.damage = damage;
-        this.moveSpeed = 50;
+        this.moveSpeed = 40;
         this.canHit = true;
         this.SetRotation();
         this.name = "projectile";
