@@ -1,6 +1,6 @@
 class Experience {
-    constructor(object) {
-        this.currentExperience = this.prevExperience = 0;
+    constructor(object) {        
+        this.currentExperience = this.prevExperience = 0;        
         this.maxExperience = this.baseExp = 4;
         this.object = object;
 

@@ -11,6 +11,7 @@ class Player extends MoveAbleObject {
         this.turnSpeed = Math.PI * 1;
         this.health = new Health(5, this);
         this.experience = new Experience(this);
+        this.level = 1;
         this.keyboard = {};
         this.respawnLocation = new THREE.Vector3(width / 2 - 10, 1, width / 2 - 10);
         this.position.copy(this.respawnLocation);
@@ -135,6 +136,9 @@ class Player extends MoveAbleObject {
     }
     LevelUp() {
         console.log("leveled up!");
+        this.level++;
+        this.health = new Health(this.health.maxHealth * this.level, this);
+        gamePanel.LevelUp();
     }
 
     OnDead() {
