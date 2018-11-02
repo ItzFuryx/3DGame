@@ -1,19 +1,15 @@
 class GamePanel {
 
     constructor() {
-        //this.createHTMLElements();
         this.createGamePanel();
-        this.AddLevel();
         this.AddHealth();
         this.AddXp();
+        this.AddLevels();
     }
-
-
 
     createGamePanel() {
         var GamePanel = document.getElementById("gamePanel");
-        // GamePanel.style.background = 'gray';
-        GamePanel.style.fontSize = '20px';
+        GamePanel.style.fontSize = '20pt';
         GamePanel.style.height = 400;
         GamePanel.style.width = 800;
         GamePanel.style.position = 'absolute';
@@ -29,16 +25,13 @@ class GamePanel {
         image.src = "assets/UI-things/Healthbar.png";
         image.style.height = 128;
         image.style.width = 272;
-        //image.style.zIndex = 100;
 
         var showHealth = document.getElementById('healthPlayer');
         showHealth.innerText = player.health.currentHealth;
         showHealth.style.marginLeft = "125px";
-        showHealth.style.marginTop = "57px";
+        showHealth.style.marginTop = "67px";
         showHealth.style.position = "absolute";
-        showHealth.style.fontSize = '40px';
         showHealth.style.color = "white";
-        //showHealth.style.zIndex = 99;
 
         var healthBar = document.getElementById("health-progress-bar").style;
         healthBar.position = "absolute";
@@ -55,14 +48,6 @@ class GamePanel {
         progress.maxWidth = "100%";
         progress.height = "30px";
         progress.backgroundColor = "red";
-    }
-
-    AddLevel() {
-        var showLevel = document.getElementById("levelWorld");
-        showLevel.innerText = "Level : " + level;
-        showLevel.style.fontSize = "25px";
-        showLevel.style.color = "green";
-        // showLevel.style.zIndex = 100;
     }
 
     MoveHealthProgress() {
@@ -84,8 +69,6 @@ class GamePanel {
         }
     }
 
-
-
     AddXp() {
         var xpImage = document.getElementById("xpImage");
         xpImage.src = "assets/UI-things/xpbar.png";
@@ -96,7 +79,7 @@ class GamePanel {
         healthBar.marginLeft = "60px";
         healthBar.marginTop = "110px";
         healthBar.height = "64%";
-        healthBar.maxHeight= "64%";
+        healthBar.maxHeight = "64%";
         healthBar.backgroundColor = "black";
 
         var progress = document.getElementById("xp-progress").style;
@@ -104,11 +87,10 @@ class GamePanel {
         progress.marginRight = "-205px";
         progress.width = "30px";
         progress.height = "0%";
-        progress.maxHeight= "100%";
+        progress.maxHeight = "100%";
         progress.backgroundColor = "yellow";
-
-
     }
+
     MoveExpProgress() {
         var progressbar = document.getElementById("xp-progress");
         var newWidth = (player.experience.currentExperience / player.experience.maxExperience) * 100;
@@ -128,5 +110,34 @@ class GamePanel {
         }
     }
 
+    AddLevels() {
+
+        // ImageLevels
+        var imageLevels = document.getElementById("imageLevels");
+        imageLevels.src = "assets/UI-things/levels.png";
+        imageLevels.style.position = "absolute";
+        imageLevels.style.marginLeft = "150px";
+        imageLevels.style.marginTop = "105px";
+
+        //Level van de maze
+        var showLevelWorld = document.getElementById("levelWorld");
+        showLevelWorld.innerText = level;
+        showLevelWorld.style.fontStyle = "bold"
+        showLevelWorld.style.color = "white";
+        showLevelWorld.style.position = "absolute";
+        showLevelWorld.style.marginLeft = "194px";
+        showLevelWorld.style.marginTop = "183px";
+
+        //Level van de player
+        var showLevelPlayer = document.getElementById("levelPlayer");
+        showLevelPlayer.innerText = player.level;
+        showLevelPlayer.style.position = "absolute";
+        showLevelPlayer.style.fontStyle = "bold"
+        showLevelPlayer.style.color = "white";
+        showLevelPlayer.style.marginLeft = "294px";
+        showLevelPlayer.style.marginTop = "183px";
+
+
+    }
 
 }
