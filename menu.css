@@ -1,0 +1,24 @@
+#startbutton{
+    /* background-color:blue; */
+    height: 10%;
+    width: 10%;
+    border-style: solid;
+    border-color: grey;
+    display: inline-block;
+    position: absolute;
+    left:45%;
+    top:20%;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding:auto;
+    font-weight: bold;
+    font-size:larger
+}
+#page{
+    background-image: url('maze/assets/wall.png');
+    font-family: 'Playbill';
+}
+.half{
+    height:50%;
+    text-align: center;
+}
