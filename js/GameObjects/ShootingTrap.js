@@ -1,6 +1,8 @@
 class ShootingTrap extends Trap {
     constructor(amount) {
-        super();
+        super(turretGeometry, new THREE.MeshPhongMaterial({ color: 0xD3D3D3, transparent: true, opacity: .9 }));
+        
+        this.scale.set(5,5,5);
         if (amount > 4)
             amount = 4;
 
@@ -14,17 +16,15 @@ class ShootingTrap extends Trap {
 
         for (var i = 0; i < amount; i++) {
             this.projectileSpawnPos.push(new THREE.Vector3(
-                this.position.x + this.directions[i].x,
-                this.position.y + this.directions[i].y,
-                this.position.z + this.directions[i].z));
-            this.projectiles.push(new Projectile(arrowGeometry, arrowMaterial, this.projectileSpawnPos[i], this.directions[i], level));
+                this.position.x + this.directions[i].x * 2,
+                this.position.y + 3.5,
+                this.position.z +1 + this.directions[i].z * 2));
+            this.projectiles.push(new Projectile(arrowGeometry, this.projectileSpawnPos[i], this.directions[i], level, this));
         }
 
         this.cooldown = Math.floor((Math.random() * (1) + (3)));
         this.timer = 0;
         this.name = "shootingTrap";
-        scene.add(this);
-        collidableMeshList.push(this);
     }
 
     Update(deltatime) {
@@ -34,7 +34,8 @@ class ShootingTrap extends Trap {
             this.timer = 0;
             for (var i = 0; i < this.projectiles.length; i++) {
                 this.projectiles[i].position.copy(this.projectileSpawnPos[i]);
-                this.projectiles[i].Continue();
+                this.projectiles[i].Continue();                
+                document.getElementById("shootarrowfx").play();
             }
         }
 

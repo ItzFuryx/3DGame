@@ -86,9 +86,9 @@ class World {
 
     CreateObjectsWithModels() {
         var amountOfTraps = Math.floor((Math.random() * 10 + 5));
-
+        
         for (var i = 0; i < amountOfTraps; i++) {
-            new Trap();
+            new Trap(null, null);
             updatableTraps.push(new ShootingTrap(level));
         }
         for (var i = 0; i < 5; i++) {

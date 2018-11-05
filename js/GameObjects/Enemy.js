@@ -51,11 +51,15 @@ class Enemy extends MoveAbleObject {
 
         if (objectinWay != null) {
             if (objectinWay.object instanceof Player) {
-                this.lookAt(player.position);
-                this.position.x += directiontoPlayer.x * this.moveSpeed * deltatime;
-                this.position.y = 1.5 + bounce / 10;
-                this.position.z += directiontoPlayer.z * this.moveSpeed * deltatime;
-                if (objectinWay.distance < 1 && this.timer >= this.cooldown) {
+
+                if(objectinWay.distance > 3){
+                    this.lookAt(player.position);
+                    this.position.x += directiontoPlayer.x * this.moveSpeed * deltatime;
+                    this.position.y = 1.5 + bounce / 10;
+                    this.position.z += directiontoPlayer.z * this.moveSpeed * deltatime;
+                }
+
+                if (objectinWay.distance < 3.5 && this.timer >= this.cooldown) {
                     objectinWay.object.health.DeltaHealth(this.damage);
                     this.timer = 0;
                 }
@@ -120,6 +124,7 @@ class Enemy extends MoveAbleObject {
         player.experience.DeltaExp(this.health.maxHealth);
     }
     OnHit() {
+        document.getElementById("enemyhitfx").play();
         console.log("Enemy Hit");
     }
 }

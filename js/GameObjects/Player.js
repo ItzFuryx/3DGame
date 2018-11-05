@@ -151,6 +151,7 @@ class Player extends MoveAbleObject {
     }
     OnHit() {
         blood.Hit(this.position);
+        document.getElementById("playerhitfx").play();
         gamePanel.MoveHealthProgress();
     }
 }

@@ -1,9 +1,8 @@
 class Projectile extends MoveAbleObject {
-    constructor(geometry, material, position, direction, damage) {
-
-        super(geometry, material);
+    constructor(geometry, position, direction, damage, parent) {
+        super(geometry, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .9 }));
         this.scale.set(.5, .5, .5);
-
+        this.trap = parent;
         this.shootDirection = direction;
         this.position.copy(position);
         this.damage = damage;
@@ -11,10 +10,7 @@ class Projectile extends MoveAbleObject {
         this.canHit = true;
         this.SetRotation();
         this.name = "projectile";
-        for(var i =0; i < arrowMaterial.length; i++){
-            this.material[i].setValues(arrowMaterial[i]);
-        }
-        this.material.opacity = 1;
+
         scene.add(this);
         collidableMeshList.push(this);
 
@@ -28,13 +24,15 @@ class Projectile extends MoveAbleObject {
         var collisionResult = this.CheckCollision(this.position, this.shootDirection);;
         if (collisionResult != null) {
             if (collisionResult.distance < 1) {
-                if (collisionResult.object.name == "wall") {
-                    this.HitObject();
-                } else if (collisionResult.object instanceof Player) {
-                    collisionResult.object.health.DeltaHealth(this.GetDamage());
-                    this.HitObject();
+                if (collisionResult.object != this.trap) {
+                    if (collisionResult.object.name == "wall") {
+                        this.HitObject();
+                    } else if (collisionResult.object instanceof Player) {
+                        collisionResult.object.health.DeltaHealth(this.GetDamage());
+                        this.HitObject();
+                    }
+                    return;
                 }
-                return;
             }
         }
 

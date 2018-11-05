@@ -25,11 +25,10 @@ var time;
  * Models
  */
 var arrowGeometry;
-var arrowMaterial;
-
 var slimeGeometry;
 var slimeMaterial;
-
+var turretGeometry;
+var spikeGeometry;
 /**
  * Loaders
  */
@@ -78,22 +77,25 @@ function Init() {
 }
 
 function LoadModels() {
-    mtlLoader.load('assets/slime/Materials.MTL', function(materials) {
+    mtlLoader.load('assets/slime/Materials.MTL', function (materials) {
         materials.preload();
-        objLoader.load('assets/slime/model.obj', function(object) {
+        objLoader.load('assets/slime/model.obj', function (object) {
             slimeGeometry = object.children[0].geometry;
             slimeMaterial = object.children[0].material;
         });
+    }); objLoader.load('assets/tower/Turret.obj', function (object) {
+        turretGeometry = object.children[0].geometry;
     });
-    mtlLoader.load('assets/Arrow.MTL', function(materials) {
-        materials.preload();
-        objLoader.load('assets/Arrow.obj', function(object) {
-            arrowGeometry = object.children[0].geometry;
-            arrowMaterial = object.children[0].material;
+    objLoader.load('assets/spikes/Spike.obj', function (object) {
+        spikeGeometry = object.children[0].geometry;
+    });
 
+
+    //MOET ONDER BLIJVEN
+        objLoader.load('assets/Arrow.obj', function (object) {
+            arrowGeometry = object.children[0].geometry;
             world.CreateObjectsWithModels();
         });
-    });
 }
 
 

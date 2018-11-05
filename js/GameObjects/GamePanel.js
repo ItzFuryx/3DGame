@@ -10,9 +10,7 @@ class GamePanel {
 
     createGamePanel() {
         var GamePanel = document.getElementById("gamePanel");
-        var musicPlayer = document.getElementById("musicplayer");
-
-        musicPlayer.play();
+        document.getElementById("musicplayer").play();
 
         // GamePanel.style.background = 'gray';
         GamePanel.style.height = 400;
@@ -187,10 +185,9 @@ class GamePanel {
         div.backgroundColor = "rgba(192,192,192,0.3)";
         div.border = "3px solid black";
         div.position = "absolute";
-        div.width = "325px";
+        div.width = "20%";
         div.height = "150px";
-        div.marginLeft = "500px";
-        div.marginRight = "500px";
+        div.marginLeft = "40%";
         div.marginTop = "-200px";
         div.color = "none";
         var text = document.getElementById("levelup-text").style;
