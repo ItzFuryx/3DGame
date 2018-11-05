@@ -69,6 +69,9 @@ class World {
 
     CreateNewMaze() {
         level++;
+        if (level >= 6) {
+            window.location.href = "completeGame.html";
+        }
         this.CreateMaze();
         player.TeleportScene(scene);
         gamePanel.AddLevels();

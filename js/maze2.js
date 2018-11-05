@@ -100,7 +100,6 @@ function LoadModels() {
     });
 }
 
-
 /**
  * Called when the scene needs to be rendered. Delegates to requestAnimationFrame
  * for future renders

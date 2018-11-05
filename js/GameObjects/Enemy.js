@@ -52,14 +52,14 @@ class Enemy extends MoveAbleObject {
         if (objectinWay != null) {
             if (objectinWay.object instanceof Player) {
 
-                if(objectinWay.distance > 3){
+                if(objectinWay.distance > 5){
                     this.lookAt(player.position);
                     this.position.x += directiontoPlayer.x * this.moveSpeed * deltatime;
                     this.position.y = 1.5 + bounce / 10;
                     this.position.z += directiontoPlayer.z * this.moveSpeed * deltatime;
                 }
 
-                if (objectinWay.distance < 3.5 && this.timer >= this.cooldown) {
+                if (objectinWay.distance < 5.5 && this.timer >= this.cooldown) {
                     objectinWay.object.health.DeltaHealth(this.damage);
                     this.timer = 0;
                 }
