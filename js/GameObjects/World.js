@@ -17,7 +17,7 @@ class World {
         this.maze.generate();
         this.maze.draw();
         var walls = this.maze.getElements();
-        walls.forEach(function(e) { collidableMeshList.push(e) });
+        walls.forEach(function (e) { collidableMeshList.push(e) });
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(width, width, 40, 40);
@@ -61,8 +61,8 @@ class World {
 
         stars = new THREE.Stars(scene, 1800);
         blood = new THREE.BloodFX(scene);
-        
-        if(arrowGeometry != null){
+
+        if (arrowGeometry != null) {
             this.CreateObjectsWithModels();
         }
     }
@@ -76,7 +76,7 @@ class World {
 
     CreateSkyBox() {
         var loader = new THREE.TextureLoader();
-        loader.load('assets/skybox.jpg', function(texture) {
+        loader.load('assets/skybox.jpg', function (texture) {
             var sphericalSkyboxGeometry = new THREE.SphereGeometry(500, 32, 32);
             var sphericalSkyboxMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
             var sphericalSkybox = new THREE.Mesh(sphericalSkyboxGeometry, sphericalSkyboxMaterial);
@@ -84,15 +84,28 @@ class World {
         });
     }
 
-    CreateObjectsWithModels() {
+    CreateShootingTraps() {
         var amountOfTraps = Math.floor((Math.random() * 10 + 5));
-        
         for (var i = 0; i < amountOfTraps; i++) {
-            new Trap(null, null);
             updatableTraps.push(new ShootingTrap(level));
         }
+    }
+    CreateTraps() {
+        var amountOfTraps = Math.floor((Math.random() * 10 + 5));
+        for (var i = 0; i < amountOfTraps; i++) {
+            new Trap(null, null);
+        }
+
+    }
+    CreateEnemies() {
         for (var i = 0; i < 5; i++) {
             enemies.push(new Enemy(slimeGeometry, slimeMaterial));
         }
+    }
+
+    CreateObjectsWithModels() {
+        this.CreateEnemies();
+        this.CreateTraps();
+        this.CreateShootingTraps();
     }
 }

@@ -82,20 +82,22 @@ function LoadModels() {
         objLoader.load('assets/slime/model.obj', function (object) {
             slimeGeometry = object.children[0].geometry;
             slimeMaterial = object.children[0].material;
+            world.CreateEnemies();
         });
-    }); objLoader.load('assets/tower/Turret.obj', function (object) {
+    });
+    
+    objLoader.load('assets/tower/Turret.obj', function (object) {
         turretGeometry = object.children[0].geometry;
     });
     objLoader.load('assets/spikes/Spike.obj', function (object) {
         spikeGeometry = object.children[0].geometry;
+        world.CreateTraps();
     });
 
-
-    //MOET ONDER BLIJVEN
-        objLoader.load('assets/Arrow.obj', function (object) {
-            arrowGeometry = object.children[0].geometry;
-            world.CreateObjectsWithModels();
-        });
+    objLoader.load('assets/Arrow.obj', function (object) {
+        arrowGeometry = object.children[0].geometry;
+        world.CreateShootingTraps();
+    });
 }
 
 
