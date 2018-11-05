@@ -1,20 +1,102 @@
 <html>
+
 <head>
-    <title>Game</title>
-    <link href='assets/Playbill.ttf' rel='stylesheet'>
-    <link href='menu.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/Playbill.ttf">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
 </head>
-<body id='page'>
-    <a style='position:fixed; right:0px; bottom:0px; font-size: smaller' href='/404.php'>Lack of bugs?</a>
-    <table>
-        <div class='half' style='border-bottom-style: dashed; border-color:darkslategrey'>
-            <a id="startbutton" href='game.html'>
-                <p>Start game</p>
-            </a>
+
+<body>
+
+
+    <div class="w3-container w3-row">
+
+        <!-- START BUTTON -->
+        <div id="divStartButton" class="w3-center">
+            <button id="startButton" onclick="StartGame()">Start Game</button>
         </div>
-        <div class='half'>
-            <img src='assets/keyboard-template.png' style='max-height: 90%; margin-top: 2%'>
+    </div>
+
+
+    <div class="w3-container w3-row">
+
+        <!-- LETTER KEYS -->
+        <div class="w3-half">
+            <div class="w3-center">
+                <section>
+                    <p class="w3-center">Walk forward</p>
+                    <button disabled="true" class="radius">W</button>
+                </section>
+            </div>
+            <div class="w3-center">
+                <div class="w3-row-padding w3-center">
+
+                    <section class="w3-third w3-right-align ">
+                        <p>Walk sidewards left</p>
+                        <button disabled="true" class="radius">A</button>
+                    </section>
+
+
+                    <section class="w3-third">
+                        <p>Walk backwards</p>
+                        <button disabled="true" class="radius">S</button>
+                    </section>
+
+
+                    <section class="w3-third w3-left-align">
+                        <p>Walk sidewards right</p>
+                        <button disabled="true" class=" radius">D</button>
+                    </section>
+                </div>
+            </div>
+
         </div>
-    </table>
+
+        <!-- ARROWS -->
+        <div class="w3-half">
+            <div class="w3-center">
+                <section>
+                    <p>Watch up</p>
+                    <button disabled="true" class="Arrows"><i class="fas fa-arrow-up"></i></button>
+                </section>
+            </div>
+            <div class="w3-center w3-row-padding">
+
+                <section class="w3-half">
+                    <p>Watch left</p>
+                    <button disabled="true" class="Arrows"><i class="fas fa-arrow-left"></i></button>
+                </section>
+                <section class="w3-half">
+                    <p>Watch right</p>
+                    <button disabled="true" class="Arrows"><i class="fas fa-arrow-right"></i></button>
+                </section>
+
+            </div>
+            <div class="w3-center">
+                <section>
+                    <p>Watch down</p>
+                    <button disabled="true" class="Arrows"><i class="fas fa-arrow-down"></i></button>
+                </section>
+            </div>
+        </div>
+
+        <!-- SPACE BAR -->
+        <div id="spacebar" class="w3-container w3-center w3-row">
+            <p>Kill an enemie</p>
+            <button disabled="true" id="spacebarStyle">Spacebar</button>
+        </div>
+
+    </div>
+
+
+    <script>
+        function StartGame() {
+            var startGame = window.location.href = "game.html";
+        }
+    </script>
 </body>
+
 </html>

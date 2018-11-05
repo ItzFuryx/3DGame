@@ -1,0 +1,59 @@
+html{
+    height: 100%;
+}
+
+body {
+    background-image: url("../assets/wall.png"); 
+    position: fixed;
+    margin: 0px;
+    font-family: 'Playbill', cursive;
+    font-size: 30pt;
+    width: 100%;
+
+}
+
+#divStartButton{
+    margin: 75px 0px;
+}
+
+#startButton {
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 75px;
+    width: 500px;
+    color: white;
+    font-weight: bold;
+
+}
+
+p {
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.radius {
+    border-radius: 15px;
+    border: 2px solid green;
+}
+
+.Letters {
+    height: 100px;
+    width: 150px;
+    display: inline-block;
+
+}
+
+button.Arrows {
+    border: 3px solid green;
+    border-radius: 30px;
+    width: 150px;
+
+}
+
+#spacebarStyle {
+    border: 3px solid green;
+    border-radius: 30px;
+    width: 500px;
+    height: 75px;
+}
+
+ 
