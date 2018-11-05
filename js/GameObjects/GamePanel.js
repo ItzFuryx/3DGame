@@ -10,6 +10,9 @@ class GamePanel {
 
     createGamePanel() {
         var GamePanel = document.getElementById("gamePanel");
+        var musicPlayer = document.getElementById("musicplayer");
+
+        musicPlayer.play();
 
         // GamePanel.style.background = 'gray';
         GamePanel.style.height = 400;
@@ -207,7 +210,7 @@ class GamePanel {
         var start = 300;
         var time = 0;
 
-        text.innerText = "Level Up! \n Level : " + player.level + "\n New Health : "+ player.health.maxHealth;
+        text.innerText = "Level Up! \n Level : " + player.level + "\n New Health : " + player.health.maxHealth;
 
         function frame() {
             if (time >= 1) {
