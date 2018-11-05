@@ -126,9 +126,9 @@ class Player extends MoveAbleObject {
     }
 
     TeleportScene(scene) {
-        scene.add(this.object);
-        scene.add(this.collisionobj);
+        scene.add(this);
         this.position.copy(this.respawnLocation);
+        collidableMeshList.push(this);
     }
 
     Respawn() {
