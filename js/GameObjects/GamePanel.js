@@ -198,6 +198,7 @@ class GamePanel {
     }
 
     LevelUp() {
+        this.MoveHealthProgress();
         var div = document.getElementById("levelup").style;
         document.getElementById("levelPlayer").innerText = player.level;
         var text = document.getElementById("levelup-text");

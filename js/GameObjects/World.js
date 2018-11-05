@@ -71,7 +71,7 @@ class World {
         level++;
         this.CreateMaze();
         player.TeleportScene(scene);
-        gamePanel.AddLevel();
+        gamePanel.AddLevels();
     }
 
     CreateSkyBox() {
