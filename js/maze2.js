@@ -26,6 +26,10 @@ var time;
  */
 var arrowGeometry;
 var arrowMaterial;
+
+var slimeGeometry;
+var slimeMaterial;
+
 /**
  * Loaders
  */
@@ -74,6 +78,13 @@ function Init() {
 }
 
 function LoadModels() {
+    mtlLoader.load('assets/slime/Materials.MTL', function(materials) {
+        materials.preload();
+        objLoader.load('assets/slime/model.obj', function(object) {
+            slimeGeometry = object.children[0].geometry;
+            slimeMaterial = object.children[0].material;
+        });
+    });
     mtlLoader.load('assets/Arrow.MTL', function(materials) {
         materials.preload();
         objLoader.load('assets/Arrow.obj', function(object) {

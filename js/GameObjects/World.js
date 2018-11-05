@@ -92,7 +92,7 @@ class World {
             updatableTraps.push(new ShootingTrap(level));
         }
         for (var i = 0; i < 5; i++) {
-            enemies.push(new Enemy());
+            enemies.push(new Enemy(slimeGeometry, slimeMaterial));
         }
     }
 }
