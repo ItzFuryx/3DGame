@@ -15,7 +15,7 @@ class Enemy extends MoveAbleObject {
          * @param {Object} collision - The collision object
          */
         super(Geometry, Material, collision);
-
+        this.scale.set(15,15,15);
         /** Define variables for the enemy class */
         this.health = new Health((2 * level), this);
         this.damage = Math.floor(Math.random() * (level * 1.2) + (level * 0.5));
@@ -155,6 +155,7 @@ class Enemy extends MoveAbleObject {
                 collidableMeshList.splice(i, 1);
             }
         }
+        kills++;
         //collidableMeshList.remove(this);
         //Give the player experience
         player.experience.DeltaExp(this.health.maxHealth);

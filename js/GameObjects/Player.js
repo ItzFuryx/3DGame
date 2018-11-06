@@ -42,8 +42,9 @@ class Player extends MoveAbleObject {
             if (collidedObject != null) {
                 if (collidedObject.object instanceof Enemy && collidedObject.distance < 10) {
                     collidedObject.object.health.DeltaHealth(this.GetDamage());
-                    this.attacked = true;
                 }
+                document.getElementById("playerattackfx").play();
+                this.attacked = true;
             }
         }
         if (this.keyboard[87]) { // W key
@@ -99,7 +100,6 @@ class Player extends MoveAbleObject {
                         this.health.DeltaHealth(collidedObject.object.GetDamage());
                     }
                 } else if (collidedObject.object.name == "finish") {
-                    console.log("collide is finish");
                     world.CreateNewMaze();
                 }
             } else {
@@ -168,7 +168,7 @@ class Player extends MoveAbleObject {
      */
     OnDead() {
         this.goRespawn = true;
-
+        deaths++;
         enemies.forEach(e => {
             e.MakeSpawnPos();
         });

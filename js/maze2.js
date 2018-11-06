@@ -56,7 +56,6 @@ var blood;
   var time = "10:30";
 
 function Init() {
-
     LoadModels();
     world = new World();
     clock = new THREE.Clock;
