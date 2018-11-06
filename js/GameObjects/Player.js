@@ -40,7 +40,7 @@ class Player extends MoveAbleObject {
             this.lookDirection.y = 0;
             var collidedObject = this.CheckCollision(this.position, this.lookDirection);
             if (collidedObject != null) {
-                if (collidedObject.object instanceof Enemy && collidedObject.distance < 10) {
+                if (collidedObject.object instanceof Enemy && collidedObject.distance < 15) {
                     collidedObject.object.health.DeltaHealth(this.GetDamage());
                     document.getElementById("playerattackfx").play();
                     this.attacked = true;

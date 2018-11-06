@@ -23,7 +23,7 @@ class Trap extends ImmovAbleObject {
         material.needsUpdate = true;
         super(geometry, material);
         this.scale.set(0.0003, 0.0003, 0.0003);
-        this.damage = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));
+        this.damage = Math.round((Math.random() * (level * 1.5) + (level * 0.5)));
         this.castShadow = true;
         this.name = 'trap';
         this.position.set(randomPosX, 1, randomPosZ);
