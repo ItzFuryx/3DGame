@@ -30,7 +30,7 @@ class Player extends MoveAbleObject {
      * The movement of the player
      * The attacks of the player
      * The damage checks of the player
-     * The camera update
+     * The camera update.
      */
     Update(deltatime) {
         var newPosition = this.position.clone();
