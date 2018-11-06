@@ -1,3 +1,8 @@
+/** 
+ * @function 
+ * @param {object} scene
+ * Creates blood particles
+ * */
 THREE.BloodFX = function (scene) {
     var time = 0;
     var speed = 1;
@@ -39,7 +44,10 @@ THREE.BloodFX = function (scene) {
     particleSystem.sortParticles = true;
 
     scene.add(particleSystem);
-
+        /**
+         * @function
+         * Updates the blood particles
+         */
     this.Update = function (deltatime) {
         time += deltatime;
         if (time >= 2) {
@@ -58,7 +66,10 @@ THREE.BloodFX = function (scene) {
 
         particleSystem.geometry.verticesNeedUpdate = true;
     }
-
+    /** 
+     * @function
+     * if the player gets hit position the particles
+     */
     this.Hit = function (position) {
         time = 0;
         var pCount = particleCount;

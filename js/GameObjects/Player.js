@@ -1,4 +1,4 @@
-/** Class representing the experience */
+/** Class representing the Player */
 class Player extends MoveAbleObject {
     constructor(scene, camera) {
         var Geometry = new THREE.BoxGeometry(2, 10, 2);
@@ -39,7 +39,6 @@ class Player extends MoveAbleObject {
         if (this.keyboard[32] && !this.attacked) {
             this.lookDirection.y = 0;
             var collidedObject = this.CheckCollision(this.position, this.lookDirection);
-            console.log(this.lookDirection);
             if (collidedObject != null) {
                 if (collidedObject.object instanceof Enemy && collidedObject.distance < 10) {
                     collidedObject.object.health.DeltaHealth(this.GetDamage());

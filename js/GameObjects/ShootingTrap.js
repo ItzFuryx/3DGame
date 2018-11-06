@@ -1,4 +1,11 @@
+/** class representing ShootingTrap 
+ * Extends from Trap
+*/
 class ShootingTrap extends Trap {
+    /**
+     * 
+     * @param {number} amount 
+     */
     constructor(amount) {
         super(turretGeometry, new THREE.MeshPhongMaterial({ color: 0xD3D3D3, transparent: true, opacity: .9 }));
         
@@ -26,7 +33,11 @@ class ShootingTrap extends Trap {
         this.timer = 0;
         this.name = "shootingTrap";
     }
-
+    /**
+     * @function Update
+     * @param {deltatime} deltatime - timetick
+     * if the trap is not on cooldown, shoot projectile
+     */
     Update(deltatime) {
         if (this.timer <= this.cooldown)
             this.timer += deltatime;

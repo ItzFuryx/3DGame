@@ -1,18 +1,22 @@
+/**
+ * @function Cell
+ * @param {number} x 
+ * @param {number} y 
+ */
 var Cell = function(x, y) {
   this.x = x;
   this.y = y;
   this.visited = false;
 
-  // When solving the maze, this represents
-  // the previous node in the navigated path.
   this.parent = null;
 
-  this.heuristic = 0;
-
+	this.heuristic = 0;
+	
+	//Sets visited to true if the cell has been visited
   this.visit = function () {
     this.visited = true;
   };
-
+	
   this.score = function () {
   	var total = 0;
   	var p = this.parent;

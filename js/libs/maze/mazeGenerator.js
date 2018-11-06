@@ -20,7 +20,11 @@ var MazeGenerator = function(rows, cols) {
     	}
     }
   };
-
+  /**
+   * @function
+   * maze solver
+   * Search for a solution by looking through each cell.
+   */
   this.solve = function() {
     var closedSet = [];
     var startCell = this.graph.getCellAt(0, 0); // top left cell
@@ -60,7 +64,9 @@ var MazeGenerator = function(rows, cols) {
       });
     }
   };
-
+  /**
+   * Generate cell
+   */
 	this.generate = function() {
 		var initialCell = this.graph.getCellAt(0, 0);
 		recurse(initialCell);

@@ -1,3 +1,10 @@
+/**
+ * @function
+ * Stars particles
+ * Creates particles
+ * 
+ * make a formula to randomly spawn "stars" into the skybox.
+ */
 THREE.Stars = function (scene, amount) {
     var particleCount = amount,
         particles = new THREE.Geometry(),
@@ -29,7 +36,11 @@ THREE.Stars = function (scene, amount) {
     particleSystem.sortParticles = true;
 
     scene.add(particleSystem);
-
+        /** 
+         * Update the star particles 
+         * @param {number} deltatime - timetick
+         * Set the velocity to a random number and add the velocity to the particle
+         */
     this.Update = function (deltatime) {
         var pCount = particleCount;
         while (pCount--) {

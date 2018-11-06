@@ -171,7 +171,7 @@ class GamePanel {
         div.border = "3px solid black";
         div.position = "absolute";
         div.width = "30%";
-        div.height = "150px";
+        div.height = "185px";
         div.marginLeft = "40%";
         div.marginTop = "-200px";
         div.color = "none";

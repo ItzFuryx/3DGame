@@ -1,3 +1,11 @@
+/**
+ * @function Maze
+ * @param {scene} scene     - the scene
+ * @param {number} cells    - amount of cells
+ * @param {number} width    - width of the maze
+ * @param {number} height   - height of the maze
+ * Creates the complete maze
+ */
 var Maze = function (scene, cells, width, height) {
     this.scene = scene;
     this.elements = [];
@@ -14,35 +22,57 @@ var Maze = function (scene, cells, width, height) {
     var self = this;
 
     return {
+        /**
+         * @function
+         * @returns {number} width
+         */
         width: function () {
             return self.width;
         },
-
+        /** 
+         * @function
+         * @returns {number} height
+         */
         height: function () {
             return self.height;
         },
-
+        /**
+         * @function
+         * generate maze
+         */
         generate: function () {
             self.generator.generate();
         },
-
+        /**
+         * @function
+         * drawmaze and borders
+         */
         draw: function () {
             this.drawBorders();
             this.drawMaze();
         },
-
+        /**
+         * @function
+         * make solution
+         */
         solve: function () {
             self.generator.solve();
             this.drawSolution();
         },
-
+        /**
+         * @function
+         * Draw the borders
+         */
         drawBorders: function () {
             this.drawLine(self.cellWidth, 0, self.width, 0);
             this.drawLine(self.width, 0, self.width, self.height);
             this.drawLine(self.width - self.cellWidth, self.height, 0, self.height);
             this.drawLine(0, self.height, 0, 0);
         },
-
+        /**
+         * @function
+         * draw solution
+         */
         drawSolution: function () {
             var path = self.generator.path;
 
@@ -57,7 +87,10 @@ var Maze = function (scene, cells, width, height) {
                 })();
             }
         },
-
+        /**
+         * @function
+         * draw the maze
+         */
         drawMaze: function () {
             var graph = self.generator.graph;
             var drawnEdges = [];
@@ -115,7 +148,10 @@ var Maze = function (scene, cells, width, height) {
                 }
             }
         },
-
+        /**
+         * @function
+         * @return elements
+         */
         getElements: function () {
             return self.elements;
         },
@@ -142,7 +178,6 @@ var Maze = function (scene, cells, width, height) {
             // finally position it correctly
             wallMesh.position.copy(new THREE.Vector3(x1 - ((x1 - x2) / 2) - (self.height / 2), wallGeom.height / 2, y1 - ((y1 - y2)) / 2 - (self.width / 2)));
             if (wallMesh.position.x == -70 && wallMesh.position.y == 0 && wallMesh.position.z == -75) {
-                console.log("Hello world");
                 wallMesh.name = "finish";
             } else {
                 wallMesh.name = "wall";
@@ -152,6 +187,10 @@ var Maze = function (scene, cells, width, height) {
             scene.add(wallMesh);
         }
     };
+    /**
+     * @function CreateFullWall
+     * Creates a wall around the maze
+     */
     function CreateFullWall() {
         var fullWallGeometry = new THREE.PlaneGeometry(width, 13, 40, 40);
         var fullWallMaterial = new THREE.MeshLambertMaterial({});

@@ -23,9 +23,9 @@ class GameObject extends THREE.Mesh{
     CheckCollision(position, direction){
         var ray = new THREE.Raycaster(position, direction.normalize());
         var collisionResults = ray.intersectObjects(collidableMeshList);
-        if(collisionResults.length > 0){
+        if(collisionResults.length > 0)
             return collisionResults[0];
-        }
+        
         return null;
     }
 }

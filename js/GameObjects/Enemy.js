@@ -14,7 +14,7 @@ class Enemy extends MoveAbleObject {
         //this.scale.set(15,15,15);
         /** Define variables for the enemy class */
         this.health = new Health((2 * level), this);
-        this.damage = Math.floor(Math.random() * (level * 1.2) + (level * 0.6));
+        this.damage = Math.round(Math.random() * (level * 1.2) + (level * 0.6));
         this.castShadow = true;
         this.name = 'enemy';
         this.cooldown = 2;
@@ -56,9 +56,8 @@ class Enemy extends MoveAbleObject {
         if (!this.enabled)
             return;
 
-        if (this.timer <= this.cooldown) {
+        if (this.timer <= this.cooldown)
             this.timer += deltatime;
-        }
 
         //Get the direction of the player
         var directiontoPlayer = new THREE.Vector3(
@@ -114,12 +113,8 @@ class Enemy extends MoveAbleObject {
             this.position.copy(newPos);
         }
         //if the object collides with another object move to another angle
-        else {
+        else 
             this.moveAngle = Math.random() * (Math.PI * 2);
-        }
-
-        
-
     }
     /**
      * @function MakeSpawnPos

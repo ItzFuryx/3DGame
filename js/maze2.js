@@ -54,7 +54,7 @@ var blood;
 
   var deaths = 0;
   var kills = 0;
-  var time = "10:30";
+  var time = 0;
 
 function Init() {
     LoadModels();
