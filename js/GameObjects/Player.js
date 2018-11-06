@@ -1,3 +1,4 @@
+/** Class representing the experience */
 class Player extends MoveAbleObject {
     constructor(scene, camera) {
         var Geometry = new THREE.BoxGeometry(2, 10, 2);
@@ -24,7 +25,10 @@ class Player extends MoveAbleObject {
         scene.add(this);
         collidableMeshList.push(this);
     }
-
+        /**
+         * @function MoveHealthProgress
+         * When the player health amount is changed this smoothly lerps the health from the last position to the new value
+         */
     Update(deltatime) {
         var newPosition = this.position.clone();
         camera.getWorldDirection(this.lookDirection);
@@ -32,10 +36,9 @@ class Player extends MoveAbleObject {
         if (this.keyboard[32] && !this.attacked) {
             this.lookDirection.y = 0;
             var collidedObject = this.CheckCollision(this.position, this.lookDirection);
-
             if (collidedObject != null) {
                 if (collidedObject.object instanceof Enemy && collidedObject.distance < 10) {
-                    collidedObject.object.health.DeltaHealth(this.damage);
+                    collidedObject.object.health.DeltaHealth(this.GetDamage());
                     this.attacked = true;
                 }
             }
@@ -118,6 +121,9 @@ class Player extends MoveAbleObject {
         this.MoveCamera();
     }
 
+    GetDamage(){
+        return Math.random() *(this.damage - .5) +this.damage;
+    }
 
     MoveCamera() {
         this.camera.position.x = this.position.x;
@@ -139,6 +145,7 @@ class Player extends MoveAbleObject {
         this.level++;
         this.health = new Health(this.health.maxHealth * this.level, this);
         gamePanel.LevelUp();
+        this.damage++;
     }
 
     OnDead() {

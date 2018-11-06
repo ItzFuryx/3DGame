@@ -1,4 +1,8 @@
+/** Class representing the experience */
 class Experience {
+    /**
+     * @param {*} object 
+     */
     constructor(object) {        
         this.currentExperience = this.prevExperience = 0;        
         this.maxExperience = this.baseExp = 4;
@@ -6,7 +10,10 @@ class Experience {
 
         this.addedExp = 4;
     }
-
+    /**
+     * Give the player experience and change the gamepanel.
+     * @param {number} value 
+     */
     DeltaExp(value) {
         this.prevExperience = this.currentExperience;
         this.currentExperience += value;

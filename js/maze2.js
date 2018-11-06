@@ -72,10 +72,14 @@ function Init() {
     AnimateCam();
     Render();
 
-    gamePanel = new GamePanel()
+    gamePanel = new GamePanel();
 
 }
-
+/**
+ * @function LoadModels
+ * Loads the object models.
+ * When all the models are loaded, create the objects.
+ */
 function LoadModels() {
     mtlLoader.load('assets/slime/Materials.MTL', function (materials) {
         materials.preload();
@@ -133,7 +137,10 @@ function HandleResize() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
-
+/**
+ * @function AnimateCam
+ * Updates the camera
+ */
 function AnimateCam() {
     requestAnimationFrame(AnimateCam);
     renderer.render(scene, camera);

@@ -42,7 +42,7 @@
 </style>
 
 <body style="margin:0px; position: fixed">
-    <audio id="musicplayer" style="position:absolute">
+    <audio controls loop id="musicplayer" style="position:absolute;visibility: hidden">
         <source src="music/Song of Storms.mp3" type="audio/mp3">
     </audio>
     <audio id="playerhitfx" style="position:absolute">
@@ -91,10 +91,3 @@
 </body>
 
 </html>
-<script>
-musicplayer.addEventListener("ended", function(){
-    musicplayer.currentTime = 0;
-    var song = document.getElementById("musicplayer"); 
-    song.play();
-});
-</script>

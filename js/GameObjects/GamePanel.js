@@ -1,14 +1,19 @@
+/** Class representing the gamepanel */
 class GamePanel {
 
     constructor() {
-        this.createGamePanel();
+        this.CreateGamePanel();
         this.AddHealth();
         this.AddXp();
         this.AddLevelUp();
         this.AddLevels();
     }
 
-    createGamePanel() {
+    /**
+     * @function CreateGamePanel
+     * Gives the game panel a style and start the background song
+     */
+    CreateGamePanel() {
         var GamePanel = document.getElementById("gamePanel");
         document.getElementById("musicplayer").play();
 
@@ -18,6 +23,10 @@ class GamePanel {
         GamePanel.style.position = 'absolute';
     }
 
+    /**
+     * @function AddHealth
+     * Gives all elements for the health bar a style and images.
+     */
     AddHealth() {
         var healthDiv = document.getElementById("healthBar");
         healthDiv.style.marginLeft = "140px";
@@ -52,6 +61,10 @@ class GamePanel {
         progress.backgroundColor = "red";
     }
 
+    /**
+     * @function MoveHealthProgress
+     * When the player health amount is changed this smoothly lerps the health from the last position to the new value
+     */
     MoveHealthProgress() {
         var progressbar = document.getElementById("health-progress");
         var newWidth = (player.health.currentHealth / player.health.maxHealth) * 100;
@@ -71,6 +84,10 @@ class GamePanel {
         }
     }
 
+    /**
+     * @function AddXp
+     * Sets the style for all elements of exp
+     */
     AddXp() {
         var xpImage = document.getElementById("xpImage");
         xpImage.src = "assets/UI-things/xpbar.png";
@@ -92,7 +109,10 @@ class GamePanel {
         progress.maxHeight = "100%";
         progress.backgroundColor = "yellow";
     }
-
+    /**
+     * @function MoveExpProgress
+     * When the player experience amount is changed this smoothly lerps the experience from the last position to the new value
+     */
     MoveExpProgress() {
         var progressbar = document.getElementById("xp-progress");
         var newWidth = (player.experience.currentExperience / player.experience.maxExperience) * 100;
@@ -111,6 +131,10 @@ class GamePanel {
         }
     }
 
+    /**
+     * @function MoveHealthProgress
+     * Sets the style of the displayed levels.
+     */
     AddLevels() {
         // ImageLevels
         var imageLevels = document.getElementById("imageLevels");
@@ -126,7 +150,7 @@ class GamePanel {
         showLevelWorld.style.color = "white";
         showLevelWorld.style.position = "absolute";
         showLevelWorld.style.marginLeft = "194px";
-        showLevelWorld.style.marginTop = "183px";
+        showLevelWorld.style.marginTop = "178px";
 
         //Level van de player
         var showLevelPlayer = document.getElementById("levelPlayer");
@@ -135,51 +159,12 @@ class GamePanel {
         showLevelPlayer.style.fontStyle = "bold"
         showLevelPlayer.style.color = "white";
         showLevelPlayer.style.marginLeft = "294px";
-        showLevelPlayer.style.marginTop = "183px";
+        showLevelPlayer.style.marginTop = "178px";
     }
-
-    AddXp() {
-        var xpImage = document.getElementById("xpImage");
-        xpImage.src = "assets/UI-things/xpbar.png";
-        xpImage.style.position = "absolute";
-
-        var healthBar = document.getElementById("xp-progress-bar").style;
-        healthBar.position = "absolute";
-        healthBar.marginLeft = "60px";
-        healthBar.marginTop = "110px";
-        healthBar.height = "64%";
-        healthBar.maxHeight = "64%";
-        healthBar.maxHeight = "64%";
-        healthBar.backgroundColor = "black";
-
-        var progress = document.getElementById("xp-progress").style;
-        progress.position = "absolute";
-        progress.marginRight = "-205px";
-        progress.width = "30px";
-        progress.height = "0%";
-        progress.maxHeight = "100%";
-        progress.maxHeight = "100%";
-        progress.backgroundColor = "yellow";
-    }
-
-    MoveExpProgress() {
-        var progressbar = document.getElementById("xp-progress");
-        var newWidth = (player.experience.currentExperience / player.experience.maxExperience) * 100;
-        var id = setInterval(frame, 10);
-        var start = (player.experience.prevExperience / player.experience.maxExperience) * 100;
-        var time = 0;
-
-        function frame() {
-            if (time >= 1) {
-                time = 0;
-                clearInterval(id);
-            } else {
-                time += id / 100;
-                progressbar.style.height = (start + (time * (newWidth - start))) + "%";
-            }
-        }
-    }
-
+    /**
+     * @function AddLevelUp
+     * Sets the style for the levelup window
+     */
     AddLevelUp() {
         var div = document.getElementById("levelup").style;
         div.backgroundColor = "rgba(192,192,192,0.3)";
@@ -197,6 +182,10 @@ class GamePanel {
         text.color = "white";
     }
 
+    /**
+ * @function LevelUp
+ * When you level up show the stats you've gained and smoothly lerp out of the screen.
+ */
     LevelUp() {
         this.MoveHealthProgress();
         var div = document.getElementById("levelup").style;
