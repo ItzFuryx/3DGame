@@ -140,8 +140,8 @@ class GamePanel {
         var imageLevels = document.getElementById("imageLevels");
         imageLevels.src = "assets/UI-things/levels.png";
         imageLevels.style.position = "absolute";
-        imageLevels.style.marginLeft = "150px";
-        imageLevels.style.marginTop = "105px";
+        imageLevels.style.marginLeft = "125px";
+        imageLevels.style.marginTop = "115px";
 
         //Level van de maze
         var showLevelWorld = document.getElementById("levelWorld");
@@ -149,8 +149,8 @@ class GamePanel {
         showLevelWorld.style.fontStyle = "bold"
         showLevelWorld.style.color = "white";
         showLevelWorld.style.position = "absolute";
-        showLevelWorld.style.marginLeft = "194px";
-        showLevelWorld.style.marginTop = "169px";
+        showLevelWorld.style.marginLeft = "169px";
+        showLevelWorld.style.marginTop = "179px";
 
         //Level van de player
         var showLevelPlayer = document.getElementById("levelPlayer");
@@ -158,8 +158,8 @@ class GamePanel {
         showLevelPlayer.style.position = "absolute";
         showLevelPlayer.style.fontStyle = "bold"
         showLevelPlayer.style.color = "white";
-        showLevelPlayer.style.marginLeft = "294px";
-        showLevelPlayer.style.marginTop = "169px";
+        showLevelPlayer.style.marginLeft = "269px";
+        showLevelPlayer.style.marginTop = "179px";
     }
     /**
      * @function AddLevelUp
