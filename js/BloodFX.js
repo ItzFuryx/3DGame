@@ -12,7 +12,7 @@ THREE.BloodFX = function (scene) {
         pMaterial = new THREE.PointsMaterial({
 
             color: 0xff0000,
-            size: Math.random() * 3 + 1000,
+            size: Math.random() * 3 + 10,
             map: textureLoader.load(
                 "assets/particle.png"
             ),

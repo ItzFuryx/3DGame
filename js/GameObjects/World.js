@@ -1,6 +1,6 @@
 /** Class representing World */
 class World {
-    
+
     constructor() {
         this.CreateMaze();
         this.plane;
@@ -82,13 +82,14 @@ class World {
      * */
     CreateNewMaze() {
         level++;
+    
         if (level >= 6) {
-            document.getElementById("gameScreen").style.display="none";
-            document.getElementById("finishScreen").style.display="block";
+            document.getElementById("gameScreen").style.display = "none";
+            document.getElementById("finishScreen").style.display = "block";
             scene = new THREE.Scene();
             player.TeleportScene(scene);
             time = clock.getElapsedTime();
-            
+
             var completeTime;
             var minutes = Math.floor((time % 3600) / 60);
             var seconds = Math.floor(time % 60);
@@ -102,6 +103,7 @@ class World {
             return;
         }
         this.CreateMaze();
+
         player.TeleportScene(scene);
         gamePanel.AddLevels();
     }
@@ -125,7 +127,7 @@ class World {
      */
     CreateShootingTraps() {
         var amountOfTraps = Math.floor((Math.random() * 10 + 5));
-        for (var i = 0; i < amountOfTraps; i++) 
+        for (var i = 0; i < amountOfTraps; i++)
             updatableTraps.push(new ShootingTrap(level));
     }
     /**
@@ -134,7 +136,7 @@ class World {
      */
     CreateTraps() {
         var amountOfTraps = Math.floor((Math.random() * 10 + 5));
-        for (var i = 0; i < amountOfTraps; i++) 
+        for (var i = 0; i < amountOfTraps; i++)
             new Trap(null, null);
     }
     /**
@@ -142,7 +144,12 @@ class World {
      * create 5 enemies
      */
     CreateEnemies() {
-        for (var i = 0; i < 5; i++) 
+        enemies.forEach(element => {
+            element = null;
+        });
+        enemies = [];
+
+        for (var i = 0; i < 5; i++)
             enemies.push(new Enemy(slimeGeometry, slimeMaterial));
     }
     /**
