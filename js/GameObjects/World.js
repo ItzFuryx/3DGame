@@ -7,8 +7,6 @@ class World {
     }
 
     CreateMaze() {
-        console.log("level: " + level);
-
         collidableMeshList = [];
         scene = new THREE.Scene();
         var random = Math.floor((Math.random() * (level * 2) + (3 + level)));
@@ -69,7 +67,7 @@ class World {
 
     CreateNewMaze() {
         level++;
-        if (level >= 1) {
+        if (level >= 6) {
             //window.location.href = "completeGame.html";
             document.getElementById("gameScreen").style.display="none";
             document.getElementById("finishScreen").style.display="block";

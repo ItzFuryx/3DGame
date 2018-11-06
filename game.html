@@ -92,58 +92,73 @@
         </div>
     </div>
 
-    <div id="finishScreen" class="w3-container w3-center" style="height:750px;display:none">
-        <div class="w3-row-padding w3-center w3-animate-bottom" style="margin-top:50px">
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p>Time completed in</p>
+    <div id="finishScreen" style="background-image: url('assets/wall.png'); display:none">
+        <div id="finishScreen" style="height:1000px; width: 50%; margin-left: 25%; ;">
+            <div class="w3-card-2 w3-display-container w3-panel w3-red w3-center" style="min-height:100px;">
+                <p>You have completed the game!</p>
+            </div>
+            <div class="w3-center w3-animate-bottom" style="margin-top:50px;">
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container  w3-red">
+                        <p>Time completed in</p>
+                    </div>
+                </div>
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p id="timeCompleted"></p>
+                    </div>
                 </div>
             </div>
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p id="timeCompleted"></p>
+            <div class="w3-center w3-animate-bottom">
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p>Enemies killed:</p>
+                    </div>
+                </div>
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p id="enemiesKilled"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-center w3-animate-bottom">
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p>Deaths:</p>
+                    </div>
+                </div>
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p id="playerDeaths"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-center w3-animate-bottom">
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p>Your level:</p>
+                    </div>
+                </div>
+                <div class="w3-half" style="margin-top: -50px;">
+                    <div class="w3-card-2 w3-display-container w3-red">
+                        <p id="playerLevel"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="w3-center w3-animate-bottom">
+                <div class="w3-half">
+                    <button class="w3-btn w3-card-2 w3-red w3-half" style="margin-left: 25%" onclick="window.location.href='game.html'">
+                        <p>Restart</p>
+                    </button>
+                </div>
+                <div class="w3-half">
+                    <button class="w3-btn w3-card-2 w3-red w3-half" style="margin-left: 25%" onclick="window.location.href='index.html'">
+                        <p>Home</p>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="w3-row-padding w3-center w3-margin-top w3-animate-bottom">
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p>Enemies killed:</p>
-                </div>
-            </div>
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p id="enemiesKilled"></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-row-padding w3-center w3-margin-top w3-animate-bottom">
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p>Deaths:</p>
-                </div>
-            </div>
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p id="playerDeaths"></p>
-                </div>
-            </div>
-        </div>
-        <div class="w3-row-padding w3-center w3-margin-top w3-animate-bottom">
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p>Your level:</p>
-                </div>
-            </div>
-            <div class="w3-half">
-                <div class="w3-card-2 w3-display-container w3-panel w3-red" style="min-height:100px">
-                    <p id="playerLevel"></p>
-                </div>
-            </div>
-        </div>
-        <a id="startbutton" href='game.html'>Hello</a>
     </div>
-
 </body>
 
 </html>
