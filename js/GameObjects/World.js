@@ -65,16 +65,29 @@ class World {
         if (arrowGeometry != null) {
             this.CreateObjectsWithModels();
         }
+
+
     }
 
     CreateNewMaze() {
         level++;
         if (level >= 6) {
+            //window.location.href = "completeGame.html";
+            document.getElementById("gameScreen").style.display="none";
             document.getElementById("finishScreen").style.display="block";
-            level = 0;
             scene = new THREE.Scene();
             player.TeleportScene(scene);
             time = clock.getElapsedTime();
+            
+            var completeTime;
+            var minutes = Math.floor(time / 60);
+            var seconds = Math.floor(time % 60);
+            completeTime = minutes + ":" + seconds;
+            document.getElementById("timeCompleted").innerHTML = completeTime;
+            document.getElementById("EnemiesKilled").innerHTML = kills;
+            document.getElementById("playerDeaths").innerHTML = deaths;
+            document.getElementById("playerLevel").innerHTML = player.level;
+
             return;
         }
         this.CreateMaze();

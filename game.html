@@ -47,13 +47,13 @@
         <source src="music/Song of Storms.mp3" type="audio/mp3">
     </audio>
     <audio id="playerhitfx" style="position:absolute">
-        <source src="music/playerhit.mp3" type="audio/mp3">
+            <source src="music/playerhit.mp3" type="audio/mp3">
     </audio>
     <audio id="enemyhitfx" style="position:absolute">
-        <source src="music/enemyhit.wav" type="audio/wav">
+            <source src="music/enemyhit.wav" type="audio/wav">
     </audio>
     <audio id="shootarrowfx" style="position:absolute">
-        <source src="music/ShootArrow.mp3" type="audio/mp3">
+            <source src="music/ShootArrow.mp3" type="audio/mp3">
     </audio>
     <audio id="playerattackfx" style="position:absolute">
         <source src="music/playerAttack.mp3" type="audio/mp3">
@@ -92,18 +92,30 @@
         </div>
     </div>
 
-    <div id="finishScreen" class="w3-container" style="height:1500px;display:none">
-        <div class="w3-cell-row">
-            <div class="w3-container w3-red w3-cell w3-mobile">
-                <p>Hello W3.CSS Layout.</p>
+    <div id="finishScreen" class="w3-container w3-center" style="height:750px;display:none">
+            <div class="w3-row">
+                    <div class="w3-col l8 m3 s4 w3-dark-grey w3-center"><p>Congratulations! <br>You have completed the game.</p></div>
             </div>
-            <div class="w3-container w3-green w3-cell w3-mobile">
-                <p>Hello W3.CSS Layout.</p>
+            <div class="w3-row">
+                    <div class="w3-col l12 m3 s4 w3-dark-white w3-center"><p></p></div>
             </div>
-            <div class="w3-container w3-blue w3-cell w3-mobile">
-                <p>Hello W3.CSS Layout. Hello W3.CSS Layout.</p>
-            </div>
-        </div>
+            <div class="w3-row w3-center">
+                    <div class="w3-col w3-red l3 w3-center"><p>Time completed in</p></div>
+                    <div class="w3-col w3-red l3 w3-center"><p id="timeCompleted"></p></div>
+            </div>  
+            <div class="w3-row">
+                    <div class="w3-col w3-red l3 w3-center"><p>Enemies killed:</p></div>
+                    <div class="w3-col w3-red l3 w3-center"><p id="EnemiesKilled"></p></div>
+            </div>  
+            <div class="w3-row">
+                    <div class="w3-col w3-red l3 w3-center"><p>Deaths:</p></div>
+                    <div class="w3-col w3-red l3 w3-center"><p id="playerDeaths"></p></div>
+            </div>  
+            <div class="w3-row">
+                    <div class="w3-col w3-red l3 w3-center"><p>Your level:</p></div>
+                    <div class="w3-col w3-red l3 w3-center"><p id="playerLevel"></p></div>
+            </div>  
+
         <a id="startbutton" href='game.html'>Hello</a>
     </div>
 </body>

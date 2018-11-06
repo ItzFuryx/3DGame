@@ -52,8 +52,8 @@ var blood;
   * Score
   */
 
-  var deaths = 5;
-  var kills = 5;
+  var deaths = 0;
+  var kills = 0;
   var time = "10:30";
 
 function Init() {
@@ -93,6 +93,7 @@ function Init() {
     Render();
 
     gamePanel = new GamePanel();
+    //world.CreateNewMaze();
 
 }
 /**
