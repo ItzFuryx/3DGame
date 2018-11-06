@@ -1,4 +1,4 @@
-#startbutton{
+#startbutton {
     /* background-color:blue; */
     height: 10%;
     width: 10%;
@@ -6,19 +6,32 @@
     border-color: grey;
     display: inline-block;
     position: absolute;
-    left:45%;
-    top:20%;
-    background: rgba(0,0,0,0.5);
+    left: 45%;
+    top: 20%;
+    background: rgba(0, 0, 0, 0.5);
     color: white;
-    padding:auto;
+    padding: auto;
     font-weight: bold;
-    font-size:larger
+    font-size: larger
 }
-#page{
+
+#page {
     background-image: url('assets/wall.png');
     font-family: 'Playbill';
 }
-.half{
-    height:50%;
+
+
+/* #startButton {
+    width: 100%;
+    text-align: center;
+}
+
+#imageKeyboard {
+    width: 100%;
+    text-align: center;
+} */
+
+.half {
+    height: 50%;
     text-align: center;
 }

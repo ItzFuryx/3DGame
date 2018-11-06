@@ -1,19 +1,18 @@
-html{
+/* html {
     height: 100%;
-}
+} */
 
 body {
-    background-image: url("../assets/wall.png"); 
+    background-image: url("../assets/wall.png");
     position: fixed;
     margin: 0px;
     font-family: 'Playbill', cursive;
     font-size: 30pt;
     width: 100%;
-
 }
 
-#divStartButton{
-    margin: 75px 0px;
+#divStartButton {
+    margin: 30px 0px;
 }
 
 #startButton {
@@ -22,11 +21,10 @@ body {
     width: 500px;
     color: white;
     font-weight: bold;
-
 }
 
 p {
-    font-size: 16pt;
+    font-size: 23pt;
     font-weight: bold;
 }
 
@@ -39,14 +37,12 @@ p {
     height: 100px;
     width: 150px;
     display: inline-block;
-
 }
 
 button.Arrows {
     border: 3px solid green;
     border-radius: 30px;
     width: 150px;
-
 }
 
 #spacebarStyle {
@@ -55,5 +51,3 @@ button.Arrows {
     width: 500px;
     height: 75px;
 }
-
- 
