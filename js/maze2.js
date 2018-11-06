@@ -20,6 +20,7 @@ var enemy;
 var clock;
 var gamePanel;
 var time;
+var hitOverlay;
 
 /**
  * Models
@@ -59,11 +60,22 @@ function Init() {
     LoadModels();
     world = new World();
     clock = new THREE.Clock;
+    sceneOrtho = new THREE.Scene();
 
     // create a camera, which defines where we're looking at.
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.rotation.order = 'YXZ';
     player = new Player(scene, camera);
+
+    //experimental gamefeel garbage dumpsterfire
+    cameraOrtho = new THREE.OrthographicCamera(- window.innerWidth / 2, window.innerWidth / 2, window.innerHeight / 2, - window.innerHeight / 2, 1, 10);
+    cameraOrtho.position.z = 10;
+
+    var hitOverlayGeo = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight, 1, 1);
+    var hitOverlayColor = new THREE.MeshBasicMaterial({color:0xff0000, side:THREE.DoubleSide, opacity:0.0, transparent:true})
+    hitOverlay = new THREE.Mesh(hitOverlayGeo, hitOverlayColor);
+    sceneOrtho.add(hitOverlay);
+    //hitOverlay.material.opacity = 1.0;
 
     // create a render, sets the background color and the size
     renderer = new THREE.WebGLRenderer();
@@ -122,6 +134,7 @@ function Render() {
     renderer.clear();
     renderer.render(scene, camera);
     renderer.clearDepth();
+    renderer.render(sceneOrtho, cameraOrtho)
     player.Update(deltatime);
     stars.Update(deltatime);
     blood.Update(deltatime);

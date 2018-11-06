@@ -7,7 +7,7 @@ class Enemy extends MoveAbleObject {
      */
     constructor(Geometry, Material) {
         /** Define variables for the enemy class */
-        var Material = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 1 });
+        var Material = new THREE.MeshLambertMaterial({color: 0x008000, ambience: 0x008000, transparent: true, opacity: 1 });
         var collision = new THREE.Mesh(Geometry, Material);
         /** Calls the MoveAbleObject
          * @param {Object} Geometry - The Geometry of the enemy
@@ -43,6 +43,15 @@ class Enemy extends MoveAbleObject {
      * @param {number} deltatime - the deltatime
      * */
     Update(deltatime) {
+
+        //revert the colorchange of a hit
+        if(this.material.color.r > 0.0) {
+            this.material.color.r = this.material.color.r - deltatime * 5;
+            if(this.material.color.r < 0.0) {
+                this.material.color.r = 0.0;
+            }
+        }
+
         //Set bounceTick
         this.bounceTick = ((this.bounceTick + 1) % 60);
         if (this.bounceTick == 30)
@@ -113,6 +122,8 @@ class Enemy extends MoveAbleObject {
             this.moveAngle = Math.random() * (Math.PI * 2);
         }
 
+        
+
     }
     /**
      * @function MakeSpawnPos
@@ -167,5 +178,6 @@ class Enemy extends MoveAbleObject {
     OnHit() {
         //Plays a a 'enemy hit'  sound
         document.getElementById("enemyhitfx").play();
+        this.material.color.r = 1.0;
     }
 }

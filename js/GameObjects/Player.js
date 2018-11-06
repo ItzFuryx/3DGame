@@ -122,6 +122,17 @@ class Player extends MoveAbleObject {
             this.goRespawn = false;
         }
         this.MoveCamera();
+
+        //hitoverlay stuff
+        if(hitOverlay.material.opacity > 0.0) {
+            var op = hitOverlay.material.opacity;
+            hitOverlay.material.opacity = op - deltatime;
+
+            if(hitOverlay.material.opacity < 0.0)
+            {
+                hitOverlay.material.opacity = 0.0;
+            }
+        }
     }
     /**
      * +
@@ -178,6 +189,7 @@ class Player extends MoveAbleObject {
      * When you get hit activate blood particle, play sound and update the healthbar
      */
     OnHit() {
+        hitOverlay.material.opacity = 0.5;
         blood.Hit(this.position);
         document.getElementById("playerhitfx").play();
         gamePanel.MoveHealthProgress();
