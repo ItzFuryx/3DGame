@@ -25,10 +25,13 @@ class Player extends MoveAbleObject {
         scene.add(this);
         collidableMeshList.push(this);
     }
-        /**
-         * @function MoveHealthProgress
-         * When the player health amount is changed this smoothly lerps the health from the last position to the new value
-         */
+    /**
+     * @function Update
+     * The movement of the player
+     * The attacks of the player
+     * The damage checks of the player
+     * The camera update
+     */
     Update(deltatime) {
         var newPosition = this.position.clone();
         camera.getWorldDirection(this.lookDirection);
@@ -120,42 +123,60 @@ class Player extends MoveAbleObject {
         }
         this.MoveCamera();
     }
-
-    GetDamage(){
-        return Math.random() *(this.damage - .5) +this.damage;
+    /**
+     * +
+     * 
+     * @function GetDamage
+     * returns the new random calculated dmg
+     */
+    GetDamage() {
+        return Math.random() * this.damage + (this.damage - .5);
     }
-
+    /**
+     * @function MoveCamera
+     * Sets the values of the camera
+     */
     MoveCamera() {
         this.camera.position.x = this.position.x;
         this.camera.position.y = this.position.y + 4;
         this.camera.position.z = this.position.z;
     }
-
+    /**
+     * @function TeleportScene
+     * set the player in the new scene.
+     */
     TeleportScene(scene) {
         scene.add(this);
         this.position.copy(this.respawnLocation);
         collidableMeshList.push(this);
     }
-
-    Respawn() {
-        this.goRespawn = true;
-    }
+    /**
+     * @function LevelUp
+     * When you level up increase the lvl, health and damage
+     * And start the animation
+     */
     LevelUp() {
-        console.log("leveled up!");
         this.level++;
         this.health = new Health(this.health.maxHealth * this.level, this);
         gamePanel.LevelUp();
         this.damage++;
     }
-
+    /**
+     * @function OnDead
+     * move the player back to the start
+     * move the enemies back to spawn position to prefent spawn killing
+     */
     OnDead() {
-        this.Respawn();
-        console.log("player Died");
+        this.goRespawn = true;
 
         enemies.forEach(e => {
             e.MakeSpawnPos();
         });
     }
+    /**
+     * @function OnHit
+     * When you get hit activate blood particle, play sound and update the healthbar
+     */
     OnHit() {
         blood.Hit(this.position);
         document.getElementById("playerhitfx").play();
