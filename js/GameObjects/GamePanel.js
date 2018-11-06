@@ -40,7 +40,7 @@ class GamePanel {
         var showHealth = document.getElementById('healthPlayer');
         showHealth.innerText = player.health.currentHealth;
         showHealth.style.marginLeft = "125px";
-        showHealth.style.marginTop = "62px";
+        showHealth.style.marginTop = "53px";
         showHealth.style.position = "absolute";
         showHealth.style.color = "white";
 
@@ -150,7 +150,7 @@ class GamePanel {
         showLevelWorld.style.color = "white";
         showLevelWorld.style.position = "absolute";
         showLevelWorld.style.marginLeft = "194px";
-        showLevelWorld.style.marginTop = "178px";
+        showLevelWorld.style.marginTop = "169px";
 
         //Level van de player
         var showLevelPlayer = document.getElementById("levelPlayer");
@@ -159,7 +159,7 @@ class GamePanel {
         showLevelPlayer.style.fontStyle = "bold"
         showLevelPlayer.style.color = "white";
         showLevelPlayer.style.marginLeft = "294px";
-        showLevelPlayer.style.marginTop = "178px";
+        showLevelPlayer.style.marginTop = "169px";
     }
     /**
      * @function AddLevelUp

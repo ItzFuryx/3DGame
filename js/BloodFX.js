@@ -5,14 +5,16 @@ THREE.BloodFX = function (scene) {
     var particleCount = Math.floor((Math.random() * (15) + (30))),
         particles = new THREE.Geometry(),
         pMaterial = new THREE.PointsMaterial({
+
             color: 0xff0000,
-            size: Math.random() * 3 + 4,
+            size: Math.random() * 3 + 1000,
             map: textureLoader.load(
                 "assets/particle.png"
             ),
             blending: THREE.AdditiveBlending,
             transparent: true,
             opacity: .3,
+            side:THREE.DoubleSide
         });
 
     for (var p = 0; p < particleCount; p++) {
