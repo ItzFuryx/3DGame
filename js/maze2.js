@@ -46,6 +46,15 @@ var blood;
  * Initializes the scene, camera and objects. Called when the window is
  * loaded by using window.onload (see below)
  */
+
+ /**
+  * Score
+  */
+
+  var deaths = 5;
+  var kills = 5;
+  var time = "10:30";
+
 function Init() {
 
     LoadModels();

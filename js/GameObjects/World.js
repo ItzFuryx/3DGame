@@ -70,7 +70,12 @@ class World {
     CreateNewMaze() {
         level++;
         if (level >= 6) {
-            window.location.href = "completeGame.html";
+            //window.location.href = "completeGame.html";
+            document.getElementById("finishScreen").style.display="block";
+            level = 0;
+            scene = new THREE.Scene();
+            player.TeleportScene(scene);
+            return;
         }
         this.CreateMaze();
         player.TeleportScene(scene);
