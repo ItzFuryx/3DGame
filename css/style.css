@@ -9,6 +9,7 @@ body {
     font-family: 'Playbill', cursive;
     font-size: 30pt;
     width: 100%;
+    line-height:1!important;
 }
 
 #divStartButton {
@@ -31,6 +32,14 @@ p {
 .radius {
     border-radius: 15px;
     border: 2px solid green;
+}
+
+.button-bottom {
+    padding: 0 15%;
+}
+
+.button-top {
+    padding: 0 4%;
 }
 
 .Letters {

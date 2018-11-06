@@ -1,10 +1,22 @@
+/** Class representing an enemy */
 class Enemy extends MoveAbleObject {
+    /** 
+     * Creates a new enemy
+     * @param {Object} Geometry - The Geometry of the enemy
+     * @param {Object} Material - The Material of the enemy
+     */
     constructor(Geometry, Material) {
-        //var Geometry = new THREE.BoxGeometry(2, 2, 2);
+        /** Define variables for the enemy class */
         var Material = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 1 });
         var collision = new THREE.Mesh(Geometry, Material);
+        /** Calls the MoveAbleObject
+         * @param {Object} Geometry - The Geometry of the enemy
+         * @param {Object} Material - The Material of the enemy
+         * @param {Object} collision - The collision object
+         */
         super(Geometry, Material, collision);
 
+        /** Define variables for the enemy class */
         this.health = new Health((2 * level), this);
         this.damage = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));
         this.castShadow = true;
@@ -18,12 +30,19 @@ class Enemy extends MoveAbleObject {
         this.moveAmount = Math.floor((Math.random() * (2) + (5)));
         this.position.copy(new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75)))));
         this.MakeSpawnPos();
+        this.bounceTick = Math.floor(Math.random() * Math.floor(59));
+
+        /** Add to the scene */
         scene.add(this);
+        /** Push to the collidableMesh list */
         collidableMeshList.push(this);
 
-        this.bounceTick = Math.floor(Math.random() * Math.floor(59));
     }
-
+    /** 
+     * @function Update 
+     * Update the enemy
+     * @param {number} deltatime - the deltatime
+     * */
     Update(deltatime) {
         this.bounceTick = ((this.bounceTick + 1) % 60);
         if (this.bounceTick == 30)
@@ -87,7 +106,10 @@ class Enemy extends MoveAbleObject {
         }
 
     }
-
+    /**
+     * @function MakeSpawnPos
+     * Create spawn position of the enemy
+     */
     MakeSpawnPos() {
         var randomPos = new THREE.Vector3(Math.floor((Math.random() * (width) + (-75))), 1, Math.floor((Math.random() * (width) + (-75))));
 
