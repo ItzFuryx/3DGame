@@ -93,7 +93,7 @@ function Init() {
     Render();
 
     gamePanel = new GamePanel();
-    //world.CreateNewMaze();
+    world.CreateNewMaze();
 
 }
 /**

@@ -9,16 +9,12 @@ class Enemy extends MoveAbleObject {
         /** Define variables for the enemy class */
         var Material = new THREE.MeshLambertMaterial({color: 0x008000, ambience: 0x008000, transparent: true, opacity: 1 });
         var collision = new THREE.Mesh(Geometry, Material);
-        /** Calls the MoveAbleObject
-         * @param {Object} Geometry - The Geometry of the enemy
-         * @param {Object} Material - The Material of the enemy
-         * @param {Object} collision - The collision object
-         */
+
         super(Geometry, Material, collision);
         //this.scale.set(15,15,15);
         /** Define variables for the enemy class */
         this.health = new Health((2 * level), this);
-        this.damage = Math.floor(Math.random() * (level * 1.2) + (level * 0.5));
+        this.damage = Math.floor(Math.random() * (level * 1.2) + (level * 0.6));
         this.castShadow = true;
         this.name = 'enemy';
         this.cooldown = 2;

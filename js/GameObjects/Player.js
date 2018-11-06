@@ -39,12 +39,13 @@ class Player extends MoveAbleObject {
         if (this.keyboard[32] && !this.attacked) {
             this.lookDirection.y = 0;
             var collidedObject = this.CheckCollision(this.position, this.lookDirection);
+            console.log(this.lookDirection);
             if (collidedObject != null) {
                 if (collidedObject.object instanceof Enemy && collidedObject.distance < 10) {
                     collidedObject.object.health.DeltaHealth(this.GetDamage());
+                    document.getElementById("playerattackfx").play();
+                    this.attacked = true;
                 }
-                document.getElementById("playerattackfx").play();
-                this.attacked = true;
             }
         }
         if (this.keyboard[87]) { // W key
