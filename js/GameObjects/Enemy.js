@@ -4,7 +4,6 @@ class Enemy extends MoveAbleObject {
         var Material = new THREE.MeshBasicMaterial({ color: 0x008000, transparent: true, opacity: 1 });
         var collision = new THREE.Mesh(Geometry, Material);
         super(Geometry, Material, collision);
-        this.scale.set(15, 15, 15);
 
         this.health = new Health((2 * level), this);
         this.damage = Math.floor((Math.random() * (level * 1.5) + (level * 0.5)));

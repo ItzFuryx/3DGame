@@ -185,7 +185,7 @@ class GamePanel {
         div.backgroundColor = "rgba(192,192,192,0.3)";
         div.border = "3px solid black";
         div.position = "absolute";
-        div.width = "20%";
+        div.width = "30%";
         div.height = "150px";
         div.marginLeft = "40%";
         div.marginTop = "-200px";
@@ -203,7 +203,7 @@ class GamePanel {
         document.getElementById("levelPlayer").innerText = player.level;
         var text = document.getElementById("levelup-text");
         var newPos = -400;
-        var id = setInterval(frame, 10);
+        var id = setInterval(frame, 25);
         var start = 300;
         var time = 0;
 

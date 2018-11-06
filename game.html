@@ -91,3 +91,10 @@
 </body>
 
 </html>
+<script>
+musicplayer.addEventListener("ended", function(){
+    musicplayer.currentTime = 0;
+    var song = document.getElementById("musicplayer"); 
+    song.play();
+});
+</script>
